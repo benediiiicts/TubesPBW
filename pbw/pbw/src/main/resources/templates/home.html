@@ -10,7 +10,9 @@
         <nav class="navbar">
             <div class="header-container">
                 <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
-                <div class="header-title">TourTune.</div>
+                <div class="header-title">
+                    <a href="/">TourTune.</a>
+                </div>
                 <div class="header-buttons">
                     <a class="login-btn" href="/login">Login</a>
                     <a class="register-btn">Register</a>
@@ -21,9 +23,10 @@
                     <button id="x" onclick="toggleMenu()">&#x2716</button>
                 </div>
                 <ul>  
-                    <li><a href="/" id="op-1">Home Page</a></li>
-                    <li><a href="#" id="op-2">Add Artist</a></li>
-                    <li><a href="#" id="op-3">Add Show</a></li>
+                    <li><a href="/" id="home-page">Home Page</a></li>
+                    <li><a href="/discover" id="discover">Discover</a></li>
+                    <li><a href="/artists" id="artist">Artists</a></li>
+                    <li><a href="/shows" id="show">Shows</a></li>
                 </ul>
             </nav>
         </nav>
@@ -42,7 +45,7 @@
             </p>
             <div class="content-container">
                 <div class="content">
-                    <a id="discover" class="card">
+                    <a id="discover" class="card" href="/discover">
                         <img th:src="@{/assets/discover.jpg}" alt="Discover-image" class="card-image">
                         <div class="card-body">
                             <h3 class="card-title">Discover Artists and Shows</h3>
@@ -50,7 +53,7 @@
                     </a>
                 </div>
                 <div class="content">
-                    <a id="add-artist" class="card">
+                    <a id="add-artist" class="card" href="/add-artist">
                         <img th:src="@{/assets/artist.jpg}" alt="Artist-image" class="card-image">
                         <div class="card-body">
                             <h3 class="card-title">Add Your Favorite Artist</h3>
@@ -58,7 +61,7 @@
                     </a>
                 </div>
                 <div class="content">
-                    <a id="add-show" class="card">
+                    <a id="add-show" class="card" href="/add-show">
                         <img th:src="@{/assets/show.jpg}" alt="Discover-image" class="card-image">
                         <div class="card-body">
                             <h3 class="card-title">Add Your Own Show</h3>
