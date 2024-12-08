@@ -12,8 +12,8 @@
                 <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
                 <div class="header-title">TourTune</div>
                 <div class="header-buttons">
-                    <button class="login-btn">Login</button>
-                    <button class="register-btn">Register</button>
+                    <a class="login-btn" href="/login">Login</a>
+                    <a class="register-btn">Register</a>
                 </div>
             </div>
             <nav class="sidebar" id="sidebar">
@@ -26,44 +26,56 @@
                     <li><a href="#" id="op-3">Option-3</a></li>
                 </ul>
             </nav>
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-                <button class="search-btn">Search</button>
-            </div>
         </nav>
     </header>
     <main>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button class="search-btn">Search</button>
+        </div>
         <div class="body-content">
-            <h2 id="about-us">About TourTune</h2>
+            <h1 id="content-header">About TourTune</h1>
             <p>
-                <strong>Welcome to TourTune!</strong><br>
                 Discover and track concerts from your favorite artists and shows.
                 From iconic performances to the latest tours, we're here to help 
                 you relive the moments, explore the tracks, and stay connected to the artists you love. Dive into the world of live music with us!
             </p>
             <div class="content-container">
                 <div class="content">
-                    <label for="discover">Discover Artists and Shows</label>
-                    <div id="discover">
-                        
-                    </div>
+                    <a id="discover" class="card">
+                        <img th:src="@{/assets/discover.jpg}" alt="Discover-image" class="card-image">
+                        <div class="card-body">
+                            <h3 class="card-title">Discover Artists and Shows</h3>
+                        </div>
+                    </a>
                 </div>
                 <div class="content">
-                    Add a New Artist
+                    <a id="add-artist" class="card">
+                        <img th:src="@{/assets/artist.jpg}" alt="Artist-image" class="card-image">
+                        <div class="card-body">
+                            <h3 class="card-title">Add Your Favorite Artist</h3>
+                        </div>
+                    </a>
                 </div>
                 <div class="content">
-                    Add a New Show
+                    <a id="add-show" class="card">
+                        <img th:src="@{/assets/show.jpg}" alt="Discover-image" class="card-image">
+                        <div class="card-body">
+                            <h3 class="card-title">Add Your Own Show</h3>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="body-content">
-            <h2 id="recomendation-title">Recomended for You</h2>
+            <h1 id="content-header">Recomended for You</h1>
             <div></div>
             <div></div>
             <div></div>
             <div></div>
         </div>
         <div class="body-content">
+            <h1 id="content-header">Our Top Picks</h1>
             <div></div>
             <div></div>
             <div></div>

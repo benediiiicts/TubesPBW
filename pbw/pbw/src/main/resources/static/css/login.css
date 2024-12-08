@@ -3,7 +3,8 @@
 }
 
 body {
-	background: #f6f5f7;
+	background-image: url("/assets/login.jpg");
+	background-size: cover;
 	display: flex;
 	justify-content: center;
 	align-items: center;
