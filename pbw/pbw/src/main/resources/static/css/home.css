@@ -43,6 +43,7 @@ header {
         50px auto 250px
 }
 .hamburger-menu{
+    margin-right: 10px;
     padding: 0px;
     grid-area: menu;
     color: white;
@@ -179,6 +180,12 @@ header {
 }
 .content {
     margin: 10px;
+}
+.contents{
+    color: #1f2833;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
 }
 #content-header{
     text-align: center;
