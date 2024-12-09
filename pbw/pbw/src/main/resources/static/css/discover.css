@@ -1,6 +1,5 @@
 main {
     padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 body {
     font-family: 'Montserrat', sans-serif;
@@ -73,13 +72,10 @@ header {
 .header-buttons {
     grid-area: buttons;
     display: grid;
-    grid-template-areas: 
-        'login regis';
-    grid-template-columns: 125px 125px;
     align-items: center;
 }
 
-.login-btn, .register-btn, .search-btn{
+.login-register-btn, .search-btn {
     margin-left: 10px;
     border-radius: 20px;
     border: 1px solid #FFFFFF;
@@ -89,22 +85,16 @@ header {
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
-    padding: 10px 20px;
+    padding: 10px;
     letter-spacing: 1px;
     text-align: center;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
 }
-.login-btn:hover, .register-btn:hover, .search-btn:hover, .hamburger-menu:hover{
+.login-register-btn:hover, .search-btn:hover, .hamburger-menu:hover{
     background-color: #C5C6C7;
     color: #1f2833;
     transition: background-color 0.3s ease;
-}
-.login-btn{
-    grid-area: login;
-}
-.register-btn{
-    grid-area: regis;
 }
 .search-bar {
     margin: 20px;
