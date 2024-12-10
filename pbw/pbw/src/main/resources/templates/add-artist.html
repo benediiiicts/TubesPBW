@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/discover.css}">
+    <link rel="stylesheet" th:href="@{/css/add-artists.css}">
 </head>
 <body>
     <header>
@@ -31,13 +31,32 @@
         </nav>
     </header>
     <main>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button class="search-btn">Search</button>
-        </div>
-        <div class="body-content">
-            
-        </div>
+        <form class="body-content">
+            <div class="input-field">
+                <label for="artist-Picture" >Picture</label> <br>
+                <input id="artist-name" type="text" placeholder="TO BE IMPLEMENTED">
+            </div>
+            <div class="input-field">
+                <label for="artist-name" >Artist Name</label> <br>
+                <input id="artist-name" type="text" placeholder="Artist Nickname">
+            </div>
+            <div class="input-field">
+                <label for="artist-description">Description</label><br>
+                <input id="artist-description" type="text" placeholder="Set Description">
+            </div>
+            <div class="input-field">
+                <label for="artist-name">Genre</label><br>
+                <input type="text" placeholder="Select Genre">
+            </div>
+            <div class="input-field">
+                <label for="artist-Year">Year</label><br>
+                <input type="text" placeholder="Debut Year">
+            </div>
+            <div class="input-field">
+                <label for="artist-country">Country</label><br>
+                <input type="text" placeholder="Select Country">
+            </div>
+        </form>
     </main>
     <script>
         function toggleMenu() {
