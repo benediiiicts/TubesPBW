@@ -16,7 +16,7 @@ body {
     padding: 20px;
     padding-top: 10px;
 }
-.body-content p{
+.body-content .caption-header{
     font-size: large;
     padding-left: 10%;
     padding-right: 10%;
@@ -182,7 +182,7 @@ header {
     justify-self: center;
     width: 85%;
 }
-#content-header{
+.content-header{
     text-align: center;
 }
 .card {
@@ -209,13 +209,83 @@ header {
     height: 300px;
     object-fit: cover;
 }
-
 .card-body {
     padding: 15px;
 }
-
 .card-title {
     font-size: large;
     margin: 0;
     text-align: center;
+}
+
+.slideshow-container {
+    position: relative;
+    max-width: 65%;
+    margin: auto;
+}
+
+.slides {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease;
+    border-radius: 10px;
+}
+img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transition: opacity 1s ease;
+}
+.caption {
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 125%;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    text-align: center;
+    opacity: 0;
+    transition: background-color 0.7s ease;
+}
+.slides:hover .caption {
+    opacity: 0;
+    font-size: 175%;
+    transition: background-color 0.7s ease;
+}
+.caption:hover{
+    transition: background-color 0.7s ease;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.caption p{
+    font-weight: 700;
+    padding-left: 15%;
+    transition: font-size 0.5s ease;
+}
+.caption p:hover{
+    transition: font-size 0.5s ease;
+}
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+}
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
