@@ -1,6 +1,6 @@
 main {
     padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
 }
 body {
     font-family: 'Montserrat', sans-serif;
@@ -95,23 +95,44 @@ header {
     color: #1f2833;
     transition: background-color 0.3s ease;
 }
-.search-bar {
-    margin: 20px;
-    margin-bottom: 30px;
+
+/* Centering the form within the body */
+form.body-content {
     display: flex;
-    justify-self: center;
-    width: 60%;
+    flex-direction: column;
+    align-items: center; /* Centers the form content horizontally */
+    justify-content: center; /* Centers the form content vertically */
+    width: 100%;
+    max-width: 600px; /* Optional: Limits the width of the form */
+    margin: 0 auto; /* Centers the form on the page */
+    padding: 20px;
 }
-.search-bar input {
+
+/* Styling input fields and labels */
+.input-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns label and input fields to the left */
+    width: 80%;
+    margin-bottom: 30px;
+}
+
+.input-field label {
+    margin-bottom: 5px; /* Adds spacing between label and input */
+    font-weight: bold; /* Optional: makes label bold for clarity */
+    text-align: left; /* Align label to the left */
+    width: 100%;
+}
+
+.input-field input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 20px;
-    flex: 1;
+    width: 100%; /* Ensure the input takes up the full width of the container */
+    max-width: 400px; /* Optional: limit the max width of the input field */
 }
 
-.search-bar .search-btn {
-    margin-left: 10px;
-}
+
 .sidebar {
     display: flex;
     flex-direction: column;
