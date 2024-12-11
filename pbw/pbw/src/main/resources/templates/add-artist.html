@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/add-artists.css}">
 </head>
+
 <body>
     <header>
         <nav class="navbar">
@@ -21,7 +23,7 @@
                 <div class="xContainer">
                     <button id="x" onclick="toggleMenu()">&#x2716</button>
                 </div>
-                <ul>  
+                <ul>
                     <li><a href="/" id="home-page">Home Page</a></li>
                     <li><a href="/discover" id="discover">Discover</a></li>
                     <li><a href="/artists" id="artist">Artists</a></li>
@@ -33,11 +35,11 @@
     <main>
         <form class="body-content">
             <div class="input-field">
-                <label for="artist-Picture" >Picture</label> <br>
+                <label for="artist-Picture">Picture</label> <br>
                 <input id="artist-name" type="text" placeholder="TO BE IMPLEMENTED">
             </div>
             <div class="input-field">
-                <label for="artist-name" >Artist Name</label> <br>
+                <label for="artist-name">Artist Name</label> <br>
                 <input id="artist-name" type="text" placeholder="Artist Nickname">
             </div>
             <div class="input-field">
@@ -65,4 +67,5 @@
         }
     </script>
 </body>
+
 </html>

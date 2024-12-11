@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/discover.css}">
 </head>
+
 <body>
     <header>
         <nav class="navbar">
@@ -21,7 +23,7 @@
                 <div class="xContainer">
                     <button id="x" onclick="toggleMenu()">&#x2716</button>
                 </div>
-                <ul>  
+                <ul>
                     <li><a href="/" id="home-page">Home Page</a></li>
                     <li><a href="/discover" id="discover">Discover</a></li>
                     <li><a href="/artists" id="artist">Artists</a></li>
@@ -35,9 +37,23 @@
             <input type="text" placeholder="Search...">
             <button class="search-btn">Search</button>
         </div>
-        <div class="body-content">
-            
-        </div>
+        <form class="body-content">
+            <div class="input-field">
+                <label for="artist-name">Artist Name</label> <br>
+                <input id="artist-name" type="text" placeholder="Artist Nickname">
+            </div>
+
+            <div class="input-field">
+                <label for="venue">Venue</label><br>
+                <input type="text" placeholder="Venue">
+            </div>
+
+            <div class="input-field">
+                <label for="date-show">Date</label><br>
+                <input id="date-show" type="date" placeholder="Select Date">
+            </div>
+            </div>
+        </form>
     </main>
     <script>
         function toggleMenu() {
@@ -46,4 +62,5 @@
         }
     </script>
 </body>
+
 </html>
