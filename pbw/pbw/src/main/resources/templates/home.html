@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/home.css}">
+    <script th:src="@{/js/home.js}" defer></script>
 </head>
-<body>
+<body>  
     <header>
         <nav class="navbar">
             <div class="header-container">
                 <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
-                <div class="header-title">TourTune</div>
+                <div class="header-title">
+                    <a href="/">TourTune.</a>
+                </div>
                 <div class="header-buttons">
-                    <button class="login-btn">Login</button>
-                    <button class="register-btn">Register</button>
+                    <a class="login-register-btn" href="/login">Sign in/ Sign up</a>
                 </div>
             </div>
             <nav class="sidebar" id="sidebar">
@@ -21,60 +23,105 @@
                     <button id="x" onclick="toggleMenu()">&#x2716</button>
                 </div>
                 <ul>  
-                    <li><a href="#" id="op-1">Option-1</a></li>
-                    <li><a href="#" id="op-2">Option-2</a></li>
-                    <li><a href="#" id="op-3">Option-3</a></li>
+                    <li><a href="/" id="home-page">Home Page</a></li>
+                    <li><a href="/discover" id="discover">Discover</a></li>
+                    <li><a href="/artists" id="artist">Artists</a></li>
+                    <li><a href="/shows" id="show">Shows</a></li>
                 </ul>
             </nav>
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-                <button class="search-btn">Search</button>
-            </div>
         </nav>
     </header>
     <main>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button class="search-btn">Search</button>
+        </div>
         <div class="body-content">
-            <h2 id="about-us">About TourTune</h2>
-            <p>
-                <strong>Welcome to TourTune!</strong><br>
+            <h1 class="content-header">About TourTune</h1>
+            <p class="caption-header">
                 Discover and track concerts from your favorite artists and shows.
                 From iconic performances to the latest tours, we're here to help 
                 you relive the moments, explore the tracks, and stay connected to the artists you love. Dive into the world of live music with us!
             </p>
             <div class="content-container">
                 <div class="content">
-                    <label for="discover">Discover Artists and Shows</label>
-                    <div id="discover">
-                        
-                    </div>
+                    <a id="discover" class="card" href="/discover">
+                        <img th:src="@{/assets/discover.jpg}" alt="Discover-image" class="card-image">
+                        <div class="card-body">
+                            <h3 class="card-title">Discover Setlists for You</h3>
+                        </div>
+                    </a>
                 </div>
                 <div class="content">
-                    Add a New Artist
+                    <a id="add-artist" class="card" href="/add-artist">
+                        <img th:src="@{/assets/artist.jpg}" alt="Artist-image" class="card-image">
+                        <div class="card-body">
+                            <h3 class="card-title">Add Your Favorite Artist</h3>
+                        </div>
+                    </a>
                 </div>
                 <div class="content">
-                    Add a New Show
+                    <a id="add-show" class="card" href="/add-show">
+                        <img th:src="@{/assets/show.jpg}" alt="Discover-image" class="card-image">
+                        <div class="card-body">
+                            <h3 class="card-title">Add Your Own Show</h3>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="body-content">
-            <h2 id="recomendation-title">Recomended for You</h2>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <h1 class="content-header">Recomended for You</h1>
+            <div class="slideshow-container" id="slide-rec">
+                <div class="slides fade">
+                    <img th:src="@{/assets/artist.jpg}" alt="Image 1">
+                    <div class="caption">
+                        <p>Caption for Image 1</p>
+                    </div>
+                </div>
+                <div class="slides fade">
+                    <img th:src="@{/assets/fujii.jpg}" alt="Image 2">
+                    <div class="caption">
+                        <p>Caption for Image 2</p>
+                    </div>
+                </div>
+                <div class="slides fade">
+                    <img th:src="@{/assets/paul.jpg}" alt="Image 3">
+                    <div class="caption">
+                        <p>Caption for Image 3</p>
+                    </div>
+                </div>
+                
+                <a class="prev" onclick="plusSlides(-1, 'slide-rec')">&#10094;</a>
+                <a class="next" onclick="plusSlides(1, 'slide-rec')">&#10095;</a>
+            </div>
         </div>
         <div class="body-content">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <h1 class="content-header">Our Top Picks</h1>
+            <div class="slideshow-container" id="slide-otp">
+                <div class="slides fade">
+                    <img th:src="@{/assets/artist.jpg}" alt="Image 1">
+                    <div class="caption">
+                        <p>Caption for Image 1</p>
+                    </div>
+                </div>
+                <div class="slides fade">
+                    <img th:src="@{/assets/fujii.jpg}" alt="Image 2">
+                    <div class="caption">
+                        <p>Caption for Image 2</p>
+                    </div>
+                </div>
+                <div class="slides fade">
+                    <img th:src="@{/assets/paul.jpg}" alt="Image 3">
+                    <div class="caption">
+                        <p>Caption for Image 3</p>
+                    </div>
+                </div>
+                
+                <a class="prev" onclick="plusSlides(-1, 'slide-otp')">&#10094;</a>
+                <a class="next" onclick="plusSlides(1, 'slide-otp')">&#10095;</a>
+            </div>
         </div>
     </main>
-    <script>
-        function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
-    </script>
 </body>
 </html>

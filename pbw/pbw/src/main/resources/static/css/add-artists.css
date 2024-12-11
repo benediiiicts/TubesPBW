@@ -1,6 +1,6 @@
 main {
     padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
 }
 body {
     font-family: 'Montserrat', sans-serif;
@@ -16,7 +16,7 @@ body {
     padding: 20px;
     padding-top: 10px;
 }
-.body-content .caption-header{
+.body-content p{
     font-size: large;
     padding-left: 10%;
     padding-right: 10%;
@@ -74,7 +74,6 @@ header {
     display: grid;
     align-items: center;
 }
-
 .login-register-btn, .search-btn {
     margin-left: 10px;
     border-radius: 20px;
@@ -96,23 +95,44 @@ header {
     color: #1f2833;
     transition: background-color 0.3s ease;
 }
-.search-bar {
-    margin: 20px;
-    margin-bottom: 30px;
+
+/* Centering the form within the body */
+form.body-content {
     display: flex;
-    justify-self: center;
-    width: 60%;
+    flex-direction: column;
+    align-items: center; /* Centers the form content horizontally */
+    justify-content: center; /* Centers the form content vertically */
+    width: 100%;
+    max-width: 600px; /* Optional: Limits the width of the form */
+    margin: 0 auto; /* Centers the form on the page */
+    padding: 20px;
 }
-.search-bar input {
+
+/* Styling input fields and labels */
+.input-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns label and input fields to the left */
+    width: 80%;
+    margin-bottom: 30px;
+}
+
+.input-field label {
+    margin-bottom: 5px; /* Adds spacing between label and input */
+    font-weight: bold; /* Optional: makes label bold for clarity */
+    text-align: left; /* Align label to the left */
+    width: 100%;
+}
+
+.input-field input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 20px;
-    flex: 1;
+    width: 100%; /* Ensure the input takes up the full width of the container */
+    max-width: 400px; /* Optional: limit the max width of the input field */
 }
 
-.search-bar .search-btn {
-    margin-left: 10px;
-}
+
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -164,128 +184,4 @@ header {
     color: white;
     font-weight: bolder;
     font-size: larger;
-}
-.content-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.content {
-    margin: 10px;
-}
-.contents{
-    color: #1f2833;
-    background-color: #C5C6C7;
-    border-radius: 10px;
-    padding: 10px;
-    align-self: center;
-    justify-self: center;
-    width: 85%;
-}
-.content-header{
-    text-align: center;
-}
-.card {
-    height: 370px;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    display: block;
-    position: relative;
-    background-color: black;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-    color: #C5C6C7;
-    transition: background-color 0.3s ease;
-}
-.card:hover{
-    background-color: #C5C6C7;
-    color: #1f2833 ;
-}
-.card-image {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-.card-body {
-    padding: 15px;
-}
-.card-title {
-    font-size: large;
-    margin: 0;
-    text-align: center;
-}
-
-.slideshow-container {
-    position: relative;
-    max-width: 65%;
-    margin: auto;
-}
-
-.slides {
-    display: none;
-    opacity: 0;
-    transition: opacity 1s ease;
-    border-radius: 10px;
-}
-img {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    transition: opacity 1s ease;
-}
-.caption {
-    border-radius: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: white;
-    font-size: 125%;
-    background-color: rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    text-align: center;
-    opacity: 0;
-    transition: background-color 0.7s ease;
-}
-.slides:hover .caption {
-    opacity: 0;
-    font-size: 175%;
-    transition: background-color 0.7s ease;
-}
-.caption:hover{
-    transition: background-color 0.7s ease;
-    background-color: rgba(0, 0, 0, 0.7);
-}
-.caption p{
-    font-weight: 700;
-    padding-left: 15%;
-    transition: font-size 0.5s ease;
-}
-.caption p:hover{
-    transition: font-size 0.5s ease;
-}
-.prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-}
-.next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-.prev:hover, .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
 }

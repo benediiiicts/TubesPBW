@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/add-artists.css}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="header-container">
+                <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+                <div class="header-title">
+                    <a href="/">TourTune.</a>
+                </div>
+                <div class="header-buttons">
+                    <a class="login-register-btn" href="/login">Sign in/ Sign up</a>
+                </div>
+            </div>
+            <nav class="sidebar" id="sidebar">
+                <div class="xContainer">
+                    <button id="x" onclick="toggleMenu()">&#x2716</button>
+                </div>
+                <ul>  
+                    <li><a href="/" id="home-page">Home Page</a></li>
+                    <li><a href="/discover" id="discover">Discover</a></li>
+                    <li><a href="/artists" id="artist">Artists</a></li>
+                    <li><a href="/shows" id="show">Shows</a></li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+    <main>
+        <form class="body-content">
+            <div class="input-field">
+                <label for="artist-Picture" >Picture</label> <br>
+                <input id="artist-name" type="text" placeholder="TO BE IMPLEMENTED">
+            </div>
+            <div class="input-field">
+                <label for="artist-name" >Artist Name</label> <br>
+                <input id="artist-name" type="text" placeholder="Artist Nickname">
+            </div>
+            <div class="input-field">
+                <label for="artist-description">Description</label><br>
+                <input id="artist-description" type="text" placeholder="Set Description">
+            </div>
+            <div class="input-field">
+                <label for="artist-name">Genre</label><br>
+                <input type="text" placeholder="Select Genre">
+            </div>
+            <div class="input-field">
+                <label for="artist-Year">Year</label><br>
+                <input type="text" placeholder="Debut Year">
+            </div>
+            <div class="input-field">
+                <label for="artist-country">Country</label><br>
+                <input type="text" placeholder="Select Country">
+            </div>
+        </form>
+    </main>
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

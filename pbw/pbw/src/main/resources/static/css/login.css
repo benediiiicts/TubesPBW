@@ -3,7 +3,8 @@
 }
 
 body {
-	background: #f6f5f7;
+	background-image: url("/assets/login.jpg");
+	background-size: cover;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -41,7 +42,7 @@ a {
 	margin: 15px 0;
 }
 
-button {
+button, .return-btn{
 	border-radius: 20px;
 	border: 1px solid #1f2833;
 	background-color: #1f2833;
@@ -52,6 +53,12 @@ button {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+	cursor: pointer;
+}
+button:hover, .return-btn:hover, button.ghost:hover{
+	background-color: white;
+    color: #1f2833;
+    transition: background-color 0.3s ease;
 }
 
 button:active {
