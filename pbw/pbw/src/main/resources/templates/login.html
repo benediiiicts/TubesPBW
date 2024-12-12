@@ -10,21 +10,29 @@
 		<a class="return-btn" href="/">return</a>
 		<div class="container" id="container">
 			<div class="form-container sign-up-container">
-				<form action="#">
+				<form action="register" method="post" th:action="@{/register}" th:object="${user}">
 					<h1>Create Account</h1>
+					<span>or use your email for registration</span>
 					<input type="text" placeholder="Username" />
 					<input type="email" placeholder="Email" />
 					<input type="password" placeholder="Password" />
-					<button>Sign Up</button>
+					<input type="password" placeholder="Confirm Password" />
+					<button type="submit">Sign Up</button>
 				</form>
 			</div>
 			<div class="form-container sign-in-container">
-				<form action="#">
+				<form action="login" method="post">
 					<h1>Sign in</h1>
-					<input type="email" placeholder="Email" />
-					<input type="password" placeholder="Password" />
-					<a href="#">Forgot your password?</a>
-					<button>Sign In</button>
+					<span>or use your account</span>
+					<p th:if="${status}==failed">Please check username or password</p>
+					<input type="email" placeholder="Email" name="email"/>
+					<input type="password" placeholder="Password" id="password" name="password"/>
+					<!-- <label for="showPassword">
+						<input type="checkbox" id="showPasswordLog"/>
+						Show password
+					</label> -->
+					<!-- <a href="#">Forgot your password?</a> -->
+					<button type="submit">Sign In</button>
 				</form>
 			</div>
 			<div class="overlay-container">
@@ -56,6 +64,28 @@
 			signInButton.addEventListener('click', () => {
 				container.classList.remove('right-panel-active');
 			});
+
+			// const inputPasswordLog = document.getElementById('inputPassLog');
+			// const showPasswordLog = document.getElementById('showPasswordLog');
+
+			// showPasswordLog.addEventListener("input", (e) => {
+			// 	if(e.target.checked){
+			// 		inputPasswordLog.setAttribute("type", "text");
+			// 	}else{
+			// 		inputPasswordLog.setAttribute("type", "password");
+			// 	};
+			// })
+
+			// const inputPasswordReg = document.getElementById('inputPassReg');
+			// const showPasswordReg = document.getElementById('showPasswordReg');
+
+			// showPasswordReg.addEventListener("input", (e) => {
+			// 	if(e.target.checked){
+			// 		inputPasswordReg.setAttribute("type", "text");
+			// 	}else{
+			// 		inputPasswordReg.setAttribute("type", "password");
+			// 	};
+			// })
 		</script>
 	</body>
 </html>
