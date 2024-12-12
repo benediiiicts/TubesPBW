@@ -1,6 +1,5 @@
 main {
     padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 body {
     font-family: 'Montserrat', sans-serif;
@@ -17,6 +16,7 @@ body {
     padding-top: 10px;
 }
 .body-content .caption-header{
+    text-align: center;
     font-size: large;
     padding-left: 10%;
     padding-right: 10%;
@@ -219,11 +219,11 @@ header {
 }
 
 .slideshow-container {
+    cursor: pointer;
     position: relative;
-    max-width: 65%;
+    max-width: 900px;
     margin: auto;
 }
-
 .slides {
     display: none;
     opacity: 0;
@@ -249,7 +249,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: start;
-    text-align: center;
+    text-align: start;
     opacity: 0;
     transition: background-color 0.7s ease;
 }
@@ -262,13 +262,20 @@ img {
     transition: background-color 0.7s ease;
     background-color: rgba(0, 0, 0, 0.7);
 }
-.caption p{
-    font-weight: 700;
-    padding-left: 15%;
+.caption p, .caption h2{
+    position: relative;
     transition: font-size 0.5s ease;
 }
-.caption p:hover{
-    transition: font-size 0.5s ease;
+.caption h2{
+    padding-left: 15%;
+}
+.caption p{
+    font-weight: 300;
+    padding-left: 5%;
+    font-size: 65%;
+    color: #C5C6C7;
+    justify-self: start;
+    padding: 0%;
 }
 .prev, .next {
     cursor: pointer;

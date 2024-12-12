@@ -10,11 +10,11 @@ body {
     padding: 0;
 }
 .body-content{
-    border-radius: 5px;
+    border-radius: 10px;
     color: #C5C6C7;
-    margin: 10px;
-    padding: 20px;
-    padding-top: 10px;
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 800px;
 }
 .body-content p{
     font-size: large;
@@ -74,6 +74,9 @@ header {
     display: grid;
     align-items: center;
 }
+.content-header{
+    text-align: center;
+}
 .login-register-btn, .search-btn {
     margin-left: 10px;
     border-radius: 20px;
@@ -95,44 +98,88 @@ header {
     color: #1f2833;
     transition: background-color 0.3s ease;
 }
-
-/* Centering the form within the body */
-form.body-content {
+.body-content {
+    border-radius: 10px;
+    color: #C5C6C7;
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 800px; /* Limit max width */
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Centers the form content horizontally */
-    justify-content: center; /* Centers the form content vertically */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
+    min-height: 70vh; /* Minimum height to ensure vertical centering */
+}
+.body-content .caption-header{
+    text-align: center;
+    font-size: large;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.form-grid {
     width: 100%;
-    max-width: 600px; /* Optional: Limits the width of the form */
-    margin: 0 auto; /* Centers the form on the page */
-    padding: 20px;
+    margin: 20px 0; /* Margin for spacing */
+    display: grid;
+    grid-template-areas:
+        'text pict'; /* Default layout for larger screens */
+    grid-template-columns: 
+        2fr 1fr; /* Adjusted column widths for better proportion */
+    gap: 70px; /* Increased space between grid items */
 }
 
-/* Styling input fields and labels */
+.pict-input {
+    grid-area: pict;
+    display: flex;
+    flex-direction: column; /* Stack picture input vertically */
+    align-items: center; /* Center the picture input horizontally */
+    justify-content: center; /* Center the picture input vertically */
+}
+
 .input-field {
+    width: 100%; /* Ensure input fields take full width */
+    margin-bottom: 25px; /* Space between input fields for better separation */
+}
+
+.text-input {
+    grid-area: text;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Aligns label and input fields to the left */
-    width: 80%;
-    margin-bottom: 30px;
+    flex-direction: column; /* Stack input fields vertically */
 }
 
-.input-field label {
-    margin-bottom: 5px; /* Adds spacing between label and input */
-    font-weight: bold; /* Optional: makes label bold for clarity */
-    text-align: left; /* Align label to the left */
-    width: 100%;
-}
-
-.input-field input {
-    padding: 10px;
+.input-field input,
+.input-field select,
+.input-field input[type="file"] {
+    padding: 12px; /* Increased padding for better readability */
     border: 1px solid #ccc;
     border-radius: 20px;
-    width: 100%; /* Ensure the input takes up the full width of the container */
-    max-width: 400px; /* Optional: limit the max width of the input field */
+    width: 100%; /* Ensure all input fields take the full width */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    transition: border-color 0.3s; /* Smooth border transition */
+    background-color: #FFFFFF;
 }
 
+.input-field input:focus,
+.input-field select:focus {
+    border-color: #66FCF1; /* Change border color on focus */
+}
+.file-upload-btn {
+    padding: 10px 15px; /* Button padding */
+    border: none; /* Remove default border */
+    border-radius: 20px; /* Rounded corners */
+    border: 1px solid #FFFFFF;
+    background-color: transparent;
+    color: #FFFFFF;
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s; /* Smooth background transition */
+    width: 100%; /* Full width */
+    text-align: center; /* Center text */
+}
 
+.file-upload-btn:hover {
+    background-color:#FFFFFF;
+    color: #1f2833;
+}
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -148,7 +195,7 @@ form.body-content {
 }
 
 .sidebar.active {
-    left: 0; /* Slide in */
+    left: 0;
 }
 
 .sidebar ul {
