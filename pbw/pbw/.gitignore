@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Informasi DB Untuk Koneksi ###
+application.properties
+

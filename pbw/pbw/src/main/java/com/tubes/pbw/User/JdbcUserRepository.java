@@ -30,6 +30,7 @@ public class JdbcUserRepository implements UserRepository {
 
     private User mapRowToUser(ResultSet resultSet, int rowNum) throws SQLException {
         return new User(
+            resultSet.getInt("id"),
             resultSet.getString("email"),
             resultSet.getString("username"),
             resultSet.getString("password"),
