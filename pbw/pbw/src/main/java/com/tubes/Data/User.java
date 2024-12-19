@@ -1,5 +1,6 @@
 package com.tubes.Data;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class User {
     @NotNull
+    private int id;
+
+    @NotNull
+    @Email
     private String email;
 
     @NotNull
