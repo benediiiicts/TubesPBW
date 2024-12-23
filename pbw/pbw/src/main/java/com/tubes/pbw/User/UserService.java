@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tubes.Data.User;
 
-
 @Service
 public class UserService {
     @Autowired
@@ -19,8 +18,17 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public boolean register(User user) {
-        // Implementasi pendaftaran tetap
-        return true;
+        try {
+            // Enkripsi password sebelum disimpan
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+            // Simpan user ke database
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public User login(String email, String password) {
@@ -34,4 +42,3 @@ public class UserService {
         return null;
     }
 }
-

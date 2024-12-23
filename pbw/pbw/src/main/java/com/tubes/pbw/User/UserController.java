@@ -1,4 +1,4 @@
-package com.tubes.pbw.Login;
+package com.tubes.pbw.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -6,27 +6,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tubes.Data.User;
-import com.tubes.pbw.User.JdbcUserRepository;
-import com.tubes.pbw.User.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
-public class LoginController {
+public class UserController {
     @Autowired
     private UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private JdbcUserRepository jdbcUserRepository;
-    
     @GetMapping("/login")
     public String redirectToLogin(HttpSession session) {
         // Jika user sudah login, redirect ke dashboard
@@ -55,34 +51,45 @@ public class LoginController {
     }
 
     @GetMapping("/register")
-    public String registerView(User user){
-        return "login";
+    public String registerView(Model model) {
+        // Menyediakan objek User kosong untuk form
+        model.addAttribute("user", new User());
+        return "register"; // Mengarahkan ke halaman register
     }
 
     @PostMapping("/register")
-    public String register(@Valid User user, BindingResult bindingResult ){
-        if(!user.getPassword().equals(user.getConfirmpassword())){
-            bindingResult.rejectValue("confirmpassword", "passwordMissmatch", "password do not match");
+    public String register(@Valid @ModelAttribute("user") User user, 
+                           BindingResult bindingResult,
+                           Model model) {
+        // Validasi password dan konfirmasi password
+        if (!user.getPassword().equals(user.getConfirmpassword())) {
+            bindingResult.rejectValue("confirmpassword", "passwordMismatch", "Password and confirm password do not match");
         }
 
-        if(!userService.register(user)){
-            bindingResult.rejectValue("username", "usernameAlreadyExists", "username already exists" );
-        }
-       
-        if(bindingResult.hasErrors()){
-            return "/login";
+        // Validasi kesamaan username atau email (logika di UserService)
+        if (!userService.register(user)) {
+            bindingResult.rejectValue("email", "emailExists", "Email already exists");
         }
 
+        // Jika ada error dalam validasi, kembali ke form register
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", "Please fix the errors in the form");
+            return "register";
+        }
+
+        // Enkripsi password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
+        // Simpan user ke database
         try {
-            jdbcUserRepository.save(user);
+            userService.register(user); // Delegasikan ke UserService
         } catch (Exception e) {
             e.printStackTrace();
+            model.addAttribute("error", "Failed to register. Please try again.");
+            return "register";
         }
-        return "redirect:/";
+
+        // Redirect ke halaman login setelah berhasil register
+        return "redirect:/login";
     }
-
-    
-
 }

@@ -5,9 +5,11 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @NotNull
     private int id;
@@ -17,15 +19,15 @@ public class User {
     private String email;
 
     @NotNull
-    @Size(min=4, max=50)
+    @Size(min = 4, max = 50)
     private String username;
 
     @NotNull
-    @Size(min=4, max=60)
+    @Size(min = 4, max = 60)
     private String password;
 
     @NotNull
-    @Size(min=4, max=60)
+    @Size(min = 4, max = 60)
     private String confirmpassword;
 
     private String role = "member";
