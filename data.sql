@@ -1,5 +1,21 @@
+DROP TABLE IF EXISTS "user";
+DROP TABLE IF EXISTS artist;
+DROP TABLE IF EXISTS countries;
+DROP TABLE IF EXISTS "show";
+DROP TABLE IF EXISTS album;
+DROP TABLE IF EXISTS songs;
+DROP TABLE IF EXISTS song_artist;
+DROP TABLE IF EXISTS setlist;
+
+CREATE TABLE "user" (
+    idUser SERIAL PRIMARY KEY,
+    email VARCHAR(255),
+    username VARCHAR(255),
+    password VARCHAR(60), -- Fixed column name typo from `paasword` to `password`
+    role VARCHAR(100)
+);
+
 CREATE TABLE countries (
-    id SERIAL,
     country_code VARCHAR(3) NOT NULL UNIQUE PRIMARY KEY,
     country_name VARCHAR(100) NOT NULL
 );
@@ -193,11 +209,50 @@ INSERT INTO countries (country_code, country_name) VALUES
 ('ZWE', 'Zimbabwe');
 
 CREATE TABLE artist (
-    PhotosURL VARCHAR(255),
+    idArtist SERIAL PRIMARY KEY,
+    PhotosURL TEXT,
     name VARCHAR(255),
-    Description VARCHAR(255),
+    Description TEXT,
     genre VARCHAR(255),
     Year VARCHAR(255),
     Country VARCHAR(255),
     FOREIGN KEY (Country) REFERENCES countries(country_code)
+);
+
+CREATE TABLE "show" (
+    idShow SERIAL PRIMARY KEY,
+    showName VARCHAR(255),
+    date DATE,
+    venue VARCHAR(255),
+    description TEXT
+);
+
+CREATE TABLE album (
+    idAlbum SERIAL PRIMARY KEY,
+    IdArtist INT NOT NULL,
+    FOREIGN KEY (IdArtist) REFERENCES artist(idArtist),
+    title VARCHAR(255)
+);
+
+CREATE TABLE songs (
+    idSongs SERIAL PRIMARY KEY,
+    listener BIGINT,
+    title VARCHAR(255),
+    url TEXT,
+    idAlbum INT NOT NULL,
+    FOREIGN KEY (idAlbum) REFERENCES album(idAlbum)
+);
+
+CREATE TABLE setlist (
+    idSetlist SERIAL PRIMARY KEY,
+    title VARCHAR(100),
+    idShow INT NOT NULL,
+    FOREIGN KEY (idShow) REFERENCES "show" (idShow)
+);
+
+CREATE TABLE song_artist (
+    idSongs INT NOT NULL,
+    idArtist INT NOT NULL,
+    FOREIGN KEY (idArtist) REFERENCES artist(idArtist),
+    FOREIGN KEY (idSongs) REFERENCES songs(idSongs)
 );
