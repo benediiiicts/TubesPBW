@@ -34,19 +34,19 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam("email") String email,
-                        @RequestParam("password") String password,
-                        Model model,
-                        HttpSession session) {
+            @RequestParam("password") String password,
+            Model model,
+            HttpSession session) {
         // Panggil fungsi login di UserService
         User user = userService.login(email, password);
         if (user != null) {
             // Jika user valid, simpan ke session dan redirect ke dashboard
-            session.setAttribute("loggedUser", user);
+            session.setAttribute("loggedUser ", user);
             return "redirect:/home";
         } else {
             // Jika user tidak ditemukan atau password salah, tampilkan error
-            model.addAttribute("status", "failed");
-            return "login";
+            model.addAttribute("error", "Invalid email or password");
+            return "login"; // Kembali ke halaman login
         }
     }
 
@@ -58,16 +58,17 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("user") User user, 
-                           BindingResult bindingResult,
-                           Model model) {
-        // Validasi password dan konfirmasi password
+    public String register(@Valid @ModelAttribute("user") User user,
+            BindingResult bindingResult,
+            Model model) {
+        // Validasi kesamaan password dan konfirmasi password
         if (!user.getPassword().equals(user.getConfirmpassword())) {
-            bindingResult.rejectValue("confirmpassword", "passwordMismatch", "Password and confirm password do not match");
+            bindingResult.rejectValue("confirmpassword", "passwordMismatch",
+                    "Password and confirm password do not match");
         }
 
-        // Validasi kesamaan username atau email (logika di UserService)
-        if (!userService.register(user)) {
+        // Cek apakah email sudah ada
+        if (userService.emailExists(user.getEmail())) {
             bindingResult.rejectValue("email", "emailExists", "Email already exists");
         }
 
@@ -82,7 +83,7 @@ public class UserController {
 
         // Simpan user ke database
         try {
-            userService.register(user); // Delegasikan ke UserService
+            userService.register(user);
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Failed to register. Please try again.");
@@ -91,5 +92,11 @@ public class UserController {
 
         // Redirect ke halaman login setelah berhasil register
         return "redirect:/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // Invalidate the session
+        return "redirect:/home"; // Redirect to home page
     }
 }
