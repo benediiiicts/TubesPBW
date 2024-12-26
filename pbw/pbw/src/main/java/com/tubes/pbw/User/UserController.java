@@ -23,13 +23,17 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JdbcUserRepository jdbcUserRepository;
+
     @GetMapping("/login")
-    public String redirectToLogin(HttpSession session) {
-        // Jika user sudah login, redirect ke dashboard
+    public String loginView(HttpSession session, Model model) {
+        // Jika user sudah login, redirect ke home
         if (session.getAttribute("loggedUser") != null) {
             return "redirect:/home";
         }
-        return "login";
+        model.addAttribute("user", new User());
+        return "login"; // Mengarahkan ke halaman login
     }
 
     @PostMapping("/login")
@@ -41,18 +45,18 @@ public class UserController {
         User user = userService.login(email, password);
         if (user != null) {
             // Jika user valid, simpan ke session dan redirect ke dashboard
-            session.setAttribute("loggedUser ", user);
+            session.setAttribute("loggedUser", user);
             return "redirect:/home";
         } else {
             // Jika user tidak ditemukan atau password salah, tampilkan error
             model.addAttribute("error", "Invalid email or password");
-            return "login"; // Kembali ke halaman login
+            return "login";
         }
     }
 
     @GetMapping("/register")
     public String registerView(Model model) {
-        // Menyediakan objek User kosong untuk form
+        // Menyediakan objek User kosong untuk form register
         model.addAttribute("user", new User());
         return "register"; // Mengarahkan ke halaman register
     }
@@ -83,7 +87,7 @@ public class UserController {
 
         // Simpan user ke database
         try {
-            userService.register(user);
+            jdbcUserRepository.save(user);
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Failed to register. Please try again.");
