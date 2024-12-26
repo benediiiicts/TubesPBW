@@ -19,15 +19,14 @@ public class User {
     private String email;
 
     @NotNull
-    @Size(min = 4, max = 50)
+    @Size(min = 4, max = 50, message = "username must be 4-50 chars")
     private String username;
 
     @NotNull
-    @Size(min = 4, max = 60)
+    @Size(min = 4, max = 60, message = "password must be 4-60 chars")
     private String password;
 
     @NotNull
-    @Size(min = 4, max = 60)
     private String confirmpassword;
 
     private String role = "member";

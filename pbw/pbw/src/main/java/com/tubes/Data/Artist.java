@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 public class Artist {
 
     @NotNull
+    private int id;
+
+    @NotNull
     private String PhotosURL;
 
     @NotNull

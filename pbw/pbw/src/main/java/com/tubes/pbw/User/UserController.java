@@ -1,5 +1,8 @@
 package com.tubes.pbw.User;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -46,10 +49,11 @@ public class UserController {
         if (user != null) {
             // Jika user valid, simpan ke session dan redirect ke dashboard
             session.setAttribute("loggedUser", user);
+            model.addAttribute("user", user);
             return "redirect:/home";
         } else {
             // Jika user tidak ditemukan atau password salah, tampilkan error
-            model.addAttribute("error", "Invalid email or password");
+            model.addAttribute("error_sign", "Invalid email or password");
             return "login";
         }
     }
@@ -63,44 +67,40 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("user") User user,
-            BindingResult bindingResult,
-            Model model) {
+        BindingResult bindingResult, Model model, HttpSession session) {
         // Validasi kesamaan password dan konfirmasi password
         if (!user.getPassword().equals(user.getConfirmpassword())) {
             bindingResult.rejectValue("confirmpassword", "passwordMismatch",
                     "Password and confirm password do not match");
+            model.addAttribute("error_reg", "password and confirm password mismatch");
         }
-
         // Cek apakah email sudah ada
         if (userService.emailExists(user.getEmail())) {
             bindingResult.rejectValue("email", "emailExists", "Email already exists");
+            model.addAttribute("error_reg", "Email already exists");
         }
-
         // Jika ada error dalam validasi, kembali ke form register
         if (bindingResult.hasErrors()) {
-            model.addAttribute("error", "Please fix the errors in the form");
-            return "register";
+            List<String> errors = bindingResult.getFieldErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList());
+            model.addAttribute("error_reg", errors);
+            return "login"; // Return to the login page, keeping the signup panel active
         }
-
         // Enkripsi password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         // Simpan user ke database
         try {
             jdbcUserRepository.save(user);
+            session.setAttribute("loggedUser", user);
+            return "redirect:/login";
         } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("error", "Failed to register. Please try again.");
-            return "register";
+            model.addAttribute("error_reg", "Failed to register. Please try again.");
+            return "login"; // Return to login page with error
         }
-
-        // Redirect ke halaman login setelah berhasil register
-        return "redirect:/login";
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate(); // Invalidate the session
-        return "redirect:/home"; // Redirect to home page
+    public String logout(HttpSession session, Model model) {
+        session.invalidate(); // hapus session
+        return "redirect:/home"; // Redirect ke home page guest
     }
 }

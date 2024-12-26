@@ -20,7 +20,6 @@ public class UserService {
         try {
             // Enkripsi password sebelum disimpan
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-
             // Simpan user ke database
             userRepository.save(user);
             return true;
