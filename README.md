@@ -1,8 +1,10 @@
-yang perlu dikerjakan
+Fitur yang sudah selesai dikerjakan tulis di **FinishedList.md**
+
+Perlu dikerjakan:
 - back-end
 - UI beberapa halaman
-
-list UI yang perlu dibuat
+  
+List UI yang perlu dibuat
 
 - halaman detail artist
 - list artist
