@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/home.css}">
     <script th:src="@{/js/home.js}" defer></script>
 </head>
-<body>  
+
+<body>
     <header>
         <nav class="navbar">
             <div class="header-container">
@@ -15,14 +17,18 @@
                     <a href="/">TourTune.</a>
                 </div>
                 <div class="header-buttons">
-                    <a class="login-register-btn" href="/login">Sign in/ Sign up</a>
+                    <a class="login-register-btn" th:if="${username == null}" href="/login">Sign in/ Sign up</a>
+                    <span th:if="${username != null}">
+                        Welcome, <span th:text="${username}"></span>!
+                        <a class="login-register-btn" href="/logout">Sign Out</a>
+                    </span>
                 </div>
             </div>
             <nav class="sidebar" id="sidebar">
                 <div class="xContainer">
-                    <button id="x" onclick="toggleMenu()">&#x2716</button>
+                    <button id="x" onclick="toggleMenu()">&#x2716;</button>
                 </div>
-                <ul>  
+                <ul>
                     <li><a href="/" id="home-page">Home Page</a></li>
                     <li><a href="/discover" id="discover">Discover</a></li>
                     <li><a href="/artists" id="artist">Artists</a></li>
@@ -40,8 +46,9 @@
             <h1 class="content-header">About TourTune</h1>
             <p class="caption-header">
                 Discover and track concerts from your favorite artists and shows.
-                From iconic performances to the latest tours, we're here to help 
-                you relive the moments, explore the tracks, and stay connected to the artists you love. Dive into the world of live music with us!
+                From iconic performances to the latest tours, we're here to help
+                you relive the moments, explore the tracks, and stay connected to the artists you love. Dive into the
+                world of live music with us!
             </p>
             <div class="content-container">
                 <div class="content">
@@ -73,14 +80,16 @@
         <div class="body-content">
             <h1 class="content-header">Recomended for You</h1>
             <p class="caption-header">
-                Curated setlists and tours suited to your favorite artists and music tastes. Discover your next live music obsession!
+                Curated setlists and tours suited to your favorite artists and music tastes. Discover your next live
+                music obsession!
             </p>
             <div class="slideshow-container" id="slide-rec">
                 <div class="slides fade">
                     <img th:src="@{/assets/fujii.jpg}" alt="Image 1">
                     <div class="caption">
                         <h2>Fujii Kaze
-                            <p>Gocheok Sky Dome, Seoul<br>Dec 14, 2024<p>
+                            <p>Gocheok Sky Dome, Seoul<br>Dec 14, 2024
+                            <p>
                         </h2>
                     </div>
                 </div>
@@ -88,7 +97,8 @@
                     <img th:src="@{/assets/the-cure.jpg}" alt="Image 2">
                     <div class="caption">
                         <h2>The Cure
-                            <p>Hyde Park, London<br>Jul 7, 2018<p>
+                            <p>Hyde Park, London<br>Jul 7, 2018
+                            <p>
                         </h2>
                     </div>
                 </div>
@@ -96,11 +106,12 @@
                     <img th:src="@{/assets/sam-fender.jpeg}" alt="Image 1">
                     <div class="caption">
                         <h2>Sam Fender
-                            <p>3Arena, Dublin <br>Dec 2, 2024<p>
+                            <p>3Arena, Dublin <br>Dec 2, 2024
+                            <p>
                         </h2>
                     </div>
                 </div>
-                
+
                 <a class="prev" onclick="plusSlides(-1, 'slide-rec')">&#10094;</a>
                 <a class="next" onclick="plusSlides(1, 'slide-rec')">&#10095;</a>
             </div>
@@ -115,7 +126,8 @@
                     <img th:src="@{/assets/sam-fender.jpeg}" alt="Image 1">
                     <div class="caption">
                         <h2>Sam Fender
-                            <p>3Arena, Dublin <br>Dec 2, 2024<p>
+                            <p>3Arena, Dublin <br>Dec 2, 2024
+                            <p>
                         </h2>
                     </div>
                 </div>
@@ -123,7 +135,8 @@
                     <img th:src="@{/assets/taylor-swift.jpg}" alt="Image 2">
                     <div class="caption">
                         <h2>Taylor Swift
-                            <p>BC Place Stadium, Vancouver<br>Dec 6, 2024<p>
+                            <p>BC Place Stadium, Vancouver<br>Dec 6, 2024
+                            <p>
                         </h2>
                     </div>
                 </div>
@@ -131,15 +144,17 @@
                     <img th:src="@{/assets/paul.jpg}" alt="Image 3">
                     <div class="caption">
                         <h2>Paul McCartney
-                            <p>La Défense Arena, Nanterre<br>Dec 5, 2024<p>
+                            <p>La Défense Arena, Nanterre<br>Dec 5, 2024
+                            <p>
                         </h2>
                     </div>
                 </div>
-                
+
                 <a class="prev" onclick="plusSlides(-1, 'slide-otp')">&#10094;</a>
                 <a class="next" onclick="plusSlides(1, 'slide-otp')">&#10095;</a>
             </div>
         </div>
     </main>
 </body>
+
 </html>

@@ -1,91 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Login</title>
-		<link rel="stylesheet" th:href="@{/css/login.css}"/>
-	</head>
-	<body>
-		<a class="return-btn" href="/">return</a>
-		<div class="container" id="container">
-			<div class="form-container sign-up-container">
-				<form action="register" method="post" th:action="@{/register}" th:object="${user}">
-					<h1>Create Account</h1>
-					<span>or use your email for registration</span>
-					<input type="text" placeholder="Username" />
-					<input type="email" placeholder="Email" />
-					<input type="password" placeholder="Password" />
-					<input type="password" placeholder="Confirm Password" />
-					<button type="submit">Sign Up</button>
-				</form>
-			</div>
-			<div class="form-container sign-in-container">
-				<form action="login" method="post">
-					<h1>Sign in</h1>
-					<span>or use your account</span>
-					<p th:if="${status}==failed">Please check username or password</p>
-					<input type="email" placeholder="Email" name="email"/>
-					<input type="password" placeholder="Password" id="password" name="password"/>
-					<!-- <label for="showPassword">
-						<input type="checkbox" id="showPasswordLog"/>
-						Show password
-					</label> -->
-					<!-- <a href="#">Forgot your password?</a> -->
-					<button type="submit">Sign In</button>
-				</form>
-			</div>
-			<div class="overlay-container">
-				<div class="overlay">
-					<div class="overlay-panel overlay-left">
-						<h1>Have an account?</h1>
-						<p>
-							Sign in with your registered account to keep connected with us
-						</p>
-						<button class="ghost" id="signIn">Sign In</button>
-					</div>
-					<div class="overlay-panel overlay-right">
-						<h1>Don't have an account yet?</h1>
-						<p>Enter your personal details and start journey with us</p>
-						<button class="ghost" id="signUp">Sign Up</button>
-					</div>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Login</title>
+	<link rel="stylesheet" href="/css/login.css" />
+</head>
+
+<body>
+	<a class="return-btn" href="home">Return</a>
+	<div class="container" id="container">
+		<!-- Sign Up Form -->
+		<div class="form-container sign-up-container">
+			<form action="/register" method="post">
+				<h1>Create Account</h1>
+				<span>or use your email for registration</span>
+				<input type="text" placeholder="Username" name="username" required />
+				<input type="email" placeholder="Email" name="email" required />
+				<input type="password" placeholder="Password" name="password" required />
+				<input type="password" placeholder="Confirm Password" name="confirmpassword" required />
+				<button type="submit">Sign Up</button>
+			</form>
+		</div>
+
+		<!-- Sign In Form -->
+		<div class="form-container sign-in-container">
+			<form action="/login" method="post">
+				<h1>Sign in</h1>
+				<span>or use your account</span>
+				<p id="error-message" style="color: red; display: none;">Invalid email or password</p>
+				<input type="email" placeholder="Email" name="email" required />
+				<input type="password" placeholder="Password" name="password" required />
+				<button type="submit">Sign In</button>
+			</form>
+		</div>
+
+		<!-- Overlay -->
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+					<h1>Have an account?</h1>
+					<p>Sign in with your registered account to keep connected with us</p>
+					<button class="ghost" id="signIn">Sign In</button>
+				</div>
+				<div class="overlay-panel overlay-right">
+					<h1>Don't have an account yet?</h1>
+					<p>Enter your personal details and start your journey with us</p>
+					<button class="ghost" id="signUp">Sign Up</button>
 				</div>
 			</div>
 		</div>
-		<script>
-			const signUpButton = document.getElementById('signUp');
-			const signInButton = document.getElementById('signIn');
-			const container = document.getElementById('container');
+	</div>
 
-			signUpButton.addEventListener('click', () => {
-				container.classList.add('right-panel-active');
-			});
+	<script>
+		const signUpButton = document.getElementById('signUp');
+		const signInButton = document.getElementById('signIn');
+		const container = document.getElementById('container');
 
-			signInButton.addEventListener('click', () => {
-				container.classList.remove('right-panel-active');
-			});
+		signUpButton.addEventListener('click', () => {
+			container.classList.add('right-panel-active');
+		});
 
-			// const inputPasswordLog = document.getElementById('inputPassLog');
-			// const showPasswordLog = document.getElementById('showPasswordLog');
+		signInButton.addEventListener('click', () => {
+			container.classList.remove('right-panel-active');
+		});
 
-			// showPasswordLog.addEventListener("input", (e) => {
-			// 	if(e.target.checked){
-			// 		inputPasswordLog.setAttribute("type", "text");
-			// 	}else{
-			// 		inputPasswordLog.setAttribute("type", "password");
-			// 	};
-			// })
+		// Show error message if login fails
+		const urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.has('error')) {
+			document.getElementById('error-message').style.display = 'block';
+		}
+	</script>
+</body>
 
-			// const inputPasswordReg = document.getElementById('inputPassReg');
-			// const showPasswordReg = document.getElementById('showPasswordReg');
-
-			// showPasswordReg.addEventListener("input", (e) => {
-			// 	if(e.target.checked){
-			// 		inputPasswordReg.setAttribute("type", "text");
-			// 	}else{
-			// 		inputPasswordReg.setAttribute("type", "password");
-			// 	};
-			// })
-		</script>
-	</body>
 </html>

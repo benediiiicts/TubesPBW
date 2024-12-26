@@ -16,9 +16,8 @@ public class JdbcUserRepository implements UserRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-
-    public void save(User user) throws Exception{
-        String sql = "INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, 'member')";
+    public void save(User user) throws Exception {
+        String sql = "INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, user.getEmail(), user.getUsername(), user.getPassword(), user.getRole());
     }
 
@@ -30,13 +29,12 @@ public class JdbcUserRepository implements UserRepository {
 
     private User mapRowToUser(ResultSet resultSet, int rowNum) throws SQLException {
         return new User(
-            resultSet.getInt("id"),
-            resultSet.getString("email"),
-            resultSet.getString("username"),
-            resultSet.getString("password"),
-            resultSet.getString("password"),
-            resultSet.getString("role")
-        );
+                resultSet.getInt("id"),
+                resultSet.getString("email"),
+                resultSet.getString("username"),
+                resultSet.getString("password"),
+                resultSet.getString("password"),
+                resultSet.getString("role"));
     }
 
 }
