@@ -1,4 +1,8 @@
-list UI dan fitur yang perlu dibuat
+yang perlu dikerjakan
+- back-end
+- UI beberapa halaman
+
+list UI yang perlu dibuat
 
 - halaman detail artist
 - list artist
@@ -7,7 +11,5 @@ list UI dan fitur yang perlu dibuat
 - add setlist
 - detail show (bisa nambahin setlist disini)
 - halaman detail setlist (bisa edit ini)
-
 - laporan lagu di play per bulan untuk setiap artist
-
 - admin bisa kelola user
