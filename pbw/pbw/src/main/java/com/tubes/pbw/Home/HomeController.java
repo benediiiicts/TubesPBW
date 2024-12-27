@@ -14,11 +14,16 @@ public class HomeController {
     @GetMapping("/home")
     public String home(HttpSession session, Model model) {
         // Ambil user dari session
-        User loggedUser = (User) session.getAttribute("loggedUser ");
+        User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser != null) {
             // Jika user sudah login, tambahkan nama user ke model
-            model.addAttribute("username", loggedUser.getUsername());
+            model.addAttribute("user", loggedUser);
         }
         return "home"; // Mengarahkan ke halaman home
+    }
+    
+    @GetMapping("/")
+    public String redirectHome(){
+        return "redirect:/home";
     }
 }

@@ -16,12 +16,13 @@
                 <div class="header-title">
                     <a href="/">TourTune.</a>
                 </div>
+                <!-- Jika sudang login -->
+                <span th:if="${user != null}" class="welcome-text" th:text="${'Welcome, ' + user.username}"></span>
                 <div class="header-buttons">
-                    <a class="login-register-btn" th:if="${username == null}" href="/login">Sign in/ Sign up</a>
-                    <span th:if="${username != null}">
-                        Welcome, <span th:text="${username}"></span>!
-                        <a class="login-register-btn" href="/logout">Sign Out</a>
-                    </span>
+                    <!-- Jika belum login -->
+                    <a class="login-register-btn" th:if="${user == null}" href="/login">Sign in/ Sign up</a>
+                    <!-- Jika sudang login -->
+                    <a th:if="${user != null}" class="login-register-btn" href="/logout">Sign Out</a>
                 </div>
             </div>
             <nav class="sidebar" id="sidebar">

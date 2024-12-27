@@ -39,9 +39,9 @@ header {
     width: 100%;
     display: grid;
     grid-template-areas: 
-        'menu title buttons';
+        'menu title name buttons';
     grid-template-columns: 
-        50px auto 250px
+        50px auto auto 250px
 }
 .hamburger-menu{
     margin-right: 10px;
@@ -68,6 +68,11 @@ header {
 .header-title a{
     text-decoration: none;
     color: white;
+}
+.welcome-text{
+    grid-area: name;
+    align-self: center;
+    justify-self: end;
 }
 .header-buttons {
     grid-area: buttons;
