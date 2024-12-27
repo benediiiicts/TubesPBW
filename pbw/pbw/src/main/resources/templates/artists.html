@@ -39,7 +39,10 @@
                     <a href="/">TourTune.</a>
                 </div>
                 <div class="header-buttons">
-                    <a class="login-register-btn" href="/login">Sign in/ Sign up</a>
+                    <!-- Jika belum login -->
+                    <a class="login-register-btn" th:if="${user == null}" href="/login">Sign in/ Sign up</a>
+                    <!-- Jika sudang login -->
+                    <a th:if="${user != null}" class="login-register-btn" href="/logout">Sign Out</a>
                 </div>
             </div>
             <nav class="sidebar" id="sidebar">
@@ -56,9 +59,29 @@
         </nav>
     </header>
     <main>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button class="search-btn">Search</button>
+        <div class="body-content">
+            <div class="add-ons">
+                <div class="filter-container">
+                    <select class="filter">
+                        <option val="" disabled selected>Country</option>
+                        <option val="2">Country 1</option>
+                        <option val="3">Country 2</option>
+                    </select>
+                    <select class="filter">
+                        <option val="" disabled selected>Genre</option>
+                        <option val="2">Genre 1</option>
+                        <option val="3">Genre 2</option>
+                        <option val="3">Other</option>
+                    </select>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search artist...">
+                    <button class="search-btn">Search</button>
+                </div>
+                <a href="/add-artist" class="button-a">
+                    <button class="add-artist-btn">Add an Artist</button>
+                </a>
+            </div>
         </div>
         <div class="body-content">
             <h1 id="content-header">Popular Artist</h1>
