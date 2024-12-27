@@ -55,4 +55,15 @@ public class JdbcArtistsRepository implements ArtistsRepository{
                 rs.getString("Country")
         );
     }
+
+    @Override
+    public List<Artist> findAllArtists(String query) {
+        return jdbcTemplate.query(query, this::mapRowToArtist);
+    }
+
+    public List<Artist> findArtistsByPage(String query, int limit, int offset) {
+        return jdbcTemplate.query(query, this::mapRowToArtist, limit, offset);
+    }
+    
+
 }
