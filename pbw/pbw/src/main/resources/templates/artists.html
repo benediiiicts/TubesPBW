@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/discover.css}">
+    <link rel="stylesheet" th:href="@{/css/artists.css}">
     <style>
         .pagination ul {
             display: flex;
@@ -84,7 +84,6 @@
             </div>
         </div>
         <div class="body-content">
-            <h1 id="content-header">Popular Artist</h1>
             <div class="content-container">
                 <div class="content" th:each="artist : ${artists}">
                     <a class="card" th:href="@{'/artist/' + ${artist.id}}">
@@ -97,14 +96,14 @@
                     </a>
                 </div>
             </div>
-            <div class="pagination">
+            <div class="pagination" th:if="${totalPages > 0}">
                 <ul>
                     <li th:if="${currentPage > 1}">
                         <a th:href="@{/artists(page=${currentPage - 1}, size=${pageSize})}">Previous</a>
                     </li>
                     <li th:each="i : ${#numbers.sequence(1, totalPages)}">
                         <a th:href="@{/artists(page=${i}, size=${pageSize})}" 
-                           th:classappend="${i == currentPage} ? 'active' : ''"
+                           th:classappend="${i == currentPage} ? 'active'" 
                            th:text="${i}">1</a>
                     </li>
                     <li th:if="${currentPage < totalPages}">
