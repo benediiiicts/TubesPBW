@@ -10,4 +10,5 @@ public interface ArtistsRepository {
     Optional<Artist> findArtist(String username);
     Optional<Artist> findByName(String name);
     public List<Artist> searchByName(String query);
+    List<Artist> findAllArtists(String query);
 }
