@@ -61,4 +61,9 @@ public class JdbcArtistsRepository implements ArtistsRepository{
         return jdbcTemplate.query(query, this::mapRowToArtist);
     }
 
+    public List<Artist> findArtistsByPage(String query, int limit, int offset) {
+        return jdbcTemplate.query(query, this::mapRowToArtist, limit, offset);
+    }
+    
+
 }

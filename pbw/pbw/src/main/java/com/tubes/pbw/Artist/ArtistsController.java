@@ -16,21 +16,25 @@ public class ArtistsController {
     @Autowired
     ArtistsService artistsService;
 
-    // @GetMapping("/artists")
-    // public String redirectToArtists() {
-    //     return "artists";
-    // }
     @GetMapping("/add-artist")
     public String redirectToAddArtists() {
         return "add-artist";
     }
 
     @GetMapping("/artists")
-    public String showArtists(Model model) {
-        List<Artist> artists = artistsService.getAllArtists();
+    public String showArtists(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        List<Artist> artists = artistsService.getArtistsByPage(page, size);
+        int totalPages = artistsService.getTotalPages(size);
+        
         model.addAttribute("artists", artists);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
         return "artists";
     }
+
 
 
 }
