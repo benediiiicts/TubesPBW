@@ -161,6 +161,7 @@ INSERT INTO countries (country_code, country_name) VALUES
 ('PHL', 'Philippines'),
 ('POL', 'Poland'),
 ('PRT', 'Portugal'),
+('PRI', 'Puerto Rico'),
 ('QAT', 'Qatar'),
 ('ROU', 'Romania'),
 ('RUS', 'Russia'),

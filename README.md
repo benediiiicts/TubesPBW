@@ -1,5 +1,10 @@
 Fitur yang sudah selesai dikerjakan tulis di **FinishedList.md**
 
+**_KERJA RODI :)_**
+- cari foto artis
+- masukin lagu artis
+- buat setlis buat artis
+
 Perlu dikerjakan:
 - back-end
 - UI beberapa halaman
