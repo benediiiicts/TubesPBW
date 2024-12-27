@@ -17,5 +17,11 @@ public class ArtistsService {
     public List<Artist> searchArtists(String query) {
         return artistRepository.searchByName(query);
     }
+
+    public List<Artist> getAllArtists() {
+        String sql = "SELECT * FROM artist";
+        return artistRepository.findAllArtists(sql);
+    }
+    
 }
 
