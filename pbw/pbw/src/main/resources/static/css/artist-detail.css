@@ -1,7 +1,6 @@
 main {
     padding: 20px;
 }
-
 body {
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(to bottom right, #1f2833, #45a29e);
@@ -9,22 +8,18 @@ body {
     margin: 0;
     padding: 0;
 }
-
-.body-content {
+.body-content{
     border-radius: 5px;
     color: #C5C6C7;
     margin: 10px;
     padding: 20px;
     padding-top: 10px;
-    justify-items: center;
-    align-items: center;
 }
-
-.body-content p {
+.body-content p{
+    font-size: large;
     padding-left: 10%;
     padding-right: 10%;
 }
-
 header {
     background-color: #1f2833;
     color: white;
@@ -38,32 +33,29 @@ header {
         'bottom'; */
     justify-content: center;
 }
-
-.header-container {
+.header-container{
     /* grid-area: top; */
     width: 100%;
     display: grid;
-    grid-template-areas:
+    grid-template-areas: 
         'menu title buttons';
-    grid-template-columns:
+    grid-template-columns: 
         50px auto 250px
 }
-
-.hamburger-menu {
+.hamburger-menu{
     margin-right: 10px;
     padding: 0px;
     grid-area: menu;
     color: white;
     font-size: x-large;
     border-radius: 5px;
-    font-weight: bolder;
+    font-weight:bolder;
     border: 100px;
     cursor: pointer;
     background-color: transparent;
     /* padding-left: 10px;
     padding-right: 10px; */
 }
-
 .header-title {
     grid-area: title;
     font-size: 30px;
@@ -72,20 +64,16 @@ header {
     justify-content: start;
     align-items: center;
 }
-
-.header-title a {
+.header-title a{
     text-decoration: none;
     color: white;
 }
-
 .header-buttons {
     grid-area: buttons;
     display: grid;
     align-items: center;
 }
-
-.login-register-btn,
-.search-btn, .add-artist-btn {
+.login-register-btn, .search-btn {
     margin-left: 10px;
     border-radius: 20px;
     border: 1px solid #FFFFFF;
@@ -101,74 +89,34 @@ header {
     text-transform: uppercase;
     transition: transform 80ms ease-in;
 }
-
-.login-register-btn:hover,
-.search-btn:hover, .add-artist-btn:hover,
-.hamburger-menu:hover {
+.login-register-btn:hover, .search-btn:hover, .hamburger-menu:hover{
     background-color: #C5C6C7;
     color: #1f2833;
     transition: background-color 0.3s ease;
 }
-.add-ons{
-    display: grid;
-    grid-template-areas: 
-        'filters search add-btn';
-    grid-template-columns: 210px auto 150px;
-    width: 85%;
-    margin: 25px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    height: 50px;
-}
-
 .search-bar {
-    grid-area: search;
+    margin: 20px;
+    margin-bottom: 30px;
     display: flex;
     justify-self: center;
-    align-items: center;
-    width: 100%;
+    width: 60%;
 }
-
 .search-bar input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 20px;
-    width: 100%;
+    flex: 1;
 }
 
 .search-bar .search-btn {
     margin-left: 10px;
 }
-
-.filter-container{
-    grid-area: filters;
-    display: flex;
-    justify-items: start;
-    align-items: center;
-    gap: 10px;
-}
-.filter{
-    border-radius: 20px;
-    color: #575757;
-    font-size: 12px;
-    cursor: pointer;
-    text-decoration: none;
-    padding: 10px;
-}
-.button-a{
-    grid-area: add-btn;
-    display: flex;
-    justify-self: end;
-    text-decoration: none;
-    align-self: center;
-}
-
 .sidebar {
     display: flex;
     flex-direction: column;
     position: fixed;
     top: 0;
-    left: -250px;
+    left: -250px; 
     width: 250px;
     height: 100%;
     background-color: #1f2833;
@@ -178,8 +126,7 @@ header {
 }
 
 .sidebar.active {
-    left: 0;
-    /* Slide in */
+    left: 0; /* Slide in */
 }
 
 .sidebar ul {
@@ -199,17 +146,15 @@ header {
     transition: background-color 0.3s ease;
 }
 
-.sidebar ul li a:hover {
+.sidebar ul li a:hover{
     background-color: #575757;
 }
-
-.xContainer {
+.xContainer{
     display: flex;
     justify-content: end;
     align-items: end;
 }
-
-#x {
+#x{
     margin: 15px;
     border: 0px;
     border-radius: 5px;
@@ -218,107 +163,46 @@ header {
     font-weight: bolder;
     font-size: larger;
 }
-
-.add-setlist {
-    font-size: 30px;
-    align-self: center;
-    justify-self: center;
-}
-
-.content-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.content {
-    margin: 10px;
-    width: 20%;
-}
-
-.contents {
-    color: #1f2833;
-    background-color: white;
-    border-radius: 10px;
-    padding: 10px;
-    align-self: center;
-    justify-self: center;
+.profile-container {
     width: 80%;
-}
-
-.card {
+    margin: 0 auto;
+    padding: 0px;
+    background: #1f2833;
+    border-radius: 12px;
     position: relative;
-    height: 380px;
-    cursor: pointer;
-    display: block;
-    background-color: black;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-    color: white;
-    transition: background-color 0.3s ease;
+    overflow: hidden;   
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    min-height: 400px;
 }
 
-
-.card:hover .card-overlay {
-    background: rgba(0, 0, 0, 0.8);
+.profile-image {
+    width: 50%;
+    height: 400px;
+    position: relative;
 }
 
-.card-image {
+.profile-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    mask-image: linear-gradient(to right, black 50%, transparent 100%);
 }
-
-.card-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 10px;
-    opacity: 1;
-    transition: background-color 0.3s ease;
+.artist-info {
+    flex-grow: 1;
+    z-index: 2;
 }
-
-.card:hover {
-    background-color: rgba(0, 0, 0, 0.7);
+.artist-info p{
+    padding: 0%;
 }
-
-.card-body {
-    padding: 10px;
+.artist-name {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: #ffffff;
 }
-
-.card-body p {
-    align-self: center;
-    justify-self: center;
-    margin: 5px;
-    margin-left: 0px;
-    margin-right: 0px;
-}
-
-.card-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0;
-}
-
-.set-place,
-.set-date {
-    font-size: 14px;
-    margin: 5px 0;
-}
-
-.card:hover .card-image {
-    transform: scale(1.1);
+.artist-description{
+    font-size: 1.2em;
+    color: #C5C6C7;
+    line-height: 1.6;
 }
