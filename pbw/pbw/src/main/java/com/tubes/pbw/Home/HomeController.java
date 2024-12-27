@@ -27,9 +27,4 @@ public class HomeController {
         return "redirect:/home";
     }
 
-    @GetMapping("/")
-    public String redirect(){
-        return "redirect:/home";
-    }
-    
 }

@@ -21,8 +21,13 @@ public class JdbcSetlistRepository implements SetlistRepository {
 
     @Override
     public Optional<SetList> findById(String id) {
-        // TODO Auto-generated method stub
+        jdbcTemplate.query("SELECT * FROM setlist WHERE id = ?", this::mapRowToSetlist, id);
         throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    }
+
+    private SetList mapRowToSetlist(java.sql.ResultSet rs, int rowNum) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mapRowToSetlist'");
     }
 
     

@@ -232,3 +232,24 @@ header {
     font-weight: bolder;
     font-size: larger;
 }
+
+.dropdown {
+    position: relative;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+}
+
+.dropdown div {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown div:hover {
+    background: #f0f0f0;
+}
+
