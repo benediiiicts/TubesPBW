@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/artist-detail.css}">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="header-container">
+                <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+                <div class="header-title">
+                    <a href="/">TourTune.</a>
+                </div>
+                <!-- Jika sudang login -->
+                <span th:if="${user != null}" class="welcome-text" th:text="${'Welcome, ' + user.username}"></span>
+                <div class="header-buttons">
+                    <!-- Jika belum login -->
+                    <a class="login-register-btn" th:if="${user == null}" href="/login">Sign in/ Sign up</a>
+                    <!-- Jika sudang login -->
+                    <a th:if="${user != null}" class="login-register-btn" href="/logout">Sign Out</a>
+                </div>
+            </div>
+            <nav class="sidebar" id="sidebar">
+                <div class="xContainer">
+                    <button id="x" onclick="toggleMenu()">&#x2716;</button>
+                </div>
+                <ul>
+                    <li><a href="/" id="home-page">Home Page</a></li>
+                    <li><a href="/discover" id="discover">Discover</a></li>
+                    <li><a href="/artists" id="artist">Artists</a></li>
+                    <li><a href="/shows" id="show">Shows</a></li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+    <main>
+        <div class="body-content">
+            <div class="profile-container">
+                <div class="profile-image">
+                    <img th:src="@{/assets/fujii.jpg}" alt="Artist Profile" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="artist-info">
+                    <h1 class="artist-name">Artist Name</h1>
+                    <p class="artist-description">description description description</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

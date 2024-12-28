@@ -34,7 +34,9 @@ public class ArtistsController {
         model.addAttribute("totalPages", totalPages);
         return "artists";
     }
-
-
-
+    @GetMapping("/artist-detail")
+    public String redirectToArtistDetail(){
+        return "artist-detail";
+    }
 }
+
