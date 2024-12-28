@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,6 +31,7 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <nav class="navbar">
@@ -38,6 +40,8 @@
                 <div class="header-title">
                     <a href="/">TourTune.</a>
                 </div>
+                <!-- Jika sudang login -->
+                <span th:if="${user != null}" class="welcome-text" th:text="${'Welcome, ' + user.username}"></span>
                 <div class="header-buttons">
                     <!-- Jika belum login -->
                     <a class="login-register-btn" th:if="${user == null}" href="/login">Sign in/ Sign up</a>
@@ -49,7 +53,7 @@
                 <div class="xContainer">
                     <button id="x" onclick="toggleMenu()">&#x2716</button>
                 </div>
-                <ul>  
+                <ul>
                     <li><a href="/" id="home-page">Home Page</a></li>
                     <li><a href="/discover" id="discover">Discover</a></li>
                     <li><a href="/artists" id="artist">Artists</a></li>
@@ -102,18 +106,17 @@
                         <a th:href="@{/artists(page=${currentPage - 1}, size=${pageSize})}">Previous</a>
                     </li>
                     <li th:each="i : ${#numbers.sequence(1, totalPages)}">
-                        <a th:href="@{/artists(page=${i}, size=${pageSize})}" 
-                           th:classappend="${i == currentPage} ? 'active'" 
-                           th:text="${i}">1</a>
+                        <a th:href="@{/artists(page=${i}, size=${pageSize})}"
+                            th:classappend="${i == currentPage} ? 'active'" th:text="${i}">1</a>
                     </li>
                     <li th:if="${currentPage < totalPages}">
                         <a th:href="@{/artists(page=${currentPage + 1}, size=${pageSize})}">Next</a>
                     </li>
                 </ul>
             </div>
-            
+
         </div>
-        
+
     </main>
     <script>
         function toggleMenu() {
@@ -122,4 +125,5 @@
         }
     </script>
 </body>
+
 </html>

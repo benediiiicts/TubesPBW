@@ -85,7 +85,8 @@ header {
 }
 
 .login-register-btn,
-.search-btn, .add-artist-btn {
+.search-btn,
+.add-artist-btn {
     margin-left: 10px;
     border-radius: 20px;
     border: 1px solid #FFFFFF;
@@ -103,15 +104,17 @@ header {
 }
 
 .login-register-btn:hover,
-.search-btn:hover, .add-artist-btn:hover,
+.search-btn:hover,
+.add-artist-btn:hover,
 .hamburger-menu:hover {
     background-color: #C5C6C7;
     color: #1f2833;
     transition: background-color 0.3s ease;
 }
-.add-ons{
+
+.add-ons {
     display: grid;
-    grid-template-areas: 
+    grid-template-areas:
         'filters search add-btn';
     grid-template-columns: 210px auto 150px;
     width: 85%;
@@ -140,14 +143,15 @@ header {
     margin-left: 10px;
 }
 
-.filter-container{
+.filter-container {
     grid-area: filters;
     display: flex;
     justify-items: start;
     align-items: center;
     gap: 10px;
 }
-.filter{
+
+.filter {
     border-radius: 20px;
     color: #575757;
     font-size: 12px;
@@ -155,7 +159,8 @@ header {
     text-decoration: none;
     padding: 10px;
 }
-.button-a{
+
+.button-a {
     grid-area: add-btn;
     display: flex;
     justify-self: end;
