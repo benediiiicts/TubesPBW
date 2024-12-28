@@ -38,7 +38,9 @@ public class ArtistsService {
         int totalArtists = jdbcTemplate.queryForObject(sql, Integer.class);
         return (int) Math.ceil((double) totalArtists / size);
     }
-    
+    public Artist getArtistById(Integer id){
+        return artistRepository.findById(id);
+    }
     
 }
 

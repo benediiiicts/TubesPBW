@@ -5,31 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/artists.css}">
-    <style>
-        .pagination ul {
-            display: flex;
-            list-style-type: none;
-            justify-content: center;
-            padding: 0;
-        }
-
-        .pagination ul li {
-            margin: 0 5px;
-        }
-
-        .pagination ul li a {
-            text-decoration: none;
-            color: #000;
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .pagination ul li a.active {
-            background-color: #007bff;
-            color: #fff;
-        }
-    </style>
 </head>
 
 <body>
@@ -90,7 +65,7 @@
         <div class="body-content">
             <div class="content-container">
                 <div class="content" th:each="artist : ${artists}">
-                    <a class="card" th:href="@{'/artist/' + ${artist.id}}">
+                    <a class="card" th:href="@{/artist/{name}-{id}(name=${artist.name}, id=${artist.id})}">
                         <img th:src="@{${artist.PhotosURL}}" alt="artist-image" class="card-image">
                         <div class="card-overlay">
                             <h3 class="card-title" th:text="${artist.name}"></h3>
