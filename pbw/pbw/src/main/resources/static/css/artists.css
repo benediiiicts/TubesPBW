@@ -87,6 +87,7 @@ header {
 .login-register-btn,
 .search-btn,
 .add-artist-btn {
+
     margin-left: 10px;
     border-radius: 20px;
     border: 1px solid #FFFFFF;
@@ -112,9 +113,9 @@ header {
     transition: background-color 0.3s ease;
 }
 
-.add-ons {
+.add-ons{
     display: grid;
-    grid-template-areas:
+    grid-template-areas: 
         'filters search add-btn';
     grid-template-columns: 210px auto 150px;
     width: 85%;
@@ -151,7 +152,8 @@ header {
     gap: 10px;
 }
 
-.filter {
+.filter{
+
     border-radius: 20px;
     color: #575757;
     font-size: 12px;
@@ -160,7 +162,8 @@ header {
     padding: 10px;
 }
 
-.button-a {
+.button-a{
+
     grid-area: add-btn;
     display: flex;
     justify-self: end;

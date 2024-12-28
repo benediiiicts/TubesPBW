@@ -53,3 +53,4 @@ public class ArtistsController {
         return "artist-detail";
     }
 }
+
