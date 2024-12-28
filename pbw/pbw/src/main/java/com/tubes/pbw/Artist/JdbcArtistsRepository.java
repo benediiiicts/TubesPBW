@@ -30,6 +30,14 @@ public class JdbcArtistsRepository implements ArtistsRepository{
     }
 
     @Override
+    public Artist findById(Integer id) {
+        String sql = "SELECT * FROM artist WHERE idartist = ?";
+        List<Artist> result = jdbcTemplate.query(sql, this::mapRowToArtist, id);
+        Artist artist = result.get(0);
+        return artist;
+    }
+
+    @Override
     public Optional<Artist> findByName(String name) {
         String sql = "SELECT * FROM artist WHERE LOWER(name) = LOWER(?)";
         List<Artist> results = jdbcTemplate.query(sql, this::mapRowToArtist, name);
@@ -41,7 +49,6 @@ public class JdbcArtistsRepository implements ArtistsRepository{
         String sql = "SELECT * FROM artist WHERE LOWER(name) LIKE LOWER(?)";
         return jdbcTemplate.query(sql, this::mapRowToArtist, "%" + query.toLowerCase() + "%");
     }
-    
 
     // Mapper untuk memetakan hasil query ke entitas Artist
     private Artist mapRowToArtist(ResultSet rs, int rowNum) throws SQLException {
@@ -65,5 +72,4 @@ public class JdbcArtistsRepository implements ArtistsRepository{
         return jdbcTemplate.query(query, this::mapRowToArtist, limit, offset);
     }
     
-
 }
