@@ -41,14 +41,24 @@ public class ArtistsController {
         }
 
         List<Artist> artists = artistsService.getFilteredArtists(page, size, search, country, genre);
-        int totalPages = artistsService.getTotalPages(size);
+        int totalPages = artistsService.getTotalPages(size, search, country, genre);
+
+        // Fetch genres and countries dynamically
+        List<String> countries = artistsService.getAllCountries();
+        List<String> genres = artistsService.getAllGenres();
 
         model.addAttribute("artists", artists);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
+        model.addAttribute("countryFilter", country);
+        model.addAttribute("genreFilter", genre);
+        model.addAttribute("searchQuery", search);
+        model.addAttribute("countries", countries);
+        model.addAttribute("genres", genres);
 
         return "artists";
     }
+
 
 
     @GetMapping("/artist/{name}-{id}")

@@ -118,6 +118,7 @@ header {
     grid-template-areas: 
         'filters search add-btn';
     grid-template-columns: 210px auto 150px;
+    column-gap: 50px;
     width: 85%;
     margin: 25px;
     margin-top: 0px;
@@ -257,6 +258,7 @@ header {
 
 .card {
     position: relative;
+  
     height: 380px;
     cursor: pointer;
     display: block;
@@ -267,6 +269,7 @@ header {
     text-decoration: none;
     color: white;
     transition: background-color 0.3s ease;
+    justify-self: center;
 }
 
 
