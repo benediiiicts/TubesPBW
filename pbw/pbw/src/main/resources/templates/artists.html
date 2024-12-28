@@ -41,21 +41,21 @@
         <div class="body-content">
             <div class="add-ons">
                 <div class="filter-container">
-                    <select class="filter">
-                        <option val="" disabled selected>Country</option>
-                        <option val="2">Country 1</option>
-                        <option val="3">Country 2</option>
+                    <select id="countryFilter" class="filter">
+                        <option value="" selected>All Countries</option>
+                        <option value="USA">USA</option>
+                        <option value="Country 2">Country 2</option>
                     </select>
-                    <select class="filter">
-                        <option val="" disabled selected>Genre</option>
-                        <option val="2">Genre 1</option>
-                        <option val="3">Genre 2</option>
-                        <option val="3">Other</option>
+                    <select id="genreFilter" class="filter">
+                        <option value="" selected>All Genres</option>
+                        <option value="Pop">Pop</option>
+                        <option value="Genre 2">Genre 2</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search artist...">
-                    <button class="search-btn">Search</button>
+                    <input id="searchInput" type="text" placeholder="Search artist...">
+                    <button class="search-btn" onclick="applyFilters()">Search</button>
                 </div>
                 <a href="/add-artist" class="button-a">
                     <button class="add-artist-btn">Add an Artist</button>
@@ -97,7 +97,14 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
+
+        function applyFilters() {
+            const country = document.getElementById('countryFilter').value;
+            const genre = document.getElementById('genreFilter').value;
+            const searchQuery = document.getElementById('searchInput').value;
+
+            const url = `/artists?country=${country}&genre=${genre}&search=${searchQuery}`;
+            window.location.href = url;
+        }
     </script>
 </body>
-
-</html>
