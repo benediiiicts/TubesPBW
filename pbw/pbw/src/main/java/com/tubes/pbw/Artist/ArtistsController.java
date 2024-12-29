@@ -29,25 +29,37 @@ public class ArtistsController {
     public String showArtists(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) String country,
+            @RequestParam(required = false) String genre,
             HttpSession session,
             Model model) {
-        // Ambil user dari session
+
         User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser != null) {
-            // Jika user sudah login, tambahkan nama user ke model
             model.addAttribute("user", loggedUser);
         }
 
-        // Ambil data artis berdasarkan halaman dan ukuran
-        List<Artist> artists = artistsService.getArtistsByPage(page, size);
-        int totalPages = artistsService.getTotalPages(size);
+        List<Artist> artists = artistsService.getFilteredArtists(page, size, search, country, genre);
+        int totalPages = artistsService.getTotalPages(size, search, country, genre);
+
+        // Fetch genres and countries dynamically
+        List<String> countries = artistsService.getAllCountries();
+        List<String> genres = artistsService.getAllGenres();
 
         model.addAttribute("artists", artists);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
+        model.addAttribute("countryFilter", country);
+        model.addAttribute("genreFilter", genre);
+        model.addAttribute("searchQuery", search);
+        model.addAttribute("countries", countries);
+        model.addAttribute("genres", genres);
 
-        return "artists"; // Mengarahkan ke halaman artists
+        return "artists";
     }
+
+
 
     @GetMapping("/artist/{name}-{id}")
     public String redirectToArtistDetail(@PathVariable String name, @PathVariable Integer id, Model model) {
