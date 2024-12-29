@@ -43,7 +43,7 @@ public class jdbcShowsRepository implements ShowsRepository {
     @Override
 public Show findById(Long id) {
     String sql = "SELECT * FROM \"show\" WHERE idShow = ?";
-    List<Show> result = jdbcTemplate.query(sql, this::mapRowToShow, id);
+    List<Show> result = (List<Show>) jdbcTemplate.query(sql, this::mapRowToShow, id);
     if (result.isEmpty()) {
         return null; 
     }
