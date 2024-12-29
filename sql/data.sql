@@ -7,6 +7,8 @@ DROP TABLE IF EXISTS album CASCADE;
 DROP TABLE IF EXISTS songs CASCADE;
 DROP TABLE IF EXISTS song_artist CASCADE;
 DROP TABLE IF EXISTS setlist CASCADE;
+DROP TABLE IF EXISTS "venue" CASCADE;
+
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -76,4 +78,20 @@ CREATE TABLE song_artist (
     idArtist INT NOT NULL,
     FOREIGN KEY (idArtist) REFERENCES artist(idArtist),
     FOREIGN KEY (idSongs) REFERENCES songs(idSongs)
+);
+
+CREATE TABLE venue (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255),
+    address2 VARCHAR(255),
+    city VARCHAR(100) NOT NULL,
+    state VARCHAR(100),
+    zip VARCHAR(20) NOT NULL,
+    geocodable BOOLEAN NOT NULL,
+    latitude DECIMAL(9,6) NOT NULL,
+    longitude DECIMAL(9,6) NOT NULL,
+    website VARCHAR(255),
+    phone VARCHAR(20),
+    email VARCHAR(100)
 );

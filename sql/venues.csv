@@ -1,0 +1,51 @@
+id,name,address,address2,city,state,zip,geocodable,latitude,longitude,website,phone,email
+1,The O2,,Peninsula Square,London,,SE10 0DX,TRUE,51.5030,0.0032,https://www.theo2.co.uk,+442070121800,info@theo2.co.uk
+2,Madison Square Garden,,4 Pennsylvania Plaza,New York,NY,10001,TRUE,40.7505,-73.9934,https://www.msg.com,+12124657000,info@msg.com
+3,Staples Center,,1111 S Figueroa St,Los Angeles,CA,90015,TRUE,34.0430,-118.2673,https://www.staplescenter.com,+12137476500,info@staplescenter.com
+4,Sydney Opera House,,Bennelong Point,Sydney,NSW,2000,TRUE,-33.8568,151.2153,https://www.sydneyoperahouse.com,+61292507111,info@sydneyoperahouse.com
+5,Red Rocks Amphitheatre,,18300 W Alameda Pkwy,Morrison,CO,80465,TRUE,39.6654,-105.2057,https://www.redrocksonline.com,+13032974000,info@redrocksonline.com
+6,Royal Albert Hall,,Kensington Gore,London,,SW7 2AP,TRUE,51.5014,-0.1774,https://www.royalalberthall.com,+442075898212,info@royalalberthall.com
+7,Wembley Stadium,,Wembley,London,,HA9 0WS,TRUE,51.5558,-0.2796,https://www.wembleystadium.com,+442080007440,info@wembleystadium.com
+8,Tokyo Dome,,1-3-61 Koraku,Tokyo,,112-0004,TRUE,35.7054,139.7516,https://www.tokyo-dome.co.jp,+81358040800,info@tokyo-dome.co.jp
+9,Hollywood Bowl,,2301 N Highland Ave,Los Angeles,CA,90068,TRUE,34.1122,-118.3391,https://www.hollywoodbowl.com,+12138908500,info@hollywoodbowl.com
+10,The SSE Hydro,,Exhibition Way,Glasgow,,G3 8YW,TRUE,55.8602,-4.3056,https://www.thessehydro.com,+441412480300,info@thessehydro.com
+11,Madison Square Garden,4 Pennsylvania Plaza,,New York,NY,10001,TRUE,40.750504,-73.993439,https://www.msg.com,(212) 465-6000,info@msg.com
+12,Staples Center,1111 S Figueroa St,,Los Angeles,CA,90015,TRUE,34.043017,-118.267254,https://www.staplescenter.com,(213) 742-7100,info@staplescenter.com
+13,The O2,A Peninsula Square,,London,,SE10 0DX,TRUE,51.503038,-0.003154,https://www.theo2.co.uk,+44 20 8463 2000,info@theo2.co.uk
+14,Sydney Opera House,Bennelong Point,,Sydney,,2000,TRUE,-33.856784,151.215297,https://www.sydneyoperahouse.com,+61 2 9250 7111,info@sydneyoperahouse.com
+15,Red Rocks Amphitheatre,18300 W Alameda Pkwy,,Morrison,CO,80465,TRUE,39.665388,-105.205814,https://www.redrocksonline.com,(720) 865-2494,info@redrocksonline.com
+16,Wembley Stadium,Wembley,,London,,HA9 0WS,TRUE,51.556021,-0.279519,https://www.wembleystadium.com,+44 20 8795 9655,info@wembleystadium.com
+17,Allianz Parque,Av. Francisco Matarazzo 1705,,São Paulo,,05001-200,TRUE,-23.527467,-46.678946,https://www.allianzparque.com.br,+55 11 4800-6688,info@allianzparque.com.br
+18,Accor Arena,8 Boulevard de Bercy,,Paris,,75012,TRUE,48.838482,2.378928,https://www.accorarena.com,+33 1 58 70 17 00,info@accorarena.com
+19,Royal Albert Hall,Kensington Gore,,London,,SW7 2AP,TRUE,51.501364,-0.177413,https://www.royalalberthall.com,+44 20 7589 8212,info@royalalberthall.com
+20,TD Garden,100 Legends Way,,Boston,MA,02114,TRUE,42.366199,-71.062282,https://www.tdgarden.com,(617) 624-1050,info@tdgarden.com
+21,The Greek Theatre,2001 Gayley Rd,,Berkeley,CA,94720,TRUE,37.873908,-122.259755,https://thegreekberkeley.com,(510) 548-3010,info@thegreekberkeley.com
+22,Hollywood Bowl,2301 N Highland Ave,,Los Angeles,CA,90068,TRUE,34.112807,-118.339765,https://www.hollywoodbowl.com,(323) 850-2000,info@hollywoodbowl.com
+23,Tokyo Dome,1 Chome-3-61 Koraku,Bunkyo City,Tokyo,,112-0004,TRUE,35.705556,139.751389,https://www.tokyo-dome.co.jp,+81 3-5800-9999,info@tokyo-dome.co.jp
+24,Mercedes-Benz Arena,Mühlenstrasse 12-30,,Berlin,,10243,TRUE,52.505046,13.443013,https://www.mercedes-benz-arena-berlin.de,+49 30 2060708800,info@mercedes-benz-arena-berlin.de
+25,Ziggo Dome,De Passage 100,,Amsterdam,,1101 AX,TRUE,52.313452,4.937135,https://www.ziggodome.nl,+31 20 844 5000,info@ziggodome.nl
+26,Barclays Center,620 Atlantic Ave,,Brooklyn,NY,11217,TRUE,40.682621,-73.975252,https://www.barclayscenter.com,(917) 618-6100,info@barclayscenter.com
+27,Forest National,Avenue Victor Rousseau 208,,Brussels,,1190,TRUE,50.801820,4.325870,https://www.forest-national.be,+32 2 340 21 11,info@forest-national.be
+28,La Cigale,120 Boulevard de Rochechouart,,Paris,,75018,TRUE,48.882189,2.336772,https://www.lacigale.fr,+33 1 49 25 89 99,info@lacigale.fr
+29,Mediolanum Forum,Viale G. di Vittorio 6,,Assago,,20090,TRUE,45.402679,9.145686,https://www.mediolanumforum.it,+39 02 48857 501,info@mediolanumforum.it
+30,Olympiastadion,Olympischer Platz 3,,Berlin,,14053,TRUE,52.514444,13.239444,https://www.olympiastadion-berlin.de,+49 30 30688 0,info@olympiastadion-berlin.de
+31,Spartan Stadium,1200 S Harris St,,East Lansing,MI,48824,TRUE,42.726482,-84.482199,https://msuspartans.com/facilities/spartan-stadium/6,(517) 355-1610,info@msuspartans.com
+32,Albert Hall,15 Allingham Ln,,Lincoln,,LN1 1XY,TRUE,53.230104,-0.544307,https://www.lincolntheatre.com,(01522) 500586,info@lincolntheatre.com
+33,The Forum,3900 W Manchester Blvd,,Inglewood,CA,90305,TRUE,33.942494,-118.352838,https://www.theforum.com,(310) 330-7300,info@theforum.com
+34,Chase Center,1 Warriors Way,,San Francisco,CA,94158,TRUE,37.767098,-122.387888,https://www.chasecenter.com,(415) 388-4600,info@chasecenter.com
+35,Verizon Center,601 F St NW,,Washington,DC,20004,TRUE,38.897396,-77.020658,https://www.capitalonearena.com,(202) 628-3200,info@capitalonearena.com
+36,The Fillmore,1805 Geary Blvd,,San Francisco,CA,94115,TRUE,37.779302,-122.432313,https://www.thefillmore.com,(415) 346-3000,info@thefillmore.com
+37,Radio City Music Hall,1260 6th Ave,,New York,NY,10020,TRUE,40.759978,-73.977316,https://www.radiocity.com,(212) 465-6000,info@radiocity.com
+38,Palace Theatre,19 Clinton Ave,,Albany,NY,12207,TRUE,42.652935,-73.752634,https://www.palacealbany.org,(518) 465-4663,info@palacealbany.org
+39,National Arena,1215 5th St NW,,Washington,DC,20005,TRUE,38.898634,-77.018687,https://www.nationalarena.com,(202) 628-0888,info@nationalarena.com
+40,Bankers Life Fieldhouse,125 S Pennsylvania St,,Indianapolis,IN,46204,TRUE,39.763480,-86.155235,https://www.bankerslifefieldhouse.com,(317) 917-2727,info@bankerslifefieldhouse.com
+41,The Troubadour,9081 Santa Monica Blvd,,West Hollywood,CA,90069,TRUE,34.089001,-118.376181,https://www.troubadour.com,(310) 276-1158,info@troubadour.com
+42,The Ryman Auditorium,116 5th Ave N,,Nashville,TN,37219,TRUE,36.157734,-86.781944,https://www.ryman.com,(615) 889-3060,info@ryman.com
+43,United Center,1901 W Madison St,,Chicago,IL,60612,TRUE,41.880710,-87.674142,https://www.unitedcenter.com,(312) 455-4500,info@unitedcenter.com
+44,House of Blues,329 N Dearborn St,,Chicago,IL,60610,TRUE,41.888443,-87.631580,https://www.houseofblues.com/chicago,(312) 923-2000,info@houseofblues.com
+45,Le Zénith,211 Avenue Jean Jaurès,,Paris,,75019,TRUE,48.896013,2.389846,https://www.zenith-paris.com,+33 1 40 03 03 03,info@zenith-paris.com
+46,The Wiltern,3790 Wilshire Blvd,,Los Angeles,CA,90010,TRUE,34.060408,-118.303236,https://www.wiltern.com,(213) 388-1400,info@wiltern.com
+47,Sinéad O'Connor Theatre,21 Elm St,,Dublin,,D02 E772,TRUE,53.349805,-6.260310,https://www.sineadoconnor.com,+353 1 675 4400,info@sineadoconnor.com
+48,Arena Birmingham,King Edwards Road,,Birmingham,,B1 2AA,TRUE,52.481563,-1.902537,https://www.arenabirmingham.co.uk,+44 121 780 4141,info@arenabirmingham.co.uk
+49,Hammersmith Apollo,45 Queen Caroline St,,London,,W6 9QH,TRUE,51.491150,-0.220002,https://www.apollo-london.com,+44 20 8569 4333,info@apollo-london.com
+50,The Met,858 N Broad St,,Philadelphia,PA,19130,TRUE,39.973019,-75.160679,https://www.themphilly.com,(215) 978-5000,info@themphilly.com
