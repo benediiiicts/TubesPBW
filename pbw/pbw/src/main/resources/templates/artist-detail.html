@@ -41,14 +41,142 @@
         <div class="body-content">
             <div class="profile-container">
                 <div class="profile-image">
-                    <img th:src="@{/assets/fujii.jpg}" alt="Artist Profile" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img th:src="@{${artist.PhotosURL}}" alt="Artist Profile"
+                        style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div class="artist-info">
-                    <h1 class="artist-name">Artist Name</h1>
-                    <p class="artist-description">description description description</p>
+                    <h1 class="artist-name" th:text="${artist.name}"></h1>
+                    <p class="artist-description" th:text="${artist.Description}"></p>
+                    <p class="debut-year" th:text="'Debut on ' + ${artist.Year}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="body-content">
+            <div class="song-setlist-container">
+                <div class="song-container">
+                    <h2 class="container-header">Songs.</h2>
+                    <div class="song">
+                        <div class="song-img">
+                            <img th:src="@{${artist.PhotosURL}}" alt="Song Image">
+                        </div>
+                        <a class="song-title" href="#">song 1</a>
+                        <span class="song-listener">listener</span>
+                    </div>
+                    <div class="song">
+                        <div class="song-img">
+                            <img th:src="@{${artist.PhotosURL}}" alt="Song Image">
+                        </div>
+                        <a class="song-title" href="#">song 2</a>
+                        <span class="song-listener">listener</span>
+                    </div>
+                    <div class="song">
+                        <div class="song-img">
+                            <img th:src="@{${artist.PhotosURL}}" alt="Song Image">
+                        </div>
+                        <a class="song-title" href="#">song 3</a>
+                        <span class="song-listener">listener</span>
+                    </div>
+                    <div class="song">
+                        <div class="song-img">
+                            <img th:src="@{${artist.PhotosURL}}" alt="Song Image">
+                        </div>
+                        <a class="song-title" href="#">song 4</a>
+                        <span class="song-listener">listener</span>
+                    </div>
+                    <div class="song">
+                        <div class="song-img">
+                            <img th:src="@{${artist.PhotosURL}}" alt="Song Image">
+                        </div>
+                        <a class="song-title" href="#">song 5</a>
+                        <span class="song-listener">listener</span>
+                    </div>
+                    <div class="song">
+                        <div class="song-img">
+                            <img th:src="@{${artist.PhotosURL}}" alt="Song Image">
+                        </div>
+                        <a class="song-title" href="#">song 6</a>
+                        <span class="song-listener">listener</span>
+                    </div>
+                </div>
+                <div class="setlist-container">
+                    <h2 class="container-header">Setlists.</h2>
+                    <div class="setlist-grid">
+                        <a class="setlist" href="#">Setlist-title</a>
+                        <a class="show" href="#">Show-Name</a>
+                    </div>
+                    <div class="setlist-grid">
+                        <a class="setlist" href="#">Setlist-title</a>
+                        <a class="show" href="#">Show-Name</a>
+                    </div>
+                    <div class="setlist-grid">
+                        <a class="setlist" href="#">Setlist-title</a>
+                        <a class="show" href="#">Show-Name</a>
+                    </div>
+                    <div class="setlist-grid">
+                        <a class="setlist" href="#">Setlist-title</a>
+                        <a class="show" href="#">Show-Name</a>
+                    </div>
+                    <div class="setlist-grid">
+                        <a class="setlist" href="#">Setlist-title</a>
+                        <a class="show" href="#">Show-Name</a>
+                    </div>
+                    <div class="setlist-grid">
+                        <a class="setlist" href="#">Setlist-title</a>
+                        <a class="show" href="#">Show-Name</a>
+                    </div>
+                    <div class="setlist-grid">
+                        <a class="setlist" href="#">Setlist-title</a>
+                        <a class="show" href="#">Show-Name</a>
+                    </div>
+                    <div class="setlist-grid">
+                        <a class="setlist" href="#">Setlist-title</a>
+                        <a class="show" href="#">Show-Name</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="body-content">
+            <div class="show-container">
+                <h2 class="container-header">Upcoming Shows.</h2>
+                <div class="show-grid">
+                    <p class="show-title">Show Title</p>
+                    <p class="show-venue">Show Venue</p>
+                    <p class="show-date">Show Date</p>
+                    <p class="show-description">Show Description</p>
+                </div>
+                <div class="show-grid">
+                    <p class="show-title">Show Title</p>
+                    <p class="show-venue">Show Venue</p>
+                    <p class="show-date">Show Date</p>
+                    <p class="show-description">Show Description</p>
+                </div>
+                <div class="show-grid">
+                    <p class="show-title">Show Title</p>
+                    <p class="show-venue">Show Venue</p>
+                    <p class="show-date">Show Date</p>
+                    <p class="show-description">Show Description</p>
+                </div>
+                <div class="show-grid">
+                    <p class="show-title">Show Title</p>
+                    <p class="show-venue">Show Venue</p>
+                    <p class="show-date">Show Date</p>
+                    <p class="show-description">Show Description</p>
+                </div>
+                <div class="show-grid">
+                    <p class="show-title">Show Title</p>
+                    <p class="show-venue">Show Venue</p>
+                    <p class="show-date">Show Date</p>
+                    <p class="show-description">Show Description</p>
                 </div>
             </div>
         </div>
     </main>
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
 </body>
+
 </html>

@@ -78,11 +78,18 @@ header {
     color: white;
 }
 
+.welcome-text {
+    grid-area: name;
+    align-self: center;
+    justify-self: end;
+}
+
 .header-buttons {
     grid-area: buttons;
     display: grid;
     align-items: center;
 }
+
 
 .login-register-btn,
 .search-btn {

@@ -2,6 +2,7 @@ main {
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 body {
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(to bottom right, #1f2833, #45a29e);
@@ -9,18 +10,21 @@ body {
     margin: 0;
     padding: 0;
 }
-.body-content{
+
+.body-content {
     border-radius: 5px;
     color: #C5C6C7;
     margin: 10px;
     padding: 20px;
     padding-top: 10px;
 }
-.body-content p{
+
+.body-content p {
     font-size: large;
     padding-left: 10%;
     padding-right: 10%;
 }
+
 header {
     background-color: #1f2833;
     color: white;
@@ -34,29 +38,32 @@ header {
         'bottom'; */
     justify-content: center;
 }
-.header-container{
+
+.header-container {
     /* grid-area: top; */
     width: 100%;
     display: grid;
-    grid-template-areas: 
+    grid-template-areas:
         'menu title buttons';
-    grid-template-columns: 
+    grid-template-columns:
         50px auto 250px
 }
-.hamburger-menu{
+
+.hamburger-menu {
     margin-right: 10px;
     padding: 0px;
     grid-area: menu;
     color: white;
     font-size: x-large;
     border-radius: 5px;
-    font-weight:bolder;
+    font-weight: bolder;
     border: 100px;
     cursor: pointer;
     background-color: transparent;
     /* padding-left: 10px;
     padding-right: 10px; */
 }
+
 .header-title {
     grid-area: title;
     font-size: 30px;
@@ -65,17 +72,27 @@ header {
     justify-content: start;
     align-items: center;
 }
-.header-title a{
+
+.header-title a {
     text-decoration: none;
     color: white;
 }
+
+.welcome-text {
+    grid-area: name;
+    align-self: center;
+    justify-self: end;
+}
+
 .header-buttons {
     grid-area: buttons;
     display: grid;
     align-items: center;
 }
 
-.login-register-btn, .search-btn {
+
+.login-register-btn,
+.search-btn {
     margin-left: 10px;
     border-radius: 20px;
     border: 1px solid #FFFFFF;
@@ -91,11 +108,15 @@ header {
     text-transform: uppercase;
     transition: transform 80ms ease-in;
 }
-.login-register-btn:hover, .search-btn:hover, .hamburger-menu:hover{
+
+.login-register-btn:hover,
+.search-btn:hover,
+.hamburger-menu:hover {
     background-color: #C5C6C7;
     color: #1f2833;
     transition: background-color 0.3s ease;
 }
+
 .search-bar {
     margin: 20px;
     margin-bottom: 30px;
@@ -103,6 +124,7 @@ header {
     justify-self: center;
     width: 60%;
 }
+
 .search-bar input {
     padding: 10px;
     border: 1px solid #ccc;
@@ -113,12 +135,13 @@ header {
 .search-bar .search-btn {
     margin-left: 10px;
 }
+
 .sidebar {
     display: flex;
     flex-direction: column;
     position: fixed;
     top: 0;
-    left: -250px; 
+    left: -250px;
     width: 250px;
     height: 100%;
     background-color: #1f2833;
@@ -128,7 +151,8 @@ header {
 }
 
 .sidebar.active {
-    left: 0; /* Slide in */
+    left: 0;
+    /* Slide in */
 }
 
 .sidebar ul {
@@ -148,15 +172,17 @@ header {
     transition: background-color 0.3s ease;
 }
 
-.sidebar ul li a:hover{
+.sidebar ul li a:hover {
     background-color: #575757;
 }
-.xContainer{
+
+.xContainer {
     display: flex;
     justify-content: end;
     align-items: end;
 }
-#x{
+
+#x {
     margin: 15px;
     border: 0px;
     border-radius: 5px;
