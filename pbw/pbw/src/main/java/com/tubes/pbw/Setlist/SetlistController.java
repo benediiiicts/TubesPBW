@@ -30,7 +30,7 @@ public class SetlistController {
     }
 
     @ResponseBody
-    @GetMapping("/api/artists/search")
+    @GetMapping("/api/setlist/artists/search")
     public List<Artist> searchArtists(@RequestParam String query) {
         try {
             return artistsService.searchArtists(query); // Panggil service untuk pencarian artis
