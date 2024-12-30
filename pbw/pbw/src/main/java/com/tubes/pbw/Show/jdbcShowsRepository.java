@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.tubes.Data.Artist;
 import com.tubes.Data.Show;
-import com.tubes.Data.Venue;
-
 @Repository
 public class jdbcShowsRepository implements ShowsRepository {
     
@@ -56,23 +54,7 @@ public Show findById(Long id) {
         throw new UnsupportedOperationException("Unimplemented method 'artistInShow'");
     }
 
-    private Venue mapRowToVenue(ResultSet rs) throws SQLException {
-    return Venue.builder()
-            .id(rs.getLong("id")) // Ambil id
-            .name(rs.getString("name")) // Ambil nama venue
-            .address(rs.getString("address")) // Ambil alamat
-            .address2(rs.getString("address2")) // Ambil alamat tambahan (opsional)
-            .city(rs.getString("city")) // Ambil kota
-            .state(rs.getString("state")) // Ambil negara bagian
-            .zip(rs.getString("zip")) // Ambil kode pos
-            .geocodable(rs.getBoolean("geocodable")) // Ambil status geocodable
-            .latitude(rs.getDouble("latitude")) // Ambil latitude
-            .longitude(rs.getDouble("longitude")) // Ambil longitude
-            .website(rs.getString("website")) // Ambil website
-            .phone(rs.getString("phone")) // Ambil nomor telepon
-            .email(rs.getString("email")) // Ambil email
-            .build();
-    }
+    
 
     private Show mapRowToShow(ResultSet rs) throws SQLException {
         return Show.builder()
