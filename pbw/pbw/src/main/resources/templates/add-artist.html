@@ -34,21 +34,21 @@
         </nav>
     </header>
     <main>
-        <form class="body-content">
+        <form class="body-content" action="/add-artist" method="post" enctype="multipart/form-data">
             <h1 class="content-header">Add a New Artist</h1>
             <div class="form-grid">
                 <div class="text-input">
                     <div class="input-field">
-                        <label for="artist-name" >Artist Name</label><br>
-                        <input id="artist-name" type="text" placeholder="Artist's Name">
+                        <label for="artist-name">Artist Name</label><br>
+                        <input id="artist-name" name="artist_name" type="text" placeholder="Artist's Name" required>
                     </div>
                     <div class="input-field">
                         <label for="artist-description">Description</label>
-                        <input id="artist-description" type="text" placeholder="Brief Description">
+                        <input id="artist-description" name="artist_description" type="text" placeholder="Brief Description" required>
                     </div>
                     <div class="input-field">
                         <label for="artist-genre">Genre</label>
-                        <input type="search" list="genre-list" id="artist-genre" placeholder="Artist's Genre"/>
+                        <input type="search" name="artist_genre" list="genre-list" id="artist-genre" placeholder="Artist's Genre" required/>
                         <datalist id="genre-list">
                             <option value="Pop">
                             <option value="Rock">
@@ -60,25 +60,32 @@
                     </div>
                     <div class="input-field">
                         <label for="artist-Year">Year</label>
-                        <input type="number" id="artist-Year" name="year" min="1800" max="2100" placeholder="Debut Year">
+                        <input type="number" name="artist_year" id="artist-Year" min="1800" max="2100" placeholder="Debut Year" required>
                     </div>
                     <div class="input-field">
                         <label for="artist-country">Country</label>
-                        <select id="artist-country">
-                            <option val="1">Country 1</option>
-                            <option val="2">Country 2</option>
-                            <option val="3">Country 3</option>
+                        <select name="artist_country" id="artist-country" th:value="${selected_country}" onchange="changeSelectColor(this)" required>
+                            <option class="select-country" val="" disabled selected>Select a country</option>
+                            <option class="select-country"
+                                    th:each="country : ${countries}"
+                                    th:value="${country.country_code}"
+                                    th:text="${country.country_name}"
+                                    th:selected="${country.country_code == selected_country}"></option>
                         </select>
                     </div>
                 </div>
                 <div class="pict-input">
                     <div class="input-field">
                         <label for="artist-picture">Artist's Photo</label>
-                        <input id="artist-picture" type="file" accept="image/*" onchange="previewImage(event)" style="display: none;">
-                        <button class="file-upload-btn" onclick="document.getElementById('artist-picture').click();">Choose File</button>
-                        <img id="image-preview" th:src="@{/assets/show.jpg}" alt="Image Preview" style="display:block; margin-top: 10px; max-width: 100%; border-radius: 10px;"/>
+                        <input id="artist-picture" name="artist_picture" type="file" accept="image/*" onchange="previewImage(event)" style="display: none;">
+                        <button type="button" class="file-upload-btn" onclick="document.getElementById('artist-picture').click();">Choose File</button>
+                        <img id="image-preview" src="" alt="Image Preview" style="display:none; margin-top: 10px; max-width: 100%; border-radius: 10px;"/>
                     </div>
+                    <p id="submit-error-message" class="error-message" th:if="${image_error}" th:text="${image_error}"></p>
+                    <p id="submit-error-message" style="display: none;" th:text="${error_submit}"></p>
                 </div>
+                <button type="submit" class="btn-cancel" onclick="window.history.back();">Cancel</button>
+                <button type="submit" class="btn-add">Add Artist</button>
             </div>
         </form>
     </main>
@@ -87,6 +94,17 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
+        function changeSelectColor(selectElement) {
+            if (selectElement.value) {
+                selectElement.classList.add('selected');
+            } else {
+                selectElement.classList.remove('selected');
+            }
+        }
+        const submitErrorMessage = document.getElementById('submit-error-message');
+		if (submitErrorMessage.textContent.trim() !== '') {
+			submitErrorMessage.style.display = 'block';
+		}
     </script>
 </body>
 

@@ -77,7 +77,7 @@ header {
 .content-header{
     text-align: center;
 }
-.login-register-btn, .search-btn {
+.login-register-btn, .search-btn, .btn-cancel, .btn-add{
     margin-left: 10px;
     border-radius: 20px;
     border: 1px solid #FFFFFF;
@@ -93,22 +93,45 @@ header {
     text-transform: uppercase;
     transition: transform 80ms ease-in;
 }
-.login-register-btn:hover, .search-btn:hover, .hamburger-menu:hover{
+.login-register-btn:hover, 
+.search-btn:hover, 
+.hamburger-menu:hover,
+.btn-cancel, .btn-add{
     background-color: #C5C6C7;
     color: #1f2833;
     transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
+}
+.btn-cancel{
+    width: 150px;
+    justify-self: end;
+}
+.btn-cancel:hover{
+    background-color: rgb(209, 41, 41);
+    border: 1px solid rgb(209, 41, 41);
+    color: #FFFFFF;
+}
+.btn-add{
+    margin: 0px;
+    width: 150px;
+    justify-self: start;
+}
+.btn-add:hover{
+    background-color: green;
+    border: 1px solid green;
+    color: #FFFFFF;
 }
 .body-content {
     border-radius: 10px;
     color: #C5C6C7;
     margin: 20px auto;
     padding: 30px;
-    max-width: 800px; /* Limit max width */
+    max-width: 800px; 
     display: flex;
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center content horizontally */
-    justify-content: center; /* Center content vertically */
-    min-height: 70vh; /* Minimum height to ensure vertical centering */
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh; 
 }
 .body-content .caption-header{
     text-align: center;
@@ -117,65 +140,78 @@ header {
     padding-right: 10%;
 }
 .form-grid {
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 20px;
+    background-color:#1f2833;
     width: 100%;
-    margin: 20px 0; /* Margin for spacing */
+    margin: 20px 0;
     display: grid;
     grid-template-areas:
-        'text pict'; /* Default layout for larger screens */
+        'text pict';
     grid-template-columns: 
-        2fr 1fr; /* Adjusted column widths for better proportion */
-    gap: 70px; /* Increased space between grid items */
+        2fr 1fr;
+    gap: 30px;
 }
 
 .pict-input {
     grid-area: pict;
     display: flex;
-    flex-direction: column; /* Stack picture input vertically */
-    align-items: center; /* Center the picture input horizontally */
-    justify-content: center; /* Center the picture input vertically */
+    flex-direction: column;
+    align-items: start;
 }
 
 .input-field {
-    width: 100%; /* Ensure input fields take full width */
-    margin-bottom: 25px; /* Space between input fields for better separation */
+    width: 100%;
+    margin-bottom: 25px;
 }
 
 .text-input {
     grid-area: text;
     display: flex;
-    flex-direction: column; /* Stack input fields vertically */
+    flex-direction: column;
 }
-
+#submit-error-message{
+    font-size: medium;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+}
 .input-field input,
 .input-field select,
 .input-field input[type="file"] {
-    padding: 12px; /* Increased padding for better readability */
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 20px;
-    width: 100%; /* Ensure all input fields take the full width */
-    box-sizing: border-box; /* Include padding and border in the element's total width */
-    transition: border-color 0.3s; /* Smooth border transition */
+    width: 100%;
+    box-sizing: border-box; 
+    transition: border-color 0.3s;
     background-color: #FFFFFF;
 }
 
 .input-field input:focus,
 .input-field select:focus {
-    border-color: #66FCF1; /* Change border color on focus */
+    border-color: #66FCF1;
 }
 .file-upload-btn {
-    padding: 10px 15px; /* Button padding */
-    border: none; /* Remove default border */
-    border-radius: 20px; /* Rounded corners */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px; 
     border: 1px solid #FFFFFF;
     background-color: transparent;
     color: #FFFFFF;
-    cursor: pointer; /* Pointer cursor on hover */
-    font-size: 16px; /* Font size */
-    transition: background-color 0.3s; /* Smooth background transition */
-    width: 100%; /* Full width */
-    text-align: center; /* Center text */
+    cursor: pointer; 
+    font-size: 16px; 
+    transition: background-color 0.3s;
+    width: 100%;
+    text-align: center; 
 }
-
+#artist-country{
+    color:#575757 ;
+}
+#artist-country.selected, .select-country{
+    color: black;
+}
 .file-upload-btn:hover {
     background-color:#FFFFFF;
     color: #1f2833;

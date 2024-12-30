@@ -17,6 +17,16 @@ public class ArtistsService {
      @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    public Artist addNewArtists(String name, String description, String genre, String year, String country, String pathURL){
+        Artist artist;
+        try{
+            artist = artistRepository.addNewArtists(name, description, genre, year, country, pathURL);
+        }catch(Exception e){
+            return null;
+        }
+        return artist;
+    }
+
     public List<Artist> searchArtists(String query) {
         return artistRepository.searchByName(query);
     }

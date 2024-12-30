@@ -1,18 +1,25 @@
+function validateForm() {
+    const fileInput = document.getElementById('artist-picture');
+    if (!fileInput.files || fileInput.files.length === 0) {
+        alert('Please select an image file');
+        return false;
+    }
+    return true;
+}
+
 function previewImage(event) {
-    const imagePreview = document.getElementById('image-preview');
     const file = event.target.files[0];
-    const button = document.getElementsByClassName('file-upload-btn');
-
+    const preview = document.getElementById('image-preview');
+    
     if (file) {
-
         const reader = new FileReader();
         reader.onload = function(e) {
-            imagePreview.src = e.target.result; // Set the preview image source
-            imagePreview.style.display = 'block'; // Show the preview image
+            preview.src = e.target.result;
+            preview.style.display = 'block';
         }
-        reader.readAsDataURL(file); // Convert the file to a data URL
+        reader.readAsDataURL(file);
     } else {
-        imagePreview.src = ''; // Clear the preview if no file is selected
-        imagePreview.style.display = 'none'; // Hide the preview image
+        preview.src = '';
+        preview.style.display = 'none';
     }
 }
