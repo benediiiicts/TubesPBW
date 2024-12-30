@@ -310,3 +310,82 @@ VALUES
 ('Enrique Iglesias: Latin Love', 23),
 ('ABBA: The Musical Journey', 24),
 ('Roxette: The Pop-Rock Experience', 25);
+
+
+
+INSERT INTO song_artist (idSongs, idArtist)
+VALUES
+-- Taylor Swift
+(1, 56), (2, 56), (3, 56), (4, 56), (5, 56), (6, 56),
+
+-- Beyoncé
+(7, 57), (8, 57), (9, 57),
+
+-- Eminem
+(10, 58), (11, 58), (12, 58),
+
+-- Bruce Springsteen
+(13, 59), (14, 59), (15, 59),
+
+-- Lady Gaga
+(16, 60), (17, 60), (18, 60),
+
+-- Billie Eilish
+(19, 61), (20, 61),
+
+-- Frank Sinatra
+(21, 62), (22, 62), (23, 62),
+
+-- Michael Jackson
+(24, 63), (25, 63), (26, 63),
+
+-- Madonna
+(27, 64), (28, 64), (29, 64),
+
+-- Prince
+(30, 65), (31, 65), (32, 65),
+
+-- Adele
+(33, 66), (34, 66), (35, 66),
+
+-- Ed Sheeran
+(36, 67), (37, 67), (38, 67),
+
+-- Elton John
+(39, 68), (40, 68), (41, 68),
+
+-- Amy Winehouse
+(42, 69), (43, 69),
+
+-- Dua Lipa
+(44, 70), (45, 70),
+
+-- Freddie Mercury
+(46, 71), (47, 71),
+
+-- David Bowie
+(48, 72), (49, 72), (50, 72),
+
+-- Paul McCartney
+(51, 73), (52, 73), (53, 73), (54, 73),
+
+-- Harry Styles
+(55, 74), (56, 74),
+
+-- George Michael
+(57, 75), (58, 75), (59, 75),
+
+-- Andrea Bocelli
+(60, 76), (61, 76), (62, 76),
+
+-- David Guetta
+(63, 77), (64, 77), (65, 77),
+
+-- Enrique Iglesias
+(66, 78), (67, 78), (68, 78),
+
+-- ABBA
+(69, 79), (70, 79), (71, 79),
+
+-- Roxette
+(72, 80), (73, 80), (74, 80);
