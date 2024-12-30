@@ -12,4 +12,5 @@ public interface ArtistsRepository {
     public List<Artist> searchByName(String query);
     List<Artist> findAllArtists(String query);
     Artist findById(Integer id);
+    Artist addNewArtists(String name, String description, String genre, String year, String country, String pathURL) throws Exception;
 }
