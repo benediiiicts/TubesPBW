@@ -1,7 +1,6 @@
 package com.tubes.pbw.Artist;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,14 +32,56 @@ public class ArtistsService {
         return artistRepository.findArtistsByPage(sql, size, offset);
     }
     
-    public int getTotalPages(int size) {
-        String sql = "SELECT COUNT(*) FROM artist";
-        int totalArtists = jdbcTemplate.queryForObject(sql, Integer.class);
+    public int getTotalPages(int size, String search, String country, String genre) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM artist WHERE 1=1");
+    
+        if (search != null && !search.isEmpty()) {
+            sql.append(" AND LOWER(name) LIKE LOWER('%").append(search).append("%')");
+        }
+        if (country != null && !country.isEmpty()) {
+            sql.append(" AND LOWER(Country) = LOWER('").append(country).append("')");
+        }
+        if (genre != null && !genre.isEmpty()) {
+            sql.append(" AND LOWER(genre) = LOWER('").append(genre).append("')");
+        }
+    
+        int totalArtists = jdbcTemplate.queryForObject(sql.toString(), Integer.class);
         return (int) Math.ceil((double) totalArtists / size);
     }
+
     public Artist getArtistById(Integer id){
         return artistRepository.findById(id);
     }
+
+    public List<Artist> getFilteredArtists(int page, int size, String search, String country, String genre) {
+        int offset = (page - 1) * size;
+        StringBuilder sql = new StringBuilder("SELECT * FROM artist WHERE 1=1");
+    
+        if (search != null && !search.isEmpty()) {
+            sql.append(" AND LOWER(name) LIKE LOWER('%").append(search).append("%')");
+        }
+        if (country != null && !country.isEmpty()) {
+            sql.append(" AND LOWER(Country) = LOWER('").append(country).append("')");
+        }
+        if (genre != null && !genre.isEmpty()) {
+            sql.append(" AND LOWER(genre) = LOWER('").append(genre).append("')");
+        }
+    
+        sql.append(" LIMIT ").append(size).append(" OFFSET ").append(offset);
+    
+        return artistRepository.findAllArtists(sql.toString());
+    }
+    
+    public List<String> getAllCountries() {
+        String sql = "SELECT DISTINCT Country FROM artist";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+
+    public List<String> getAllGenres() {
+        String sql = "SELECT DISTINCT genre FROM artist";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }      
     
 }
+
 

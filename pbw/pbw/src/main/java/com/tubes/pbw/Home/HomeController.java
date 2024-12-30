@@ -21,9 +21,9 @@ public class HomeController {
         }
         return "home"; // Mengarahkan ke halaman home
     }
-    
+
     @GetMapping("/")
-    public String redirectHome(){
+    public String redirectHome() {
         return "redirect:/home";
     }
 }

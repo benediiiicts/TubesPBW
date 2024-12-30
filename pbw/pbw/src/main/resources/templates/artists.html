@@ -41,21 +41,18 @@
         <div class="body-content">
             <div class="add-ons">
                 <div class="filter-container">
-                    <select class="filter">
-                        <option val="" disabled selected>Country</option>
-                        <option val="2">Country 1</option>
-                        <option val="3">Country 2</option>
+                    <select id="countryFilter" class="filter">
+                        <option value="" th:selected="${countryFilter == null || countryFilter == ''}">All Countries</option>
+                        <option th:each="country : ${countries}" th:value="${country}" th:selected="${country == countryFilter}" th:text="${country}"></option>
                     </select>
-                    <select class="filter">
-                        <option val="" disabled selected>Genre</option>
-                        <option val="2">Genre 1</option>
-                        <option val="3">Genre 2</option>
-                        <option val="3">Other</option>
-                    </select>
+                    <select id="genreFilter" class="filter">
+                        <option value="" th:selected="${genreFilter == null || genreFilter == ''}">All Genres</option>
+                        <option th:each="genre : ${genres}" th:value="${genre}" th:selected="${genre == genreFilter}" th:text="${genre}"></option>
+                    </select>                                       
                 </div>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search artist...">
-                    <button class="search-btn">Search</button>
+                    <input id="searchInput" type="text" placeholder="Search artist...">
+                    <button class="search-btn" onclick="applyFilters()">Search</button>
                 </div>
                 <a href="/add-artist" class="button-a">
                     <button class="add-artist-btn">Add an Artist</button>
@@ -63,6 +60,7 @@
             </div>
         </div>
         <div class="body-content">
+            <h1 id="content-header">Popular Artist</h1>
             <div class="content-container">
                 <div class="content" th:each="artist : ${artists}">
                     <a class="card" th:href="@{/artist/{name}-{id}(name=${artist.name}, id=${artist.id})}">
@@ -78,17 +76,17 @@
             <div class="pagination" th:if="${totalPages > 0}">
                 <ul>
                     <li th:if="${currentPage > 1}">
-                        <a th:href="@{/artists(page=${currentPage - 1}, size=${pageSize})}">Previous</a>
+                        <a th:href="@{/artists(page=${currentPage - 1}, size=${pageSize}, search=${searchQuery}, country=${countryFilter}, genre=${genreFilter})}">Previous</a>
                     </li>
                     <li th:each="i : ${#numbers.sequence(1, totalPages)}">
-                        <a th:href="@{/artists(page=${i}, size=${pageSize})}"
-                            th:classappend="${i == currentPage} ? 'active'" th:text="${i}">1</a>
+                        <a th:href="@{/artists(page=${i}, size=${pageSize}, search=${searchQuery}, country=${countryFilter}, genre=${genreFilter})}"
+                           th:classappend="${i == currentPage} ? 'active'" th:text="${i}">1</a>
                     </li>
                     <li th:if="${currentPage < totalPages}">
-                        <a th:href="@{/artists(page=${currentPage + 1}, size=${pageSize})}">Next</a>
+                        <a th:href="@{/artists(page=${currentPage + 1}, size=${pageSize}, search=${searchQuery}, country=${countryFilter}, genre=${genreFilter})}">Next</a>
                     </li>
                 </ul>
-            </div>
+            </div>            
         </div>
 
     </main>
@@ -97,7 +95,43 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
+
+        function applyFilters() {
+            const country = document.getElementById('countryFilter').value;
+            const genre = document.getElementById('genreFilter').value;
+            const searchQuery = document.getElementById('searchInput').value;
+
+            const url = `/artists?page=1&size=10&search=${encodeURIComponent(searchQuery)}&country=${encodeURIComponent(country)}&genre=${encodeURIComponent(genre)}`;
+            window.location.href = url;
+        }
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const countryFilter = document.getElementById('countryFilter');
+            const genreFilter = document.getElementById('genreFilter');
+            const searchInput = document.getElementById('searchInput');
+
+            // Fungsi untuk mengupdate URL berdasarkan filter
+            function updateURL() {
+                const country = countryFilter.value;
+                const genre = genreFilter.value;
+                const search = searchInput.value;
+
+                const params = new URLSearchParams({ country, genre, search });
+                window.location.href = `/artists?${params.toString()}`;
+            }
+
+            // Event listener untuk filter country dan genre
+            countryFilter.addEventListener('change', updateURL);
+            genreFilter.addEventListener('change', updateURL);
+
+            // Event listener untuk search ketika menekan tombol enter
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    updateURL();
+                }
+            });
+        });
+
     </script>
 </body>
-
-</html>
