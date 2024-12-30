@@ -6,48 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/home.css}">
     <script th:src="@{/js/home.js}" defer></script>
-    <style>
-        .slideshow-container {
-            position: relative;
-            width: 700px;
-            height: 500px;
-        }
-
-        .slides {
-            display: none;
-        }
-
-        .slides.fade {
-            animation: fade 5s;
-        }
-
-        @keyframes fade {
-            from {
-                opacity: 0.4;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .prev,
-        .next {
-            position: absolute;
-            top: 50%;
-            font-size: 24px;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        .prev {
-            left: 0;
-        }
-
-        .next {
-            right: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -146,7 +104,7 @@
                     </div>
                 </div>
                 <div class="slides fade">
-                    <img th:src="@{/assets/sam-fender.jpeg}" alt="Image 3">
+                    <img th:src="@{/assets/sam-fender.jpeg}" alt="Image 1">
                     <div class="caption">
                         <h2>Sam Fender
                             <p>3Arena, Dublin <br>Dec 2, 2024
@@ -175,7 +133,7 @@
                     </div>
                 </div>
                 <div class="slides fade">
-                    <img th:src="@{/assets/taylor_swift.jpg}" alt="Image 2">
+                    <img th:src="@{/assets/taylor-swift.jpg}" alt="Image 2">
                     <div class="caption">
                         <h2>Taylor Swift
                             <p>BC Place Stadium, Vancouver<br>Dec 6, 2024
@@ -198,37 +156,6 @@
             </div>
         </div>
     </main>
-    <script>
-        let slideIndex = 0;
-
-        function plusSlides(n, slideshowId) {
-            const slides = document.querySelectorAll(`#${slideshowId} .slides`);
-            slideIndex += n;
-            if (slideIndex >= slides.length) {
-                slideIndex = 0;
-            } else if (slideIndex < 0) {
-                slideIndex = slides.length - 1;
-            }
-            slides.forEach((slide) => {
-                slide.style.display = "none";
-            });
-            slides[slideIndex].style.display = "block";
-        }
-
-        function showSlides(slideshowId) {
-            const slides = document.querySelectorAll(`#${slideshowId} .slides`);
-            const delay = 5000; // Waktu tunggu antara slide (dalam milidetik)
-
-            slides[0].style.display = "block";
-
-            setInterval(() => {
-                plusSlides(1, slideshowId);
-            }, delay);
-        }
-
-        showSlides('slide-rec');
-        showSlides('slide-otp');
-    </script>
 </body>
 
 </html>
