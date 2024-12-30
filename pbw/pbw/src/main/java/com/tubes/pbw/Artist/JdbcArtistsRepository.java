@@ -16,6 +16,20 @@ public class JdbcArtistsRepository implements ArtistsRepository{
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    
+    @Override
+    public Artist addNewArtists(String name, String description, String genre, String year, String country,
+            String pathURL) throws Exception{
+        //simpan artis ke db                
+        String sql = "INSERT INTO artist (PhotosURL, name, Description, genre, Year, Country) "+
+                    "VALUES ( ? , ? , ? , ? , ? , ? )";
+        jdbcTemplate.update(sql, pathURL, name, description, genre, year, country);
+        //ambil artis yang telah disimpan
+        //atribut yang akan digunakan adalah url foto, karena sudah pasti unik
+        sql = "SELECT * FROM artist WHERE PhotosURL = ? ";
+        List<Artist> result = jdbcTemplate.query(sql, this::mapRowToArtist, pathURL);
+        return result.get(0);
+    }
 
     @Override
     public void addArtist(Artist artist) {

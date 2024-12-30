@@ -60,14 +60,14 @@
             </div>
         </div>
         <div class="body-content">
-            <h1 id="content-header">Popular Artist</h1>
+            <h1 id="content-header">Artist List</h1>
             <div class="content-container">
                 <div class="content" th:each="artist : ${artists}">
                     <a class="card" th:href="@{/artist/{name}-{id}(name=${artist.name}, id=${artist.id})}">
                         <img th:src="@{${artist.PhotosURL}}" alt="artist-image" class="card-image">
                         <div class="card-overlay">
                             <h3 class="card-title" th:text="${artist.name}"></h3>
-                            <p class="set-place" th:text="${artist.Description}"></p>
+                            <!--<p class="set-place" th:text="${artist.Description}"></p>-->
                             <p class="set-date" th:text="${artist.Year}"></p>
                         </div>
                     </a>
