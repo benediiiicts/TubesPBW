@@ -95,3 +95,11 @@ CREATE TABLE venue (
     phone VARCHAR(20),
     email VARCHAR(100)
 );
+
+CREATE TABLE song_setlist (
+    id_song INT NOT NULL,
+    id_setlist INT NOT NULL,
+    PRIMARY KEY (id_song, id_setlist), -- Menghindari duplikasi data antara lagu dan setlist
+    FOREIGN KEY (id_song) REFERENCES songs(idSongs) ON DELETE CASCADE,
+    FOREIGN KEY (id_setlist) REFERENCES setlist(idSetlist) ON DELETE CASCADE
+);
