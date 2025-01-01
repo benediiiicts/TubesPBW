@@ -1,0 +1,15 @@
+Urutan insert data dummy sql
+
+0) Buat tabel -> sqlTabel
+
+---> kemungkinan error kalo ga urutan <---
+1)  insert country -> in-country
+2)  insert artist -> in-artist
+3)  insert venue -> in-venue (import dari venue.csv)
+4)  insert album -> in-album
+5)  insert songs -> in-songs
+6)  insert show -> in-show
+7)  insert artist_show -> in-artist_show
+8)  insert setlist -> in-setlist
+9)  insert song_artist -> in-song_artist
+10) insert song_setlist -> in-song_setlist

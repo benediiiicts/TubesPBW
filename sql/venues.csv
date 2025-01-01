@@ -1,4 +1,3 @@
-id,name,address,address2,city,state,zip,geocodable,latitude,longitude,website,phone,email
 1,The O2,,Peninsula Square,London,,SE10 0DX,TRUE,51.5030,0.0032,https://www.theo2.co.uk,+442070121800,info@theo2.co.uk
 2,Madison Square Garden,,4 Pennsylvania Plaza,New York,NY,10001,TRUE,40.7505,-73.9934,https://www.msg.com,+12124657000,info@msg.com
 3,Staples Center,,1111 S Figueroa St,Los Angeles,CA,90015,TRUE,34.0430,-118.2673,https://www.staplescenter.com,+12137476500,info@staplescenter.com

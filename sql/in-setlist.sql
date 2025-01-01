@@ -1,0 +1,28 @@
+-- setlist TABLE DATA
+INSERT INTO setlist (title, idShow)
+VALUES
+('Taylor Swift Hits', 1),
+('Beyoncé: The Concert', 2),
+('Eminem Live', 3),
+('Bruce Springsteen: The Boss Live', 4),
+('Lady Gaga: The Fame Ball', 5),
+('Billie Eilish World Tour', 6),
+('Frank Sinatra’s Swinging Night', 7),
+('Michael Jackson: The King of Pop', 8),
+('Madonna: Rebel Heart Tour', 9),
+('Prince: Purple Rain Experience', 10),
+('Adele: Live in Concert', 11),
+('Ed Sheeran: World Tour', 12),
+('Elton John: Farewell Tour', 13),
+('Amy Winehouse: Back to Black Live', 14),
+('Dua Lipa: Future Nostalgia Tour', 15),
+('Freddie Mercury: The Solo Years', 16),
+('David Bowie: A Legacy Remembered', 17),
+('Paul McCartney: The Beatle Years', 18),
+('Harry Styles: Love on Tour', 19),
+('George Michael: A Tribute to the Legend', 20),
+('Andrea Bocelli: The Opera Concert', 21),
+('David Guetta: The Electronic Dance', 22),
+('Enrique Iglesias: Latin Love', 23),
+('ABBA: The Musical Journey', 24),
+('Roxette: The Pop-Rock Experience', 25);
