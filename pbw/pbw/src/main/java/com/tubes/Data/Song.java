@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Song { 
+    private int id_song;
+    private int id_album;
     private String title;
-    private String artist;
+    private String url;
+    private Long listener;
 }

@@ -8,6 +8,7 @@ SELECT * FROM songs;
 SELECT * FROM song_artist;
 SELECT * FROM setlist;
 SELECT * FROM Venue;
+SELECT * FROM song_setlist;
 
 
 
