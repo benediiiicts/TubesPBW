@@ -1,5 +1,6 @@
 package com.tubes.pbw.User;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.tubes.Data.User;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -18,9 +20,7 @@ public class UserService {
 
     public boolean register(User user) {
         try {
-            // Enkripsi password sebelum disimpan
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            // Simpan user ke database
             userRepository.save(user);
             return true;
         } catch (Exception e) {
@@ -30,18 +30,35 @@ public class UserService {
     }
 
     public User login(String email, String password) {
-        // Cari user berdasarkan email
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
-            // Jika email ditemukan dan password cocok
             return user.get();
         }
-        // Jika tidak ditemukan atau password salah
         return null;
     }
 
     public boolean emailExists(String email) {
-        // Cek apakah email sudah ada di database
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public Optional<User> getUserById(int id) {
+        return userRepository.findById(id);
+    }
+
+    public void updateUserRole(int id, String role) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            try {
+                user.get().setRole(role);
+                userRepository.save(user.get());
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException("Error updating user role", e); 
+            }
+        }
     }
 }

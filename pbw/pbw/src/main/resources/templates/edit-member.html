@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/discover.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <script th:src="@{/js/home.js}" defer></script>
 </head>
 
 <body>
@@ -26,7 +27,7 @@
             </div>
             <nav class="sidebar" id="sidebar">
                 <div class="xContainer">
-                    <button id="x" onclick="toggleMenu()">&#x2716</button>
+                    <button id="x" onclick="toggleMenu()">&#x2716;</button>
                 </div>
                 <ul>
                     <li><a href="/" id="home-page">Home Page</a></li>
@@ -39,20 +40,24 @@
         </nav>
     </header>
     <main>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button class="search-btn">Search</button>
-        </div>
-        <div class="body-content">
-
+        <div class="edit-member-container">
+            <h2>Edit Member</h2>
+            <form action="/update-member" method="post" class="edit-member-form">
+                <input type="hidden" name="id" th:value="${user.id}" />
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter username"
+                    th:value="${user.username}" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter email" th:value="${user.email}" required>
+                <label for="role">Role</label>
+                <select id="role" name="role" required>
+                    <option value="member" th:selected="${user.role == 'member'}">Member</option>
+                    <option value="admin" th:selected="${user.role == 'admin'}">Admin</option>
+                </select>
+                <button type="submit" class="submit-btn">Save Changes</button>
+            </form>
         </div>
     </main>
-    <script>
-        function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
-    </script>
 </body>
 
 </html>

@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/discover.css}">
+    <link rel="stylesheet" th:href="@{/css/member.css}">
+    <script th:src="@{/js/home.js}" defer></script>
 </head>
 
 <body>
@@ -15,18 +16,15 @@
                 <div class="header-title">
                     <a href="/">TourTune.</a>
                 </div>
-                <!-- Jika sudang login -->
                 <span th:if="${user != null}" class="welcome-text" th:text="${'Welcome, ' + user.username}"></span>
                 <div class="header-buttons">
-                    <!-- Jika belum login -->
                     <a class="login-register-btn" th:if="${user == null}" href="/login">Sign in/ Sign up</a>
-                    <!-- Jika sudang login -->
                     <a th:if="${user != null}" class="login-register-btn" href="/logout">Sign Out</a>
                 </div>
             </div>
             <nav class="sidebar" id="sidebar">
                 <div class="xContainer">
-                    <button id="x" onclick="toggleMenu()">&#x2716</button>
+                    <button id="x" onclick="toggleMenu()">&#x2716;</button>
                 </div>
                 <ul>
                     <li><a href="/" id="home-page">Home Page</a></li>
@@ -39,20 +37,33 @@
         </nav>
     </header>
     <main>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button class="search-btn">Search</button>
-        </div>
         <div class="body-content">
-
+            <h1 class="caption-header">Member List</h1>
+            <table class="member-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user, iterStat : ${users}">
+                        <td th:text="${iterStat.index + 1}"></td>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td>
+                            <a class="edit-btn" th:href="@{/members/edit-member/{id}(id=${user.id})}">Edit</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(users)}">
+                        <td class="empty" colspan="4">No members found.</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </main>
-    <script>
-        function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
-    </script>
 </body>
 
 </html>

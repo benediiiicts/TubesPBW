@@ -27,12 +27,13 @@
                     <button id="x" onclick="toggleMenu()">&#x2716</button>
                 </div>
                 <ul>
-                <ul>
-                    <li><a href="/" id="home-page">Home Page</a></li>
-                    <li><a href="/discover" id="discover">Discover</a></li>
-                    <li><a href="/artists" id="artist">Artists</a></li>
-                    <li><a href="/shows" id="show">Shows</a></li>
-                </ul>
+                    <ul>
+                        <li><a href="/" id="home-page">Home Page</a></li>
+                        <li><a href="/discover" id="discover">Discover</a></li>
+                        <li><a href="/artists" id="artist">Artists</a></li>
+                        <li><a href="/shows" id="show">Shows</a></li>
+                        <li><a href="/edit-member" id="edit">Edit Member</a></li>
+                    </ul>
             </nav>
         </nav>
     </header>
@@ -43,19 +44,21 @@
                 <!-- Artist Selection -->
                 <div class="input-field">
                     <label for="artist-search">Artist Name</label><br>
-                    <input id="artist-search" type="text" name="query" placeholder="Search for Artist..." oninput="searchArtist()" autocomplete="off">
+                    <input id="artist-search" type="text" name="query" placeholder="Search for Artist..."
+                        oninput="searchArtist()" autocomplete="off">
                     <div id="artist-dropdown" class="dropdown"></div>
                     <input type="hidden" id="selected-artist-id" name="artistId">
                 </div>
-    
+
                 <!-- Venue Selection -->
                 <div class="input-field">
                     <label for="venue-search">Venue</label><br>
-                    <input id="venue-search" type="text" placeholder="Search for Venue..." oninput="searchVenue()" autocomplete="off">
+                    <input id="venue-search" type="text" placeholder="Search for Venue..." oninput="searchVenue()"
+                        autocomplete="off">
                     <div id="venue-dropdown" class="dropdown"></div>
                     <input type="hidden" id="selected-venue-id" name="venueId">
                 </div>
-    
+
                 <!-- Date Selection -->
                 <div class="input-field">
                     <label for="date">Date</label><br>
