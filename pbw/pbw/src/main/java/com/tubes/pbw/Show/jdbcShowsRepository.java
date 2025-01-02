@@ -22,7 +22,7 @@ public class jdbcShowsRepository implements ShowsRepository {
         String sql = "SELECT * FROM \"show\" WHERE LOWER(showName) = LOWER(?)";
 
         // Menggunakan JdbcTemplate untuk mengeksekusi query dan memetakan hasilnya ke objek Show
-        List<Show> results = (List<Show>) jdbcTemplate.query(sql, this::mapRowToShow, showName);
+        List<Show> results = jdbcTemplate.query(sql, this::mapRowToShow, showName);
 
         // Mengembalikan show pertama yang ditemukan dalam Optional
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
@@ -56,14 +56,17 @@ public Show findById(Long id) {
 
     
 
-    private Show mapRowToShow(ResultSet rs) throws SQLException {
-        return Show.builder()
-                .idShow(rs.getLong("idShow")) // Ambil idShow
-                .showName(rs.getString("showName")) // Ambil nama show
-                .date(rs.getDate("date")) // Ambil tanggal
-                .venue(rs.getString("venue")) // Ambil venue
-                .description(rs.getString("description")) // Ambil deskripsi
-                .build();
+    private Show mapRowToShow(ResultSet rs, int intRow) throws SQLException {
+        Show show = new Show(
+            rs.getLong("idShow"),        // Ambil idShow
+            rs.getString("showName"),   // Ambil nama show
+            rs.getDate("date"),         // Ambil tanggal
+            rs.getString("venue"),      // Ambil venue
+            rs.getString("description") // Ambil deskripsi
+        );
+        // untuk debug atau log.
+        // System.out.println("Processing row: " + intRow);
+        return show;
     }
     
 
