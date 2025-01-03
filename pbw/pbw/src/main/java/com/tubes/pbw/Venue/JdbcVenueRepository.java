@@ -16,6 +16,7 @@ public class JdbcVenueRepository implements VenueRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    
     public List<Venue> searchByName(String query) {
         String sql = "SELECT * FROM venue WHERE LOWER(name) LIKE LOWER(?)";
         return jdbcTemplate.query(sql, this::mapRowToVenue, "%" + query.toLowerCase() + "%");

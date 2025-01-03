@@ -11,11 +11,16 @@ import org.springframework.stereotype.Repository;
 
 import com.tubes.Data.Artist;
 import com.tubes.Data.Show;
+import com.tubes.Data.Venue;
+import com.tubes.pbw.Venue.VenueService;
 @Repository
 public class jdbcShowsRepository implements ShowsRepository {
     
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private VenueService venueService;
 
     @Override
     public Optional<Show> findByName(String showName) {
@@ -39,22 +44,30 @@ public class jdbcShowsRepository implements ShowsRepository {
     }
 
     @Override
-public Show findById(Long id) {
-    String sql = "SELECT * FROM \"show\" WHERE idShow = ?";
-    List<Show> result = (List<Show>) jdbcTemplate.query(sql, this::mapRowToShow, id);
-    if (result.isEmpty()) {
-        return null; 
+    public Show findById(Long id) {
+        String sql = "SELECT idvenue FROM \"show\" WHERE idshow = ?";
+        //ambil nama venue pada show
+        Long idVenue = jdbcTemplate.queryForObject(sql, Long.class, id);
+        Venue venue = venueService.getVenueById(idVenue);
+        sql = "SELECT * FROM \"show\" WHERE idshow = ?";
+        List<Show> result = jdbcTemplate.query(sql, 
+            (rs, rowNum) -> new Show(
+                rs.getLong("idshow"),
+                rs.getString("showname"),
+                rs.getDate("date"),
+                venue.getName(),
+                rs.getString("description"))
+            , id);
+        if (result.isEmpty()) {
+            return null; 
+        }
+        return result.get(0);
     }
-    return result.get(0);
-}
-
     @Override
     public List<Artist> artistInShow(String showName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'artistInShow'");
     }
-
-    
 
     private Show mapRowToShow(ResultSet rs, int intRow) throws SQLException {
         Show show = new Show(
