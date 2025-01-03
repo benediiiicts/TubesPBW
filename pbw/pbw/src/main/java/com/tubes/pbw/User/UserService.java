@@ -1,6 +1,5 @@
 package com.tubes.pbw.User;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,26 +38,5 @@ public class UserService {
 
     public boolean emailExists(String email) {
         return userRepository.findByEmail(email).isPresent();
-    }
-
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    public Optional<User> getUserById(int id) {
-        return userRepository.findById(id);
-    }
-
-    public void updateUserRole(int id, String role) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            try {
-                user.get().setRole(role);
-                userRepository.save(user.get());
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException("Error updating user role", e); 
-            }
-        }
     }
 }

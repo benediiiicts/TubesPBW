@@ -27,25 +27,6 @@ public class JdbcUserRepository implements UserRepository {
         return results.size() == 0 ? Optional.empty() : Optional.of(results.get(0));
     }
 
-    @Override
-    public Optional<User> findById(int id) {
-        String sql = "SELECT * FROM users WHERE id = ?";
-        List<User> results = jdbcTemplate.query(sql, this::mapRowToUser, id);
-        return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
-    }
-
-    @Override
-    public List<User> findAll() {
-        String sql = "SELECT * FROM users";
-        return jdbcTemplate.query(sql, this::mapRowToUser);
-    }
-
-    @Override
-    public void updateUserRole(int id, String role) {
-        String sql = "UPDATE users SET role = ? WHERE id = ?";
-        jdbcTemplate.update(sql, role, id);
-    }
-
     private User mapRowToUser(ResultSet resultSet, int rowNum) throws SQLException {
         return new User(
                 resultSet.getInt("id"),

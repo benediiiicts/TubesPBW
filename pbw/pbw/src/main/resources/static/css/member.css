@@ -208,6 +208,10 @@ header {
 .member-table td {
     padding: 10px;
     border: 1px solid #575757;
+    text-align: center;
+    /* Pusatkan secara horizontal */
+    vertical-align: middle;
+    /* Pusatkan secara vertikal */
 }
 
 .member-table th {
@@ -220,6 +224,10 @@ header {
 
 .member-table tbody tr:hover {
     background-color: #34495e;
+}
+
+.member-table th {
+    text-align: center;
 }
 
 .edit-btn {
@@ -237,10 +245,21 @@ header {
     background-color: #66fcf1;
 }
 
-.member-table th {
+.empty {
     text-align: center;
 }
 
-.empty {
-    text-align: center;
+.delete-btn {
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #ff6666;
 }
