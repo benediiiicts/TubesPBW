@@ -226,8 +226,11 @@ header {
 .slideshow-container {
     cursor: pointer;
     position: relative;
-    max-width: 900px;
+    max-width: 850px;
+    height: 500px;
     margin: auto;
+    overflow: hidden;
+    border-radius: 10px;
 }
 .slides {
     display: none;
@@ -250,11 +253,11 @@ img {
     height: 100%;
     color: white;
     font-size: 125%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    align-items: center;
-    justify-content: start;
-    text-align: start;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
     opacity: 0;
     transition: background-color 0.7s ease;
 }
@@ -269,15 +272,13 @@ img {
 }
 .caption p, .caption h2{
     position: relative;
+    display: inline;
     transition: font-size 0.5s ease;
-}
-.caption h2{
-    padding-left: 15%;
+    margin: 5px;
 }
 .caption p{
     font-weight: 300;
-    padding-left: 5%;
-    font-size: 65%;
+    font-size: 85%;
     color: #C5C6C7;
     justify-self: start;
     padding: 0%;

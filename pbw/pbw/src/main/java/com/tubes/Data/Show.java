@@ -15,6 +15,6 @@ public class Show {
     private String showName;       // Nama show
     private Date date;             // Tanggal show
     private String venue;          // Venue show
-    private String description;    // Deskripsi show
+    private String description;     // Deskripsi show
 }
 

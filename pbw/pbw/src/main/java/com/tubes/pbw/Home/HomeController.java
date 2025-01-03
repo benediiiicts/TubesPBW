@@ -1,8 +1,10 @@
 package com.tubes.pbw.Home;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,8 +31,15 @@ public class HomeController {
         List<SetList> setlistsRecomended = new ArrayList<>();
         //random setlist
         Random random = new Random();
+        //cek juga agar setlist yang sama tidak muncul 2 kali
+        Set<Integer> checkSet = new HashSet<>();
         for(int i=0; i < 4; i++){
-            setlistsRecomended.add(setlistService.getSetList(random.nextInt(15)+1));
+            int temp = random.nextInt(30)+1;
+            if(checkSet.contains(temp)) i--;
+            else{
+                setlistsRecomended.add(setlistService.getSetList(temp));
+                checkSet.add(temp);
+            }
         }
         model.addAttribute("recomended_set", setlistsRecomended);
         //setlist untuk slideshow our top picks
