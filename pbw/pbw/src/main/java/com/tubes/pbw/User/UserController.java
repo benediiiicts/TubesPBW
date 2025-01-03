@@ -67,7 +67,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("user") User user,
-        BindingResult bindingResult, Model model, HttpSession session) {
+            BindingResult bindingResult, Model model, HttpSession session) {
         // Validasi kesamaan password dan konfirmasi password
         if (!user.getPassword().equals(user.getConfirmpassword())) {
             bindingResult.rejectValue("confirmpassword", "passwordMismatch",
@@ -81,7 +81,8 @@ public class UserController {
         }
         // Jika ada error dalam validasi, kembali ke form register
         if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getFieldErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList());
+            List<String> errors = bindingResult.getFieldErrors().stream().map(error -> error.getDefaultMessage())
+                    .collect(Collectors.toList());
             model.addAttribute("error_reg", errors);
             return "login"; // Return to the login page, keeping the signup panel active
         }

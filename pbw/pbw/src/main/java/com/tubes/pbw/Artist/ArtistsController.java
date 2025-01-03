@@ -31,26 +31,40 @@ public class ArtistsController {
     @Autowired
     CountryService countryService;
 
-    //untuk upload foto artis
+    // untuk upload foto artis
     private static final String UPLOAD_DIR = "src/main/resources/static/assets";
 
     @GetMapping("/add-artist")
-    public String redirectToAddArtists(Model model) {
+    public String redirectToAddArtists(Model model, HttpSession session) {
+        // Mengambil user yang sedang login
+        User loggedUser = (User) session.getAttribute("loggedUser");
+        if (loggedUser == null) {
+            return "redirect:/login"; // Jika tidak ada user yang login, redirect ke halaman login
+        }
+
         List<Country> countries = countryService.getAllCountries();
         model.addAttribute("countries", countries);
+        model.addAttribute("user", loggedUser); // Pastikan ini ada
         return "add-artist";
     }
 
     @PostMapping("/add-artist")
     public String addNewArtists(@RequestParam("artist_name") String name,
-                                @RequestParam("artist_description") String description,
-                                @RequestParam("artist_genre") String genre,
-                                @RequestParam("artist_year") String year,
-                                @RequestParam("artist_country") String country,
-                                @RequestParam("artist_picture") MultipartFile picture,
-                                Model model){
-        try{
-            //cek jika tidak ada foto
+            @RequestParam("artist_description") String description,
+            @RequestParam("artist_genre") String genre,
+            @RequestParam("artist_year") String year,
+            @RequestParam("artist_country") String country,
+            @RequestParam("artist_picture") MultipartFile picture,
+            Model model,
+            HttpSession session) {
+        // Mengambil user yang sedang login
+        User loggedUser = (User) session.getAttribute("loggedUser");
+        if (loggedUser == null) {
+            return "redirect:/login"; // Jika tidak ada user yang login, redirect ke halaman login
+        }
+
+        try {
+            // Cek jika tidak ada foto
             if (picture == null || picture.isEmpty()) {
                 model.addAttribute("image_error", "Please select an image file");
                 model.addAttribute("countries", countryService.getAllCountries());
@@ -61,6 +75,7 @@ public class ArtistsController {
                 model.addAttribute("selected_country", country);
                 return "add-artist";
             }
+
             // Check tipe file
             String contentType = picture.getContentType();
             if (contentType == null || !contentType.startsWith("image/")) {
@@ -68,30 +83,25 @@ public class ArtistsController {
                 model.addAttribute("countries", countryService.getAllCountries());
                 return "add-artist";
             }
+
             Path uploadPath = Paths.get(UPLOAD_DIR);
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
-            //ambil nama asli dari gambar yang diupload
+
             String originalFilename = picture.getOriginalFilename();
-            //ambil tipe file dari gambar (.jpg, .jpeg, .png, dll.)
             String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            //ubah nama gambar ke dalam format:
-            //<nama_artis>-<kode unik>.<tipe file>
-            //note: 
-            //kode unik akan menggunakan UUID agar nama file akan tetap berbeda dan tidak akan bertabrakan
-            //walaupun terdapat lebih dari 1 artis yang memiliki nama serupa
-            //*UUID -> 128-bit, 36 digit karakter
-            String newFilename = name+"-"+UUID.randomUUID().toString() + fileExtension;  
+            String newFilename = name + "-" + UUID.randomUUID().toString() + fileExtension;
             Path filePath = uploadPath.resolve(newFilename);
             Files.copy(picture.getInputStream(), filePath);
+
             String imageUrl = "/assets/" + newFilename;
             model.addAttribute("imageUrl", imageUrl);
-            //tambahkan artis ke db
+
+            // Tambahkan artis ke database
             Artist artist = artistsService.addNewArtists(name, description, genre, year, country, imageUrl);
             return "redirect:/artist/" + artist.getName() + "-" + artist.getId();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             model.addAttribute("error_submit", "Failed to upload file: " + e.getMessage());
             model.addAttribute("countries", countryService.getAllCountries());
             model.addAttribute("artist_name", name);
@@ -110,12 +120,12 @@ public class ArtistsController {
             @RequestParam(required = false) String search,
             @RequestParam(required = false) String country,
             @RequestParam(required = false) String genre,
-            HttpSession session,
+            HttpSession session, // Menambahkan parameter HttpSession
             Model model) {
 
         User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser != null) {
-            model.addAttribute("user", loggedUser);
+            model.addAttribute("user", loggedUser); // Pastikan user ada di model
         }
 
         List<Artist> artists = artistsService.getFilteredArtists(page, size, search, country, genre);
@@ -137,13 +147,17 @@ public class ArtistsController {
         return "artists";
     }
 
-
-
     @GetMapping("/artist/{name}-{id}")
-    public String redirectToArtistDetail(@PathVariable String name, @PathVariable Integer id, Model model) {
+    public String redirectToArtistDetail(@PathVariable String name, @PathVariable Integer id, Model model,
+            HttpSession session) {
+        // Mengambil user yang sedang login
+        User loggedUser = (User) session.getAttribute("loggedUser");
+        if (loggedUser != null) {
+            model.addAttribute("user", loggedUser); // Menambahkan user ke model jika sudah login
+        }
+
         Artist artist = artistsService.getArtistById(id);
         model.addAttribute("artist", artist);
         return "artist-detail";
     }
 }
-

@@ -16,19 +16,25 @@
                 <div class="header-title">
                     <a href="/">TourTune.</a>
                 </div>
+                <!-- Jika sudang login -->
+                <span th:if="${user != null}" class="welcome-text" th:text="${'Welcome, ' + user.username}"></span>
                 <div class="header-buttons">
-                    <a class="login-register-btn" href="/login">Sign in/ Sign up</a>
+                    <!-- Jika belum login -->
+                    <a class="login-register-btn" th:if="${user == null}" href="/login">Sign in/ Sign up</a>
+                    <!-- Jika sudang login -->
+                    <a th:if="${user != null}" class="login-register-btn" href="/logout">Sign Out</a>
                 </div>
             </div>
             <nav class="sidebar" id="sidebar">
                 <div class="xContainer">
-                    <button id="x" onclick="toggleMenu()">&#x2716</button>
+                    <button id="x" onclick="toggleMenu()">&#x2716;</button>
                 </div>
                 <ul>
                     <li><a href="/" id="home-page">Home Page</a></li>
                     <li><a href="/discover" id="discover">Discover</a></li>
                     <li><a href="/artists" id="artist">Artists</a></li>
                     <li><a href="/shows" id="show">Shows</a></li>
+                    <li><a href="/members" id="edit">Edit Member</a></li>
                 </ul>
             </nav>
         </nav>
@@ -40,19 +46,21 @@
                 <!-- Artist Selection -->
                 <div class="input-field">
                     <label for="artist-search">Artist Name</label><br>
-                    <input id="artist-search" type="text" name="query" placeholder="Search for Artist..." oninput="searchArtist()" autocomplete="off">
+                    <input id="artist-search" type="text" name="query" placeholder="Search for Artist..."
+                        oninput="searchArtist()" autocomplete="off">
                     <div id="artist-dropdown" class="dropdown"></div>
                     <input type="hidden" id="selected-artist-id" name="artistId">
                 </div>
-    
+
                 <!-- Venue Selection -->
                 <div class="input-field">
                     <label for="venue-search">Venue</label><br>
-                    <input id="venue-search" type="text" placeholder="Search for Venue..." oninput="searchVenue()" autocomplete="off">
+                    <input id="venue-search" type="text" placeholder="Search for Venue..." oninput="searchVenue()"
+                        autocomplete="off">
                     <div id="venue-dropdown" class="dropdown"></div>
                     <input type="hidden" id="selected-venue-id" name="venueId">
                 </div>
-    
+
                 <!-- Date Selection -->
                 <div class="input-field">
                     <label for="date">Date</label><br>

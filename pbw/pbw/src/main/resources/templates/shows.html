@@ -34,6 +34,7 @@
                     <li><a href="/discover" id="discover">Discover</a></li>
                     <li><a href="/artists" id="artist">Artists</a></li>
                     <li><a href="/shows" id="show">Shows</a></li>
+                    <li><a href="/members" id="edit">Edit Member</a></li>
                 </ul>
             </nav>
         </nav>
@@ -43,9 +44,11 @@
             <div class="add-ons">
                 <div class="filter-container">
                     <select id="countryFilter" class="filter">
-                        <option value="" th:selected="${countryFilter == null || countryFilter == ''}">All Countries</option>
-                        <option th:each="country : ${countries}" th:value="${country}" th:selected="${country == countryFilter}" th:text="${country}"></option>
-                    </select>                                     
+                        <option value="" th:selected="${countryFilter == null || countryFilter == ''}">All Countries
+                        </option>
+                        <option th:each="country : ${countries}" th:value="${country}"
+                            th:selected="${country == countryFilter}" th:text="${country}"></option>
+                    </select>
                 </div>
                 <div class="search-bar">
                     <input id="searchInput" type="text" placeholder="Search artist...">
@@ -89,62 +92,62 @@
                 <a class="prev" onclick="plusSlides(-1, 'slide-otp')">&#10094;</a>
                 <a class="next" onclick="plusSlides(1, 'slide-otp')">&#10095;</a>
             </div>
-        <div class="body-content">
-            <div class="song-setlist-container">
-                <div class="song-container">
-                    <h2 class="container-header">Songs.</h2>
-                    <div class="song">
-                        <div class="song-img">
-                            <img alt="Song Image">
+            <div class="body-content">
+                <div class="song-setlist-container">
+                    <div class="song-container">
+                        <h2 class="container-header">Songs.</h2>
+                        <div class="song">
+                            <div class="song-img">
+                                <img alt="Song Image">
+                            </div>
+                            <a class="song-title" href="#">song 1</a>
+                            <span class="song-listener">listener</span>
                         </div>
-                        <a class="song-title" href="#">song 1</a>
-                        <span class="song-listener">listener</span>
                     </div>
-                </div>
-                <div class="setlist-container">
-                    <h2 class="container-header">Setlists.</h2>
-                    <div class="setlist-grid">
-                        <a class="setlist" href="#">Setlist-title</a>
-                        <a class="show" href="#">Show-Name</a>
+                    <div class="setlist-container">
+                        <h2 class="container-header">Setlists.</h2>
+                        <div class="setlist-grid">
+                            <a class="setlist" href="#">Setlist-title</a>
+                            <a class="show" href="#">Show-Name</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="body-content">
-            <div class="show-container">
-                <h2 class="container-header">Upcoming Shows.</h2>
-                <div class="show-grid">
-                    <p class="show-title">Show Title</p>
-                    <p class="show-venue">Show Venue</p>
-                    <p class="show-date">Show Date</p>
-                    <p class="show-description">Show Description</p>
-                </div>
-                <div class="show-grid">
-                    <p class="show-title">Show Title</p>
-                    <p class="show-venue">Show Venue</p>
-                    <p class="show-date">Show Date</p>
-                    <p class="show-description">Show Description</p>
-                </div>
-                <div class="show-grid">
-                    <p class="show-title">Show Title</p>
-                    <p class="show-venue">Show Venue</p>
-                    <p class="show-date">Show Date</p>
-                    <p class="show-description">Show Description</p>
-                </div>
-                <div class="show-grid">
-                    <p class="show-title">Show Title</p>
-                    <p class="show-venue">Show Venue</p>
-                    <p class="show-date">Show Date</p>
-                    <p class="show-description">Show Description</p>
-                </div>
-                <div class="show-grid">
-                    <p class="show-title">Show Title</p>
-                    <p class="show-venue">Show Venue</p>
-                    <p class="show-date">Show Date</p>
-                    <p class="show-description">Show Description</p>
+            <div class="body-content">
+                <div class="show-container">
+                    <h2 class="container-header">Upcoming Shows.</h2>
+                    <div class="show-grid">
+                        <p class="show-title">Show Title</p>
+                        <p class="show-venue">Show Venue</p>
+                        <p class="show-date">Show Date</p>
+                        <p class="show-description">Show Description</p>
+                    </div>
+                    <div class="show-grid">
+                        <p class="show-title">Show Title</p>
+                        <p class="show-venue">Show Venue</p>
+                        <p class="show-date">Show Date</p>
+                        <p class="show-description">Show Description</p>
+                    </div>
+                    <div class="show-grid">
+                        <p class="show-title">Show Title</p>
+                        <p class="show-venue">Show Venue</p>
+                        <p class="show-date">Show Date</p>
+                        <p class="show-description">Show Description</p>
+                    </div>
+                    <div class="show-grid">
+                        <p class="show-title">Show Title</p>
+                        <p class="show-venue">Show Venue</p>
+                        <p class="show-date">Show Date</p>
+                        <p class="show-description">Show Description</p>
+                    </div>
+                    <div class="show-grid">
+                        <p class="show-title">Show Title</p>
+                        <p class="show-venue">Show Venue</p>
+                        <p class="show-date">Show Date</p>
+                        <p class="show-description">Show Description</p>
+                    </div>
                 </div>
             </div>
-        </div>
     </main>
     <script>
         function toggleMenu() {

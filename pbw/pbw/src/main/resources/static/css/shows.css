@@ -120,9 +120,10 @@ header {
 }
 
 
-.add-ons{
+
+.add-ons {
     display: grid;
-    grid-template-areas: 
+    grid-template-areas:
         'filters search add-btn';
     grid-template-columns: 150px auto 150px;
     column-gap: 30px;
@@ -161,7 +162,8 @@ header {
     gap: 10px;
 }
 
-.filter{
+
+.filter {
     border-radius: 20px;
     color: #575757;
     font-size: 12px;
@@ -170,13 +172,15 @@ header {
     padding: 10px;
 }
 
-.button-a{
+
+.button-a {
     grid-area: add-btn;
     display: flex;
     justify-self: start;
     text-decoration: none;
     align-self: center;
 }
+
 .add-show-btn{
     margin: 0px;
 }
@@ -245,18 +249,23 @@ header {
     margin: auto;
     overflow: hidden;
 }
+
+
 .slides {
     display: none;
     opacity: 0;
     transition: opacity 1s ease;
     border-radius: 10px;
 }
+
 img {
     width: 100%;
     height: 100%;
     border-radius: 10px;
     transition: opacity 1s ease;
 }
+
+
 .caption {
     border-radius: 10px;
     position: absolute;
@@ -274,23 +283,31 @@ img {
     opacity: 0;
     transition: background-color 0.7s ease;
 }
+
+
 .slides:hover .caption {
     opacity: 0;
     font-size: 175%;
     transition: background-color 0.7s ease;
 }
-.caption:hover{
+
+
+.caption:hover {
     transition: background-color 0.7s ease;
     background-color: rgba(0, 0, 0, 0.7);
 }
-.caption p, .caption h2{
+
+.caption p,
+.caption h2 {
     position: relative;
     transition: font-size 0.5s ease;
 }
-.caption h2{
+
+.caption h2 {
     padding-left: 15%;
 }
-.caption p{
+
+.caption p {
     font-weight: 300;
     padding-left: 5%;
     font-size: 65%;
@@ -298,7 +315,10 @@ img {
     justify-self: start;
     padding: 0%;
 }
-.prev, .next {
+
+
+.prev,
+.next {
     cursor: pointer;
     position: absolute;
     top: 50%;
@@ -310,20 +330,26 @@ img {
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
 }
+
 .next {
     right: 0;
     border-radius: 3px 0 0 3px;
 }
-.prev:hover, .next:hover {
+
+
+.prev:hover,
+.next:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }
-.song-setlist-container{
+.song-setlist-container {
+
     display: flex;
     height: 400px;
     width: 80%;
     align-self: center;
     justify-self: center;
 }
+
 .song-container{
     background-color: #1f2833;
     width: 50%;
@@ -331,6 +357,7 @@ img {
     margin: 15px;
     overflow-y: auto;
 }
+
 .setlist-container{
     background-color: #C5C6C7;
     width: 50%;
@@ -339,13 +366,16 @@ img {
     color: #1f2833;
     overflow-y: auto;
 }
-.container-header{
+
+
+.container-header {
     text-align: center;
     margin-bottom: 25px;
 }
-.song{
+
+.song {
     display: grid;
-    grid-template-areas: 
+    grid-template-areas:
         'img title listener';
     grid-template-columns: auto 55% 30%;
     border: 1px white;
@@ -356,6 +386,7 @@ img {
     padding: 10px;
     transition: background-color 0.3s ease;
 }
+
 .song:hover{
     background-color: #323e4e;
 }
@@ -367,11 +398,13 @@ img {
     overflow: hidden;
     border-radius: 8px;
 }
+
 .song-img img{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
+
 .song-title{
     display: flex;
     grid-area: title;
@@ -381,12 +414,14 @@ img {
     cursor: pointer;
     overflow: hidden;
 }
+
 .song-listener{
     display: flex;
     grid-area: listener;
     align-items: center;
     overflow: hidden;
 }
+
 .setlist-grid{
     display: grid;
     grid-template-areas: 
@@ -401,30 +436,37 @@ img {
     align-content: center;
     transition: background-color 0.3s ease;
 }
-.setlist-grid:hover{
+
+
+.setlist-grid:hover {
     background-color: #dbd5d5;
 }
-.setlist{
+
+.setlist {
     grid-area: setlist;
     text-decoration: none;
     color: #1f2833;
     transition: font-size 0.3s ease;
     overflow: hidden;
 }
-.setlist:hover{
+
+.setlist:hover {
     font-size: larger;
 }
-.show{
+
+.show {
     grid-area: show;
     text-decoration: none;
     color: #1f2833;
     transition: font-size 0.3s ease;
     overflow: hidden;
 }
-.show:hover{
+
+.show:hover {
     font-size: larger;
 }
-.show-container{
+
+.show-container {
     background-color: #C5C6C7;
     height: 300px;
     width: 80%;
@@ -434,31 +476,39 @@ img {
     overflow-y: auto;
     justify-self: center;
 }
-.show-grid{
+
+.show-grid {
     height: 55px;
     display: grid;
-    grid-template-areas: 
+    grid-template-areas:
         'title venue date desc';
     grid-template-columns: 25% 25% 25% 25%;
     transition: background-color 0.3s ease;
 }
-.show-grid p{
+
+.show-grid p {
     font-size: small;
     text-align: center;
     overflow: auto;
 }
-.show-grid:hover{
+
+
+.show-grid:hover {
     background-color: #dbd5d5;
 }
-.show-title{
+
+.show-title {
     grid-area: title;
 }
-.show-venue{
+
+.show-venue {
     grid-area: venue;
 }
-.show-date{
+
+.show-date {
     grid-area: date;
 }
-.show-description{
+
+.show-description {
     grid-area: desc;
 }
