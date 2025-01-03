@@ -18,7 +18,8 @@ body {
     padding-top: 10px;
 }
 
-.body-content p {
+.body-content .caption-header {
+    text-align: center;
     font-size: large;
     padding-left: 10%;
     padding-right: 10%;
@@ -43,9 +44,9 @@ header {
     width: 100%;
     display: grid;
     grid-template-areas:
-        'menu title buttons';
+        'menu title name buttons';
     grid-template-columns:
-        50px auto 250px
+        50px auto auto 250px
 }
 
 .hamburger-menu {
@@ -75,6 +76,12 @@ header {
 .header-title a {
     text-decoration: none;
     color: white;
+}
+
+.welcome-text {
+    grid-area: name;
+    align-self: center;
+    justify-self: end;
 }
 
 .header-buttons {

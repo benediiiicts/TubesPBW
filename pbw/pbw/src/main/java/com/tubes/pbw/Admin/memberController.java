@@ -52,6 +52,7 @@ public class memberController {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             model.addAttribute("user", user.get());
+            model.addAttribute("loggedUser", loggedUser); // Add logged user to model for header
             return "edit-member"; // HTML for editing a member
         } else {
             return "redirect:/members"; // Redirect if user not found

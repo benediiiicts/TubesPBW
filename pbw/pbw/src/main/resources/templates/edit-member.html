@@ -17,7 +17,8 @@
                     <a href="/">TourTune.</a>
                 </div>
                 <!-- Jika sudang login -->
-                <span th:if="${user != null}" class="welcome-text" th:text="${'Welcome, ' + user.username}"></span>
+                <span th:if="${loggedUser != null}" class="welcome-text"
+                    th:text="${'Welcome, ' + loggedUser.username}"></span>
                 <div class="header-buttons">
                     <!-- Jika belum login -->
                     <a class="login-register-btn" th:if="${user == null}" href="/login">Sign in/ Sign up</a>
@@ -47,11 +48,11 @@
 
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Enter username"
-                    th:value="${user.username}" required />
+                    th:value="${user.username}" required readonly />
 
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter email" th:value="${user.email}"
-                    required />
+                <input type="email" id="email" name="email" placeholder="Enter email" th:value="${user.email}" required
+                    readonly />
 
                 <label for="role">Role</label>
                 <select id="role" name="role" required>
@@ -63,6 +64,7 @@
             </form>
         </div>
     </main>
+
 </body>
 
 </html>

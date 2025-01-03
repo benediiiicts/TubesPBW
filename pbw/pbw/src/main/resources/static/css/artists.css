@@ -113,9 +113,9 @@ header {
     transition: background-color 0.3s ease;
 }
 
-.add-ons{
+.add-ons {
     display: grid;
-    grid-template-areas: 
+    grid-template-areas:
         'filters search add-btn';
     grid-template-columns: 210px auto 150px;
     column-gap: 50px;
@@ -153,7 +153,7 @@ header {
     gap: 10px;
 }
 
-.filter{
+.filter {
 
     border-radius: 20px;
     color: #575757;
@@ -163,7 +163,7 @@ header {
     padding: 10px;
 }
 
-.button-a{
+.button-a {
 
     grid-area: add-btn;
     display: flex;
@@ -258,7 +258,7 @@ header {
 
 .card {
     position: relative;
-  
+
     height: 380px;
     cursor: pointer;
     display: block;
@@ -347,7 +347,7 @@ header {
 
 .pagination ul li a {
     text-decoration: none;
-    color:#1f2833 ;
+    color: #1f2833;
     padding: 5px 10px;
     background-color: #C5C6C7;
     border-radius: 4px;
@@ -355,7 +355,7 @@ header {
     transition: color 0.2s ease;
 }
 
-.pagination ul li a:hover{
+.pagination ul li a:hover {
     background-color: #575757;
     color: #C5C6C7;
 }
