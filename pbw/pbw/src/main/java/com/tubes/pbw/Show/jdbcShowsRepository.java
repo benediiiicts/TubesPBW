@@ -11,18 +11,23 @@ import org.springframework.stereotype.Repository;
 
 import com.tubes.Data.Artist;
 import com.tubes.Data.Show;
+import com.tubes.Data.Venue;
+import com.tubes.pbw.Venue.VenueService;
 @Repository
 public class jdbcShowsRepository implements ShowsRepository {
     
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private VenueService venueService;
+
     @Override
     public Optional<Show> findByName(String showName) {
         String sql = "SELECT * FROM \"show\" WHERE LOWER(showName) = LOWER(?)";
 
         // Menggunakan JdbcTemplate untuk mengeksekusi query dan memetakan hasilnya ke objek Show
-        List<Show> results = (List<Show>) jdbcTemplate.query(sql, this::mapRowToShow, showName);
+        List<Show> results = jdbcTemplate.query(sql, this::mapRowToShow, showName);
 
         // Mengembalikan show pertama yang ditemukan dalam Optional
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
@@ -39,31 +44,42 @@ public class jdbcShowsRepository implements ShowsRepository {
     }
 
     @Override
-public Show findById(Long id) {
-    String sql = "SELECT * FROM \"show\" WHERE idShow = ?";
-    List<Show> result = (List<Show>) jdbcTemplate.query(sql, this::mapRowToShow, id);
-    if (result.isEmpty()) {
-        return null; 
+    public Show findById(Long id) {
+        String sql = "SELECT idvenue FROM \"show\" WHERE idshow = ?";
+        //ambil nama venue pada show
+        Long idVenue = jdbcTemplate.queryForObject(sql, Long.class, id);
+        Venue venue = venueService.getVenueById(idVenue);
+        sql = "SELECT * FROM \"show\" WHERE idshow = ?";
+        List<Show> result = jdbcTemplate.query(sql, 
+            (rs, rowNum) -> new Show(
+                rs.getLong("idshow"),
+                rs.getString("showname"),
+                rs.getDate("date"),
+                venue.getName(),
+                rs.getString("description"))
+            , id);
+        if (result.isEmpty()) {
+            return null; 
+        }
+        return result.get(0);
     }
-    return result.get(0);
-}
-
     @Override
     public List<Artist> artistInShow(String showName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'artistInShow'");
     }
 
-    
-
-    private Show mapRowToShow(ResultSet rs) throws SQLException {
-        return Show.builder()
-                .idShow(rs.getLong("idShow")) // Ambil idShow
-                .showName(rs.getString("showName")) // Ambil nama show
-                .date(rs.getDate("date")) // Ambil tanggal
-                .venue(rs.getString("venue")) // Ambil venue
-                .description(rs.getString("description")) // Ambil deskripsi
-                .build();
+    private Show mapRowToShow(ResultSet rs, int intRow) throws SQLException {
+        Show show = new Show(
+            rs.getLong("idShow"),        // Ambil idShow
+            rs.getString("showName"),   // Ambil nama show
+            rs.getDate("date"),         // Ambil tanggal
+            rs.getString("venue"),      // Ambil venue
+            rs.getString("description") // Ambil deskripsi
+        );
+        // untuk debug atau log.
+        // System.out.println("Processing row: " + intRow);
+        return show;
     }
     
 

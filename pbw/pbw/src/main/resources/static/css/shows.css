@@ -120,6 +120,7 @@ header {
 }
 
 
+
 .add-ons {
     display: grid;
     grid-template-areas:
@@ -161,6 +162,7 @@ header {
     gap: 10px;
 }
 
+
 .filter {
     border-radius: 20px;
     color: #575757;
@@ -170,6 +172,7 @@ header {
     padding: 10px;
 }
 
+
 .button-a {
     grid-area: add-btn;
     display: flex;
@@ -178,7 +181,7 @@ header {
     align-self: center;
 }
 
-.add-show-btn {
+.add-show-btn{
     margin: 0px;
 }
 
@@ -247,6 +250,7 @@ header {
     overflow: hidden;
 }
 
+
 .slides {
     display: none;
     opacity: 0;
@@ -260,6 +264,7 @@ img {
     border-radius: 10px;
     transition: opacity 1s ease;
 }
+
 
 .caption {
     border-radius: 10px;
@@ -279,11 +284,13 @@ img {
     transition: background-color 0.7s ease;
 }
 
+
 .slides:hover .caption {
     opacity: 0;
     font-size: 175%;
     transition: background-color 0.7s ease;
 }
+
 
 .caption:hover {
     transition: background-color 0.7s ease;
@@ -309,6 +316,7 @@ img {
     padding: 0%;
 }
 
+
 .prev,
 .next {
     cursor: pointer;
@@ -328,12 +336,13 @@ img {
     border-radius: 3px 0 0 3px;
 }
 
+
 .prev:hover,
 .next:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }
-
 .song-setlist-container {
+
     display: flex;
     height: 400px;
     width: 80%;
@@ -341,7 +350,7 @@ img {
     justify-self: center;
 }
 
-.song-container {
+.song-container{
     background-color: #1f2833;
     width: 50%;
     border-radius: 12px;
@@ -349,7 +358,7 @@ img {
     overflow-y: auto;
 }
 
-.setlist-container {
+.setlist-container{
     background-color: #C5C6C7;
     width: 50%;
     border-radius: 12px;
@@ -357,6 +366,7 @@ img {
     color: #1f2833;
     overflow-y: auto;
 }
+
 
 .container-header {
     text-align: center;
@@ -377,11 +387,10 @@ img {
     transition: background-color 0.3s ease;
 }
 
-.song:hover {
+.song:hover{
     background-color: #323e4e;
 }
-
-.song-img {
+.song-img{
     display: flex;
     grid-area: img;
     height: 55px;
@@ -390,13 +399,13 @@ img {
     border-radius: 8px;
 }
 
-.song-img img {
+.song-img img{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.song-title {
+.song-title{
     display: flex;
     grid-area: title;
     text-decoration: none;
@@ -406,16 +415,16 @@ img {
     overflow: hidden;
 }
 
-.song-listener {
+.song-listener{
     display: flex;
     grid-area: listener;
     align-items: center;
     overflow: hidden;
 }
 
-.setlist-grid {
+.setlist-grid{
     display: grid;
-    grid-template-areas:
+    grid-template-areas: 
         'setlist show';
     grid-template-columns: 50% 50%;
     margin: 20px;
@@ -427,6 +436,7 @@ img {
     align-content: center;
     transition: background-color 0.3s ease;
 }
+
 
 .setlist-grid:hover {
     background-color: #dbd5d5;
@@ -481,6 +491,7 @@ img {
     text-align: center;
     overflow: auto;
 }
+
 
 .show-grid:hover {
     background-color: #dbd5d5;

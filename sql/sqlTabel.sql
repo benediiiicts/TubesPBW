@@ -87,6 +87,8 @@ CREATE TABLE setlist (
     idSetlist SERIAL PRIMARY KEY,
     title VARCHAR(100),
     idShow INT NOT NULL,
+    idArtist int not null,
+    FOREIGN KEY (idArtist) REFERENCES artist(idArtist),
     FOREIGN KEY (idShow) REFERENCES "show" (idShow)
 );
 
