@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tubes.Data.Show;
@@ -16,7 +15,9 @@ import com.tubes.Data.Show;
 public class ShowsService {
 
     @Autowired
-    private jdbcShowsRepository jdbcshowsRepository;
+    private ShowsRepository showsRepository;
+
+
 
     public void addNewShow(String showName, String date, String venue, String description) throws ParseException {
         Date convertedDate = convertStringToSqlDate(date) ;
@@ -26,7 +27,7 @@ public class ShowsService {
         show.setVenue(venue);
         show.setDescription(description);
         try {
-            jdbcshowsRepository.addShow(show);
+            showsRepository.addShow(show);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,8 +41,6 @@ public class ShowsService {
         // Konversi dari java.util.Date ke java.sql.Date
         return new Date(utilDate.getTime());
     }
-    @Autowired
-    ShowsRepository showsRepository;
 
     public Show getShow(Long id){
         return showsRepository.findById(id);
