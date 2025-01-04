@@ -56,83 +56,19 @@
             <div class="song-setlist-container">
                 <div class="song-container">
                     <h2 class="container-header">Songs.</h2>
-                    <div class="song">
+                    <div class="song" th:each="song : ${songs}">
                         <div class="song-img">
                             <img th:src="@{${artist.PhotosURL}}" alt="Song Image">
                         </div>
-                        <a class="song-title" href="#">song 1</a>
-                        <span class="song-listener">listener</span>
-                    </div>
-                    <div class="song">
-                        <div class="song-img">
-                            <img th:src="@{${artist.PhotosURL}}" alt="Song Image">
-                        </div>
-                        <a class="song-title" href="#">song 2</a>
-                        <span class="song-listener">listener</span>
-                    </div>
-                    <div class="song">
-                        <div class="song-img">
-
-                            <img th:src="@{${artist.PhotosURL}}" alt="Song Image">
-                        </div>
-                        <a class="song-title" href="#">song 3</a>
-                        <span class="song-listener">listener</span>
-                    </div>
-                    <div class="song">
-                        <div class="song-img">
-                            <img th:src="@{${artist.PhotosURL}}" alt="Song Image">
-                        </div>
-                        <a class="song-title" href="#">song 4</a>
-                        <span class="song-listener">listener</span>
-                    </div>
-                    <div class="song">
-                        <div class="song-img">
-                            <img th:src="@{${artist.PhotosURL}}" alt="Song Image">
-                        </div>
-                        <a class="song-title" href="#">song 5</a>
-                        <span class="song-listener">listener</span>
-                    </div>
-                    <div class="song">
-                        <div class="song-img">
-                            <img th:src="@{${artist.PhotosURL}}" alt="Song Image">
-                        </div>
-                        <a class="song-title" href="#">song 6</a>
-                        <span class="song-listener">listener</span>
+                        <a class="song-title" th:href="${song.url}" th:text="${song.title}"></a>
+                        <span class="song-listener" th:text="${song.listener}"></span>
                     </div>
                 </div>
                 <div class="setlist-container">
                     <h2 class="container-header">Setlists.</h2>
-                    <div class="setlist-grid">
-                        <a class="setlist" href="#">Setlist-title</a>
-                        <a class="show" href="#">Show-Name</a>
-                    </div>
-                    <div class="setlist-grid">
-                        <a class="setlist" href="#">Setlist-title</a>
-                        <a class="show" href="#">Show-Name</a>
-                    </div>
-                    <div class="setlist-grid">
-                        <a class="setlist" href="#">Setlist-title</a>
-                        <a class="show" href="#">Show-Name</a>
-                    </div>
-                    <div class="setlist-grid">
-                        <a class="setlist" href="#">Setlist-title</a>
-                        <a class="show" href="#">Show-Name</a>
-                    </div>
-                    <div class="setlist-grid">
-                        <a class="setlist" href="#">Setlist-title</a>
-                        <a class="show" href="#">Show-Name</a>
-                    </div>
-                    <div class="setlist-grid">
-                        <a class="setlist" href="#">Setlist-title</a>
-                        <a class="show" href="#">Show-Name</a>
-                    </div>
-                    <div class="setlist-grid">
-                        <a class="setlist" href="#">Setlist-title</a>
-                        <a class="show" href="#">Show-Name</a>
-                    </div>
-                    <div class="setlist-grid">
-                        <a class="setlist" href="#">Setlist-title</a>
-                        <a class="show" href="#">Show-Name</a>
+                    <div class="setlist-grid" th:each="setlist : ${setlists}">
+                        <a class="setlist" href="#" th:text="${setlist.title}"></a>
+                        <a class="show" href="#" th:text="${setlist.show.showName}"></a>
                     </div>
                 </div>
             </div>
