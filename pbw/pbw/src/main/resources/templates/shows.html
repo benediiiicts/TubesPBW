@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/discover.css}">
+    <link rel="stylesheet" th:href="@{/css/shows.css}">
+    <script th:src="@{/js/shows.js}" defer></script>
 </head>
 
 <body>
@@ -26,25 +27,127 @@
             </div>
             <nav class="sidebar" id="sidebar">
                 <div class="xContainer">
-                    <button id="x" onclick="toggleMenu()">&#x2716</button>
+                    <button id="x" onclick="toggleMenu()">&#x2716;</button>
                 </div>
                 <ul>
                     <li><a href="/" id="home-page">Home Page</a></li>
                     <li><a href="/discover" id="discover">Discover</a></li>
                     <li><a href="/artists" id="artist">Artists</a></li>
                     <li><a href="/shows" id="show">Shows</a></li>
+                    <li><a href="/members" id="edit">Edit Member</a></li>
                 </ul>
             </nav>
         </nav>
     </header>
     <main>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button class="search-btn">Search</button>
+        <div class="body-content">
+            <div class="add-ons">
+                <div class="filter-container">
+                    <select id="countryFilter" class="filter">
+                        <option value="" th:selected="${countryFilter == null || countryFilter == ''}">All Countries
+                        </option>
+                        <option th:each="country : ${countries}" th:value="${country}"
+                            th:selected="${country == countryFilter}" th:text="${country}"></option>
+                    </select>
+                </div>
+                <div class="search-bar">
+                    <input id="searchInput" type="text" placeholder="Search artist...">
+                    <button class="search-btn" onclick="applyFilters()">Search</button>
+                </div>
+                <a href="/add-show" class="button-a">
+                    <button class="add-show-btn">Add a show</button>
+                </a>
+            </div>
         </div>
         <div class="body-content">
+            <div class="slideshow-container" id="slide-otp">
+                <div class="slides fade">
+                    <img th:src="@{/assets/sam-fender.jpeg}" alt="Image 1">
+                    <div class="caption">
+                        <h2>Sam Fender
+                            <p>3Arena, Dublin <br>Dec 2, 2024
+                            <p>
+                        </h2>
+                    </div>
+                </div>
+                <div class="slides fade">
+                    <img th:src="@{/assets/taylor_swift.jpg}" alt="Image 2">
+                    <div class="caption">
+                        <h2>Taylor Swift
+                            <p>BC Place Stadium, Vancouver<br>Dec 6, 2024
+                            <p>
+                        </h2>
+                    </div>
+                </div>
+                <div class="slides fade">
+                    <img th:src="@{/assets/paul.jpg}" alt="Image 3">
+                    <div class="caption">
+                        <h2>Paul McCartney
+                            <p>La Défense Arena, Nanterre<br>Dec 5, 2024
+                            <p>
+                        </h2>
+                    </div>
+                </div>
 
-        </div>
+                <a class="prev" onclick="plusSlides(-1, 'slide-otp')">&#10094;</a>
+                <a class="next" onclick="plusSlides(1, 'slide-otp')">&#10095;</a>
+            </div>
+            <div class="body-content">
+                <div class="song-setlist-container">
+                    <div class="song-container">
+                        <h2 class="container-header">Songs.</h2>
+                        <div class="song">
+                            <div class="song-img">
+                                <img alt="Song Image">
+                            </div>
+                            <a class="song-title" href="#">song 1</a>
+                            <span class="song-listener">listener</span>
+                        </div>
+                    </div>
+                    <div class="setlist-container">
+                        <h2 class="container-header">Setlists.</h2>
+                        <div class="setlist-grid">
+                            <a class="setlist" href="#">Setlist-title</a>
+                            <a class="show" href="#">Show-Name</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="body-content">
+                <div class="show-container">
+                    <h2 class="container-header">Upcoming Shows.</h2>
+                    <div class="show-grid">
+                        <p class="show-title">Show Title</p>
+                        <p class="show-venue">Show Venue</p>
+                        <p class="show-date">Show Date</p>
+                        <p class="show-description">Show Description</p>
+                    </div>
+                    <div class="show-grid">
+                        <p class="show-title">Show Title</p>
+                        <p class="show-venue">Show Venue</p>
+                        <p class="show-date">Show Date</p>
+                        <p class="show-description">Show Description</p>
+                    </div>
+                    <div class="show-grid">
+                        <p class="show-title">Show Title</p>
+                        <p class="show-venue">Show Venue</p>
+                        <p class="show-date">Show Date</p>
+                        <p class="show-description">Show Description</p>
+                    </div>
+                    <div class="show-grid">
+                        <p class="show-title">Show Title</p>
+                        <p class="show-venue">Show Venue</p>
+                        <p class="show-date">Show Date</p>
+                        <p class="show-description">Show Description</p>
+                    </div>
+                    <div class="show-grid">
+                        <p class="show-title">Show Title</p>
+                        <p class="show-venue">Show Venue</p>
+                        <p class="show-date">Show Date</p>
+                        <p class="show-description">Show Description</p>
+                    </div>
+                </div>
+            </div>
     </main>
     <script>
         function toggleMenu() {
@@ -53,5 +156,4 @@
         }
     </script>
 </body>
-
 </html>

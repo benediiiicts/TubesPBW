@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/member.css}">
+    <script th:src="@{/js/home.js}" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="header-container">
+                <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+                <div class="header-title">
+                    <a href="/">TourTune.</a>
+                </div>
+                <span th:if="${user != null}" class="welcome-text" th:text="${'Welcome, ' + user.username}"></span>
+                <div class="header-buttons">
+                    <a class="login-register-btn" th:if="${user == null}" href="/login">Sign in/ Sign up</a>
+                    <a th:if="${user != null}" class="login-register-btn" href="/logout">Sign Out</a>
+                </div>
+            </div>
+            <nav class="sidebar" id="sidebar">
+                <div class="xContainer">
+                    <button id="x" onclick="toggleMenu()">&#x2716;</button>
+                </div>
+                <ul>
+                    <li><a href="/" id="home-page">Home Page</a></li>
+                    <li><a href="/discover" id="discover">Discover</a></li>
+                    <li><a href="/artists" id="artist">Artists</a></li>
+                    <li><a href="/shows" id="show">Shows</a></li>
+                    <li><a href="/members" id="edit">Edit Member</a></li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+    <main>
+        <div class="body-content">
+            <h1 class="caption-header">Member List</h1>
+            <table class="member-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user, iterStat : ${users}">
+                        <td th:text="${iterStat.index + 1}"></td>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.role}"></td>
+                        <td>
+                            <a class="edit-btn" th:href="@{/members/edit-member/{id}(id=${user.id})}">Edit</a>
+                            <form th:action="@{/members/delete/{id}(id=${user.id})}" method="post"
+                                style="display: inline;">
+                                <button type="submit" class="delete-btn">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(users)}">
+                        <td class="empty" colspan="5">No members found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>

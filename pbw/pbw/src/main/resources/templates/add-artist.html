@@ -16,19 +16,25 @@
                 <div class="header-title">
                     <a href="/">TourTune.</a>
                 </div>
+                <!-- Jika sudang login -->
+                <span th:if="${user != null}" class="welcome-text" th:text="${'Welcome, ' + user.username}"></span>
                 <div class="header-buttons">
-                    <a class="login-register-btn" href="/login">Sign in/ Sign up</a>
+                    <!-- Jika belum login -->
+                    <a class="login-register-btn" th:if="${user == null}" href="/login">Sign in/ Sign up</a>
+                    <!-- Jika sudang login -->
+                    <a th:if="${user != null}" class="login-register-btn" href="/logout">Sign Out</a>
                 </div>
             </div>
             <nav class="sidebar" id="sidebar">
                 <div class="xContainer">
-                    <button id="x" onclick="toggleMenu()">&#x2716</button>
+                    <button id="x" onclick="toggleMenu()">&#x2716;</button>
                 </div>
                 <ul>
                     <li><a href="/" id="home-page">Home Page</a></li>
                     <li><a href="/discover" id="discover">Discover</a></li>
                     <li><a href="/artists" id="artist">Artists</a></li>
                     <li><a href="/shows" id="show">Shows</a></li>
+                    <li><a href="/members" id="edit">Edit Member</a></li>
                 </ul>
             </nav>
         </nav>
@@ -44,11 +50,13 @@
                     </div>
                     <div class="input-field">
                         <label for="artist-description">Description</label>
-                        <input id="artist-description" name="artist_description" type="text" placeholder="Brief Description" required>
+                        <input id="artist-description" name="artist_description" type="text"
+                            placeholder="Brief Description" required>
                     </div>
                     <div class="input-field">
                         <label for="artist-genre">Genre</label>
-                        <input type="search" name="artist_genre" list="genre-list" id="artist-genre" placeholder="Artist's Genre" required/>
+                        <input type="search" name="artist_genre" list="genre-list" id="artist-genre"
+                            placeholder="Artist's Genre" required />
                         <datalist id="genre-list">
                             <option value="Pop">
                             <option value="Rock">
@@ -60,28 +68,32 @@
                     </div>
                     <div class="input-field">
                         <label for="artist-Year">Year</label>
-                        <input type="number" name="artist_year" id="artist-Year" min="1800" max="2100" placeholder="Debut Year" required>
+                        <input type="number" name="artist_year" id="artist-Year" min="1800" max="2100"
+                            placeholder="Debut Year" required>
                     </div>
                     <div class="input-field">
                         <label for="artist-country">Country</label>
-                        <select name="artist_country" id="artist-country" th:value="${selected_country}" onchange="changeSelectColor(this)" required>
+                        <select name="artist_country" id="artist-country" th:value="${selected_country}"
+                            onchange="changeSelectColor(this)" required>
                             <option class="select-country" val="" disabled selected>Select a country</option>
-                            <option class="select-country"
-                                    th:each="country : ${countries}"
-                                    th:value="${country.country_code}"
-                                    th:text="${country.country_name}"
-                                    th:selected="${country.country_code == selected_country}"></option>
+                            <option class="select-country" th:each="country : ${countries}"
+                                th:value="${country.country_code}" th:text="${country.country_name}"
+                                th:selected="${country.country_code == selected_country}"></option>
                         </select>
                     </div>
                 </div>
                 <div class="pict-input">
                     <div class="input-field">
                         <label for="artist-picture">Artist's Photo</label>
-                        <input id="artist-picture" name="artist_picture" type="file" accept="image/*" onchange="previewImage(event)" style="display: none;">
-                        <button type="button" class="file-upload-btn" onclick="document.getElementById('artist-picture').click();">Choose File</button>
-                        <img id="image-preview" src="" alt="Image Preview" style="display:none; margin-top: 10px; max-width: 100%; border-radius: 10px;"/>
+                        <input id="artist-picture" name="artist_picture" type="file" accept="image/*"
+                            onchange="previewImage(event)" style="display: none;">
+                        <button type="button" class="file-upload-btn"
+                            onclick="document.getElementById('artist-picture').click();">Choose File</button>
+                        <img id="image-preview" src="" alt="Image Preview"
+                            style="display:none; margin-top: 10px; max-width: 100%; border-radius: 10px;" />
                     </div>
-                    <p id="submit-error-message" class="error-message" th:if="${image_error}" th:text="${image_error}"></p>
+                    <p id="submit-error-message" class="error-message" th:if="${image_error}" th:text="${image_error}">
+                    </p>
                     <p id="submit-error-message" style="display: none;" th:text="${error_submit}"></p>
                 </div>
                 <button type="submit" class="btn-cancel" onclick="window.history.back();">Cancel</button>
@@ -102,9 +114,9 @@
             }
         }
         const submitErrorMessage = document.getElementById('submit-error-message');
-		if (submitErrorMessage.textContent.trim() !== '') {
-			submitErrorMessage.style.display = 'block';
-		}
+        if (submitErrorMessage.textContent.trim() !== '') {
+            submitErrorMessage.style.display = 'block';
+        }
     </script>
 </body>
 

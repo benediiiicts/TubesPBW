@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/artists.css}">
 </head>
-
 <body>
     <header>
         <nav class="navbar">
@@ -33,6 +32,7 @@
                     <li><a href="/discover" id="discover">Discover</a></li>
                     <li><a href="/artists" id="artist">Artists</a></li>
                     <li><a href="/shows" id="show">Shows</a></li>
+                    <li><a href="/members" id="edit">Edit Member</a></li>
                 </ul>
             </nav>
         </nav>
@@ -42,13 +42,16 @@
             <div class="add-ons">
                 <div class="filter-container">
                     <select id="countryFilter" class="filter">
-                        <option value="" th:selected="${countryFilter == null || countryFilter == ''}">All Countries</option>
-                        <option th:each="country : ${countries}" th:value="${country}" th:selected="${country == countryFilter}" th:text="${country}"></option>
+                        <option value="" th:selected="${countryFilter == null || countryFilter == ''}">All Countries
+                        </option>
+                        <option th:each="country : ${countries}" th:value="${country}"
+                            th:selected="${country == countryFilter}" th:text="${country}"></option>
                     </select>
                     <select id="genreFilter" class="filter">
                         <option value="" th:selected="${genreFilter == null || genreFilter == ''}">All Genres</option>
-                        <option th:each="genre : ${genres}" th:value="${genre}" th:selected="${genre == genreFilter}" th:text="${genre}"></option>
-                    </select>                                       
+                        <option th:each="genre : ${genres}" th:value="${genre}" th:selected="${genre == genreFilter}"
+                            th:text="${genre}"></option>
+                    </select>
                 </div>
                 <div class="search-bar">
                     <input id="searchInput" type="text" placeholder="Search artist...">
@@ -76,17 +79,19 @@
             <div class="pagination" th:if="${totalPages > 0}">
                 <ul>
                     <li th:if="${currentPage > 1}">
-                        <a th:href="@{/artists(page=${currentPage - 1}, size=${pageSize}, search=${searchQuery}, country=${countryFilter}, genre=${genreFilter})}">Previous</a>
+                        <a
+                            th:href="@{/artists(page=${currentPage - 1}, size=${pageSize}, search=${searchQuery}, country=${countryFilter}, genre=${genreFilter})}">Previous</a>
                     </li>
                     <li th:each="i : ${#numbers.sequence(1, totalPages)}">
                         <a th:href="@{/artists(page=${i}, size=${pageSize}, search=${searchQuery}, country=${countryFilter}, genre=${genreFilter})}"
-                           th:classappend="${i == currentPage} ? 'active'" th:text="${i}">1</a>
+                            th:classappend="${i == currentPage} ? 'active'" th:text="${i}">1</a>
                     </li>
                     <li th:if="${currentPage < totalPages}">
-                        <a th:href="@{/artists(page=${currentPage + 1}, size=${pageSize}, search=${searchQuery}, country=${countryFilter}, genre=${genreFilter})}">Next</a>
+                        <a
+                            th:href="@{/artists(page=${currentPage + 1}, size=${pageSize}, search=${searchQuery}, country=${countryFilter}, genre=${genreFilter})}">Next</a>
                     </li>
                 </ul>
-            </div>            
+            </div>
         </div>
 
     </main>

@@ -5,7 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.tubes.Data.Show;
 
 import com.tubes.Data.Show;
 
@@ -36,5 +39,11 @@ public class ShowsService {
         java.util.Date utilDate = dateFormat.parse(dateString);
         // Konversi dari java.util.Date ke java.sql.Date
         return new Date(utilDate.getTime());
+    }
+    @Autowired
+    ShowsRepository showsRepository;
+
+    public Show getShow(Long id){
+        return showsRepository.findById(id);
     }
 }

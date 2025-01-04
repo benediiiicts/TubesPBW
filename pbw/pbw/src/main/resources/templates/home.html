@@ -34,6 +34,7 @@
                     <li><a href="/discover" id="discover">Discover</a></li>
                     <li><a href="/artists" id="artist">Artists</a></li>
                     <li><a href="/shows" id="show">Shows</a></li>
+                    <li><a href="/members" id="edit">Edit Member</a></li>
                 </ul>
             </nav>
         </nav>
@@ -85,34 +86,14 @@
                 music obsession!
             </p>
             <div class="slideshow-container" id="slide-rec">
-                <div class="slides fade">
-                    <img th:src="@{/assets/fujii.jpg}" alt="Image 1">
+                <div class="slides fade" th:each="set : ${recomended_set}">
+                    <img th:src="@{${set.artist.PhotosURL}}" alt="Image 1">
                     <div class="caption">
-                        <h2>Fujii Kaze
-                            <p>Gocheok Sky Dome, Seoul<br>Dec 14, 2024
-                            <p>
-                        </h2>
+                        <h2 th:text="${set.artist.name}"></h2>
+                        <p th:text="${set.show.venue}"></p>
+                        <p th:text="${set.show.date}"></p>
                     </div>
                 </div>
-                <div class="slides fade">
-                    <img th:src="@{/assets/the-cure.jpg}" alt="Image 2">
-                    <div class="caption">
-                        <h2>The Cure
-                            <p>Hyde Park, London<br>Jul 7, 2018
-                            <p>
-                        </h2>
-                    </div>
-                </div>
-                <div class="slides fade">
-                    <img th:src="@{/assets/sam-fender.jpeg}" alt="Image 1">
-                    <div class="caption">
-                        <h2>Sam Fender
-                            <p>3Arena, Dublin <br>Dec 2, 2024
-                            <p>
-                        </h2>
-                    </div>
-                </div>
-
                 <a class="prev" onclick="plusSlides(-1, 'slide-rec')">&#10094;</a>
                 <a class="next" onclick="plusSlides(1, 'slide-rec')">&#10095;</a>
             </div>
@@ -123,38 +104,19 @@
                 A selection of standout setlists and must-see tours. Check out the shows everyone's talking about!
             </p>
             <div class="slideshow-container" id="slide-otp">
-                <div class="slides fade">
-                    <img th:src="@{/assets/sam-fender.jpeg}" alt="Image 1">
+                <div class="slides fade" th:each="set : ${otp_set}">
+                    <img th:src="@{${set.artist.PhotosURL}}" alt="Image 1">
                     <div class="caption">
-                        <h2>Sam Fender
-                            <p>3Arena, Dublin <br>Dec 2, 2024
-                            <p>
-                        </h2>
+                        <h2 th:text="${set.artist.name}"></h2>
+                        <p th:text="${set.show.venue}"></p>
+                        <p th:text="${set.show.date}"></p>
                     </div>
                 </div>
-                <div class="slides fade">
-                    <img th:src="@{/assets/taylor_swift.jpg}" alt="Image 2">
-                    <div class="caption">
-                        <h2>Taylor Swift
-                            <p>BC Place Stadium, Vancouver<br>Dec 6, 2024
-                            <p>
-                        </h2>
-                    </div>
-                </div>
-                <div class="slides fade">
-                    <img th:src="@{/assets/paul.jpg}" alt="Image 3">
-                    <div class="caption">
-                        <h2>Paul McCartney
-                            <p>La Défense Arena, Nanterre<br>Dec 5, 2024
-                            <p>
-                        </h2>
-                    </div>
-                </div>
-
                 <a class="prev" onclick="plusSlides(-1, 'slide-otp')">&#10094;</a>
                 <a class="next" onclick="plusSlides(1, 'slide-otp')">&#10095;</a>
             </div>
         </div>
     </main>
 </body>
+
 </html>
