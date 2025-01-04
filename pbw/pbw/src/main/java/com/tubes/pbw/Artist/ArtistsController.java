@@ -17,8 +17,12 @@ import java.nio.file.Paths;
 
 import com.tubes.Data.User;
 import com.tubes.pbw.Country.CountryService;
+import com.tubes.pbw.Setlist.SetlistService;
+import com.tubes.pbw.Song.SongService;
 import com.tubes.Data.Artist;
 import com.tubes.Data.Country;
+import com.tubes.Data.SetList;
+import com.tubes.Data.Song;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -30,6 +34,12 @@ public class ArtistsController {
 
     @Autowired
     CountryService countryService;
+
+    @Autowired
+    SongService songService;
+
+    @Autowired
+    SetlistService setlistService;
 
     // untuk upload foto artis
     private static final String UPLOAD_DIR = "src/main/resources/static/assets";
@@ -157,7 +167,11 @@ public class ArtistsController {
         }
 
         Artist artist = artistsService.getArtistById(id);
+        List<Song> songs = songService.getSongsByArtist(id);
+        List<SetList> setlists = setlistService.getSetListByArtist(id);
         model.addAttribute("artist", artist);
+        model.addAttribute("songs", songs);
+        model.addAttribute("setlists", setlists);
         return "artist-detail";
     }
 }

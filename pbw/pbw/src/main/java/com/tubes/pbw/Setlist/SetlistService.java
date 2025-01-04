@@ -1,5 +1,7 @@
 package com.tubes.pbw.Setlist;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ public class SetlistService {
 
     public SetList getSetList(Integer idSetlist){
         return setlistRepository.findById(idSetlist);
+    }
+    public List<SetList> getSetListByArtist(Integer idArtist){
+        return setlistRepository.findByArtist(idArtist);
     }
     
 }
