@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,6 +42,22 @@ public class ShowsController {
 
     @GetMapping("/add-show")
     public String redirectToAddShow() {
+        return "add-show";
+    }
+
+    @PostMapping("/add-show")
+    public String addShow(@RequestParam("showName") String showName,
+                          @RequestParam("date") String date,
+                          @RequestParam("venue") String venue,
+                          @RequestParam("description") String description,
+                          Model model) {
+        try {
+            showsService.addNewShow(showName, date, venue, description);
+            model.addAttribute("success", "Show added successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Error adding show");
+        }
         return "add-show";
     }
 
