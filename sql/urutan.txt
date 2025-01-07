@@ -1,6 +1,10 @@
 Urutan insert data dummy sql
 
-0) Buat tabel -> sqlTabel
+- Buat tabel -> sqlTabel
+0) insert user admin awal -> in-user
+user awal =
+    email   : admin@gmail.com
+    pass    : admin123 (password sudah di-encrypt di database)
 
 ---> kemungkinan error kalo ga urutan <---
 1)  insert country -> in-country

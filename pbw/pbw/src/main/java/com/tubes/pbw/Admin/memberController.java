@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tubes.Data.User;
+import com.tubes.pbw.RequiredRole;
 
 @Controller
 @RequestMapping("/members")
@@ -24,6 +25,7 @@ public class memberController {
 
     // Display all members
     @GetMapping
+    // @RequiredRole("admin") // Only admin can access
     public String listMembers(Model model, HttpSession session) {
         // Check if user is logged in
         User loggedUser = (User) session.getAttribute("loggedUser");
@@ -43,6 +45,7 @@ public class memberController {
 
     // Form for editing a member
     @GetMapping("/edit-member/{id}")
+    // @RequiredRole("admin") // Only admin can access
     public String editMemberForm(@PathVariable int id, Model model, HttpSession session) {
         User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser == null) {
@@ -60,6 +63,7 @@ public class memberController {
     }
 
     @PostMapping("/edit-member")
+    // @RequiredRole("admin") // Only admin can access
     public String updateMember(@ModelAttribute User user, HttpSession session) {
         User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser == null) {
@@ -71,6 +75,7 @@ public class memberController {
     }
 
     @PostMapping("/delete/{id}")
+    // @RequiredRole("admin") // Only admin can access
     public String deleteUser(@PathVariable int id, HttpSession session) {
         User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser == null) {
@@ -82,6 +87,7 @@ public class memberController {
     }
 
     @PostMapping("/update-member")
+    // @RequiredRole("admin") // Only admin can access
     public String updateMemberRole(@ModelAttribute User user, HttpSession session) {
         // Check if user is logged in
         User loggedUser = (User) session.getAttribute("loggedUser");

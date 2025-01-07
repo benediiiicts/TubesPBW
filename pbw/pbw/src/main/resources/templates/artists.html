@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/artists.css}">
 </head>
+
 <body>
     <header>
         <nav class="navbar">
@@ -32,7 +33,9 @@
                     <li><a href="/discover" id="discover">Discover</a></li>
                     <li><a href="/artists" id="artist">Artists</a></li>
                     <li><a href="/shows" id="show">Shows</a></li>
-                    <li><a href="/members" id="edit">Edit Member</a></li>
+                    <!-- Fitur Edit Member hanya muncul jika user.role adalah admin -->
+                    <li th:if="${user != null and user.role == 'admin'}"><a href="/members" id="edit">Edit Member</a>
+                    </li>
                 </ul>
             </nav>
         </nav>

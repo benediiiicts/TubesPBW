@@ -60,7 +60,16 @@ public class JdbcSetlistRepository implements SetlistRepository {
         String title = jdbcTemplate.queryForObject(sql, String.class, id);
         return new SetList(artist, show, title, songs);
     }
-
+    @Override
+    public List<SetList> findByArtist(Integer id) {
+        String sql = "SELECT idsetlist FROM setlist WHERE idartist = ?";
+        List<Integer> idSetlists = jdbcTemplate.queryForList(sql, Integer.class, id);
+        List<SetList> setlists = new ArrayList<>();
+        for(int i : idSetlists){
+            setlists.add(findById(i));
+        }
+        return setlists;
+    }
     private SetList mapRowToSetlist(java.sql.ResultSet rs, int rowNum) {
         return new SetList(
             
