@@ -42,40 +42,35 @@
     <main>
         <form action="/add-show" method="post" class="form-grid">
             <div class="text-input">
+
+                <!-- Show Name -->
                 <div class="input-field">
                     <label for="showName">Show Name:</label>
                     <input type="text" id="showName" name="showName" required>
                 </div>
+
+                <!-- Date Selection -->
                 <div class="input-field">
                     <label for="date">Date:</label>
                     <input type="date" id="date" name="date" required>
                 </div>
+
+                <!-- Description -->
                 <div class="input-field">
                     <label for="description">Description:</label>
                     <textarea id="description" name="description" required></textarea>
                 </div>
-                <div class="input-field">
-                    <label for="artist-search">Search Artist:</label>
-                    <input type="text" id="artist-search"
-                        oninput="searchArtist()" autocomplete="off">
-                    <input type="hidden" id="selected-artist-id" name="artistId">
-                    <div id="artist-dropdown" class="dropdown"></div>
-                </div>
-
+    
                 <!-- Venue Selection -->
                 <div class="input-field">
-                    <label for="venue-search">Search Venue:</label>
-                    <input type="text" id="venue-search" oninput="searchVenue()"
+                    <label for="venue-search">Venue</label><br>
+                    <input id="venue-search" type="text" placeholder="Search for Venue..." oninput="searchVenue()"
                         autocomplete="off">
+                    <div id="venue-dropdown" class="dropdown"></div>
                     <input type="hidden" id="selected-venue-id" name="venueId">
                 </div>
 
-                <!-- Date Selection -->
-                <div class="input-field">
-                    <label for="date">Date</label><br>
-                    <input id="date" type="date" name="date" required>
-                    <div id="venue-dropdown" class="dropdown"></div>
-                </div>
+               
             </div>
             <div class="pict-input">
                 <button type="submit" class="file-upload-btn">Submit</button>

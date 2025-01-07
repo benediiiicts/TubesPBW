@@ -50,11 +50,11 @@ public class ShowsController {
     @PostMapping("/add-show")
     public String addShow(@RequestParam("showName") String showName,
                           @RequestParam("date") String date,
-                          @RequestParam("venue") String venue,
                           @RequestParam("description") String description,
+                          @RequestParam("venueId") int venue,
                           Model model) {
         try {
-            showsService.addNewShow(showName, date, venue, description);
+            showsService.addNewShow(showName, date, description, venue);
             model.addAttribute("success", "Show added successfully");
         } catch (Exception e) {
             e.printStackTrace();
