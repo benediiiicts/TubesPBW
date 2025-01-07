@@ -34,7 +34,7 @@ public class HomeController {
         //cek juga agar setlist yang sama tidak muncul 2 kali
         Set<Integer> checkSet = new HashSet<>();
         for(int i=0; i < 4; i++){
-            int temp = random.nextInt(30)+1;
+            int temp = random.nextInt(20)+1;
             if(checkSet.contains(temp)) i--;
             else{
                 setlistsRecomended.add(setlistService.getSetList(temp));
