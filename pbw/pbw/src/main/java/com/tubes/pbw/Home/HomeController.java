@@ -27,25 +27,26 @@ public class HomeController {
     public String home(HttpSession session, Model model) {
         // Ambil user dari session
         User loggedUser = (User) session.getAttribute("loggedUser");
-        //setlist untuk slideshow recomended for you
+        // setlist untuk slideshow recomended for you
         List<SetList> setlistsRecomended = new ArrayList<>();
-        //random setlist
+        // random setlist
         Random random = new Random();
-        //cek juga agar setlist yang sama tidak muncul 2 kali
+        // cek juga agar setlist yang sama tidak muncul 2 kali
         Set<Integer> checkSet = new HashSet<>();
-        for(int i=0; i < 4; i++){
-            int temp = random.nextInt(20)+1;
-            if(checkSet.contains(temp)) i--;
-            else{
+        for (int i = 0; i < 4; i++) {
+            int temp = random.nextInt(20) + 1;
+            if (checkSet.contains(temp))
+                i--;
+            else {
                 setlistsRecomended.add(setlistService.getSetList(temp));
                 checkSet.add(temp);
             }
         }
         model.addAttribute("recomended_set", setlistsRecomended);
-        //setlist untuk slideshow our top picks
+        // setlist untuk slideshow our top picks
         List<SetList> setlistsOTP = new ArrayList<>();
-        for(int i = 0; i < 4; i++){
-            setlistsOTP.add(setlistService.getSetList(i+1));
+        for (int i = 0; i < 4; i++) {
+            setlistsOTP.add(setlistService.getSetList(i + 1));
         }
         model.addAttribute("otp_set", setlistsOTP);
         if (loggedUser != null) {

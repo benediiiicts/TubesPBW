@@ -41,6 +41,11 @@ public class ShowsController {
         return "shows"; // Mengarahkan ke halaman shows
     }
 
+    @GetMapping("/shows-detail")
+    public String showDetail() {
+        return "show-detail";
+    }
+
     // Halaman untuk menambah show
     @GetMapping("/add-show")
     public String redirectToAddShow() {

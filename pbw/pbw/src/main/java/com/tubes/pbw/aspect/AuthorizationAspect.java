@@ -32,8 +32,9 @@ public class AuthorizationAspect {
             throw new SecurityException("User is not authorized.");
         }
     }
+
     private String getCurrentUserRole() {
-        String role = (String)session.getAttribute("role");
+        String role = (String) session.getAttribute("role");
         if (role == null || !(role instanceof String)) {
             throw new SecurityException("Role is invalid");
         }
