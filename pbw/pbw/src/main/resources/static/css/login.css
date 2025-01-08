@@ -54,6 +54,7 @@ button, .return-btn{
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
 	cursor: pointer;
+	margin: 15px 0;
 }
 button:hover, .return-btn:hover, button.ghost:hover{
 	background-color: white;
