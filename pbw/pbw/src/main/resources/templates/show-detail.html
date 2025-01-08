@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/shows.css}">
-    <script th:src="@{/js/home.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/show-detail.css}">
 </head>
 
 <body>
@@ -43,13 +42,24 @@
     </header>
     <main>
         <div class="body-content">
-            <div class="show-container">
-                <h2 class="container-header">Upcoming Shows.</h2>
-                <div class="show-grid">
-                    <p class="show-title">Show Title</p>
-                    <p class="show-venue">Show Venue</p>
-                    <p class="show-date">Show Date</p>
-                    <p class="show-description">Show Description</p>
+            <div class="profile-container">
+                <div class="show-info">
+                    <h1 class="show-name" >name</h1>
+                    <p class="show-description">p</p>
+                    <p class="show-venue">p</p>
+                    <p class="date" >p</p>
+                </div>
+            </div>
+        </div>
+        <div class="body-content">
+            <div class="setlist-container">
+                <h2 class="container-header">Setlists</h2>
+                <div class="setlist-grid">
+                    <div class="song-img">
+                        <img src="" alt="Song Image">
+                    </div>
+                    <p class="setlist-title">title</p>
+                    <p class="setlist-artist">artist</p>
                 </div>
             </div>
         </div>
@@ -60,7 +70,6 @@
             sidebar.classList.toggle('active');
         }
     </script>
-
 </body>
 
 </html>
