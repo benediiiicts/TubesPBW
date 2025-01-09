@@ -1,6 +1,12 @@
 package com.tubes.pbw.Discover;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +45,25 @@ public class DiscoverController {
         }
 
         model.addAttribute("setlists", setlists);
+
+        // setlist untuk slideshow recomended for you
+        List<SetList> setlistsRecomended = new ArrayList<>();
+        // random setlist
+        Random random = new Random();
+        // cek juga agar setlist yang sama tidak muncul 2 kali
+        Set<Integer> checkSet = new HashSet<>();
+        for (int i = 0; i < 4; i++) {
+            int temp = random.nextInt(20) + 1;
+            if (checkSet.contains(temp))
+                i--;
+            else {
+                setlistsRecomended.add(setlistService.getSetList(temp));
+                checkSet.add(temp);
+            }
+        }
+        model.addAttribute("recomended_set", setlistsRecomended);
+        
         return "discover";
     }
+
 }
