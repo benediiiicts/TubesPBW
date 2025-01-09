@@ -42,24 +42,30 @@
     </header>
     <main>
         <div class="search-bar">
-            <input type="text" placeholder="Search setlists...">
-            <button class="search-btn">Search</button>
+            <form action="/discover" method="get">
+                <input type="text" name="query" placeholder="Cari setlist, show, atau artist..." required>
+                <button  class="search-btn" type="submit">Search</button>
+            </form>
         </div>
         <div class="body-content">
             <h1 id="content-header">Popular Setlists</h1>
             <div class="content-container">
-                <div class="content" th:each="artist : ${artists}">
-                    <a class="card" th:href="@{/artist/{name}-{id}(name=${artist.name}, id=${artist.id})}">
-                        <img th:src="@{${artist.PhotosURL}}" alt="artist-image" class="card-image">
+                <div class="content" th:if="${setlists.isEmpty()}">
+                    <p class="no-results">Hasil pencarian tidak ditemukan.</p>
+                </div>
+                <div class="content" th:each="setlist : ${setlists}">
+                    <a class="card" href="#">
+                        <img th:src="${setlist.artist.PhotosURL}" alt="artist-image" class="card-image">
                         <div class="card-overlay">
-                            <h3 class="card-title" th:text="${artist.name}"></h3>
-                            <!--<p class="set-place" th:text="${artist.Description}"></p>-->
-                            <p class="set-date" th:text="${artist.Year}"></p>
+                            <h3 class="card-title" th:text="${setlist.title}">Setlist Title</h3>
+                            <p class="artist-name" th:text="${setlist.artist.name}">Artist Name</p>
+                            <p class="show-name" th:text="${setlist.show.showName}">Show Name</p>
                         </div>
                     </a>
                 </div>
             </div>
-        </div>
+            
+        </div>            
         <div class="body-content">
             <h1 id="content-header">Recomended for You</h1>
             <div class="content-container">

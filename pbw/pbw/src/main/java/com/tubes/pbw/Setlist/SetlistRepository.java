@@ -11,4 +11,6 @@ public interface SetlistRepository {
     Optional<SetList> findById(String id);
     SetList findById(Integer id);
     List<SetList> findByArtist(Integer id);
+    List<SetList> findAll();
+    List<SetList> searchSetlists(String query);
 }
