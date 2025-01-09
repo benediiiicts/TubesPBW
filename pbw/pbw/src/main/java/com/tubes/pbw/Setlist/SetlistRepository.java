@@ -11,4 +11,5 @@ public interface SetlistRepository {
     SetList findById(Integer id);
     List<SetList> findByArtist(Integer id);
     List<SetList> findSetListByShowId(Long id);
+    void save(String setlistTitle, Long showId, Long artistId);
 }

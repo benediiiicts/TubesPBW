@@ -108,9 +108,19 @@ public class ShowsController {
         //ambil venue
         Venue venue = venuesService.getVenueById(idvenue);
         //cari setlist-setlist yang ada di show dengan id di parameter
-        // List<Setlist> setlist = setlistService.getSetlistByShowId(id);
         List<SetList> setlist = setlistService.getSetlistByShowId(id);
-        System.out.println(setlist.toString());
+        
+        //debug purpose
+        // System.out.println(setlist.toString());
+        System.out.println("-------SetList In show: "+ show.getShowName()+" --------");
+        for (SetList set : setlist) {
+            System.out.println("Setlist ID: " + set.getId());
+            System.out.println("Setlist Title: " + set.getTitle());
+            System.out.println("Artist Name: " + set.getArtist().getName()); // Assuming 'getArtist()' returns an Artist object
+            // Add any other properties you want to print
+            System.out.println("------------------------");
+        }
+
         model.addAttribute("show", show);
         model.addAttribute("venue", venue);
         model.addAttribute("setlist_list", setlist);

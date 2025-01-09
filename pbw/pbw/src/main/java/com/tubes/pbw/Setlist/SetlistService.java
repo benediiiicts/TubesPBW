@@ -24,5 +24,13 @@ public class SetlistService {
     public  List<SetList> getSetlistByShowId(Long id){
         return setlistRepository.findSetListByShowId(id);
     }
+
+    public Boolean addSetlist(String setlistTitle, Long showId, Long artistId){
+        if(setlistTitle == null || showId == null || artistId == null){
+            return false;
+        }
+        setlistRepository.save(setlistTitle, showId, artistId);
+        return true;
+    }
     
 }

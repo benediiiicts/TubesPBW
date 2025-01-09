@@ -74,6 +74,12 @@
                     <p class="setlist-title" th:text="${setlist.title}">title</p>   
                 </div>
             </div>
+
+            <form th:action="@{'/add-setlist'}" method="get">
+                <input type="hidden" name="idShow" th:value="${show.idShow}" />
+                <button type="submit" class="add-button">Add Setlist</button>
+            </form>
+            
         </div>
     </main>
     <script>
@@ -81,6 +87,7 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
+  
     </script>
 </body>
 

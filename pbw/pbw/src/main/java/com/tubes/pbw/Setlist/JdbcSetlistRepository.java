@@ -65,13 +65,15 @@ public class JdbcSetlistRepository implements SetlistRepository {
 
     @Override
     public List<SetList> findSetListByShowId(Long idShow) {
-        String sql = "SELECT * FROM setlist WHERE idsetlist = ?";
+        String sql = "SELECT * FROM setlist WHERE idshow = ?";
         return jdbcTemplate.query(sql, this::mapRowToSetlist, idShow);
     }
 
-   
-
-
+    @Override
+    public void save(String setlistTitle, Long showId, Long artistId) {
+        String sql = "INSERT INTO setlist (title, idshow, idartist) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, setlistTitle, showId, artistId);
+    }
 
     @Override
     public List<SetList> findByArtist(Integer id) {

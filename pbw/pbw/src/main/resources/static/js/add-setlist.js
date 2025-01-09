@@ -31,6 +31,8 @@ function searchArtist() {
 
 function selectArtist(artist) {
     document.getElementById('artist-search').value = artist.name;
-    document.getElementById('selected-artist-id').value = artist.idArtist;
+    document.getElementById('selected-artist-id').value = artist.id;
     document.getElementById('artist-dropdown').style.display = 'none';
+
+    console.log(document.getElementById('selected-artist-id').value);
 }
