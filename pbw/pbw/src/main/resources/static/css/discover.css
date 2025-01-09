@@ -207,6 +207,9 @@ form {
     align-items: center;
 }
 
+.content-header {
+    text-align: center;
+}
 
 .content {
     margin: 10px;
