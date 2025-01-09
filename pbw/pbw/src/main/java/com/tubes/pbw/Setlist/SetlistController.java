@@ -39,6 +39,5 @@ public class SetlistController {
             throw new RuntimeException("Error fetching artists");
         }
     }
-
 }
 

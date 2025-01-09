@@ -1,5 +1,7 @@
 package com.tubes.pbw.Setlist;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -58,8 +60,19 @@ public class JdbcSetlistRepository implements SetlistRepository {
         //ambil judul setlist
         sql = "SELECT title FROM setlist WHERE idsetlist = ?";
         String title = jdbcTemplate.queryForObject(sql, String.class, id);
-        return new SetList(id, artist, show, title, songs);
+        return new SetList(id, title, show, artist, songs);
     }
+
+    @Override
+    public List<SetList> findSetListByShowId(Long idShow) {
+        String sql = "SELECT * FROM setlist WHERE idsetlist = ?";
+        return jdbcTemplate.query(sql, this::mapRowToSetlist, idShow);
+    }
+
+   
+
+
+
     @Override
     public List<SetList> findByArtist(Integer id) {
         String sql = "SELECT idsetlist FROM setlist WHERE idartist = ?";
@@ -70,10 +83,18 @@ public class JdbcSetlistRepository implements SetlistRepository {
         }
         return setlists;
     }
-    private SetList mapRowToSetlist(java.sql.ResultSet rs, int rowNum) {
+    private SetList mapRowToSetlist(ResultSet rs, int rowNum) throws SQLException {
+        Artist artist = artistsService.getArtistById(rs.getInt("idartist")); // Fetch artist using service
+        Show show = showsService.getShow(rs.getLong("idshow")); // Fetch show using service
+        List<Song> songs = songRepository.findSongsBySetlistId(rs.getInt("idsetlist")); // Fetch songs associated with setlist
+
         return new SetList(
-            
+            rs.getInt("idsetlist"),    // ID of the setlist
+            rs.getString("title"),    // Title of the setlist
+            show,                     // Associated show object
+            artist,                   // Associated artist object
+            songs                     // List of songs in the setlist
         );
     }
-    
+        
 }

@@ -6,7 +6,7 @@ function searchArtist() {
         return;
     }
 
-    fetch(`/api/artists/search?query=${encodeURIComponent(query)}`)
+    fetch(`/api/setlist/artists/search?query=${encodeURIComponent(query)}`)
         .then(response => response.json())
         .then(data => {
             console.log(data); // For debugging

@@ -14,7 +14,7 @@ public class VenueService {
     private VenueRepository venueRepository;
 
     public Venue getVenueById(Long id){
-        return (Venue) venueRepository.findById(id);
+        return venueRepository.findById(id);
     }
 
     public List<Venue> getVenueByName(String name){

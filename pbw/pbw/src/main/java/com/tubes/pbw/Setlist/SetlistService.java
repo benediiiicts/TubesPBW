@@ -20,5 +20,9 @@ public class SetlistService {
     public List<SetList> getSetListByArtist(Integer idArtist){
         return setlistRepository.findByArtist(idArtist);
     }
+
+    public  List<SetList> getSetlistByShowId(Long id){
+        return setlistRepository.findSetListByShowId(id);
+    }
     
 }
