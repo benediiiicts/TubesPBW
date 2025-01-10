@@ -37,6 +37,8 @@
                     <!-- Fitur Edit Member hanya muncul jika user.role adalah admin -->
                     <li th:if="${user != null and user.role == 'admin'}"><a href="/members" id="edit">Edit Member</a>
                     </li>
+                    <li th:if="${user != null and user.role == 'admin'}"><a href="/artist-report" id="edit">Report</a>
+                    </li>
                 </ul>
             </nav>
         </nav>
@@ -62,7 +64,7 @@
                     <label for="description">Description:</label>
                     <textarea id="description" name="description" required></textarea>
                 </div>
-    
+
                 <!-- Venue Selection -->
                 <div class="input-field">
                     <label for="venue-search">Venue</label><br>
@@ -72,7 +74,7 @@
                     <input type="hidden" id="selected-venue-id" name="venueId">
                 </div>
 
-               
+
             </div>
             <div class="pict-input">
                 <button type="submit" class="file-upload-btn">Submit</button>

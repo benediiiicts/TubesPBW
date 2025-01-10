@@ -61,6 +61,7 @@ public class JdbcSetlistRepository implements SetlistRepository {
         sql = "SELECT title FROM setlist WHERE idsetlist = ?";
         String title = jdbcTemplate.queryForObject(sql, String.class, id);
         return new SetList(id, title, show, artist, songs);
+
     }
 
     @Override
