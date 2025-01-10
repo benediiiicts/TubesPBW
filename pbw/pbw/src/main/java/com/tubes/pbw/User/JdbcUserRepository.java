@@ -42,6 +42,16 @@ public class JdbcUserRepository implements UserRepository {
         jdbcTemplate.update(sql, email);
     }
 
+    public List<User> findByEmailContaining(String email, int page, int size) {
+        String sql = "SELECT * FROM users WHERE email LIKE ? LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, this::mapRowToUser, "%" + email + "%", size, page * size);
+    }
+
+    public long countByEmailContaining(String email) {
+        String sql = "SELECT COUNT(*) FROM users WHERE email LIKE ?";
+        return jdbcTemplate.queryForObject(sql, Long.class, "%" + email + "%");
+    }
+
     private User mapRowToUser(ResultSet resultSet, int rowNum) throws SQLException {
         return new User(
                 resultSet.getInt("id"),

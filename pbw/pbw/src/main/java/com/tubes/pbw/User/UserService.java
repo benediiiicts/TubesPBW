@@ -37,23 +37,32 @@ public class UserService {
         return null;
     }
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public Optional<User> findByEmail(String email){
+    public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    public void updateUserRole(String email, String role){
+    public void updateUserRole(String email, String role) {
         userRepository.updateUserRole(email, role);
     }
 
-    public void deleteUser(String email){
+    public void deleteUser(String email) {
         userRepository.deleteUser(email);
     }
 
     public boolean emailExists(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
+
+    public List<User> findByEmailContaining(String email, int page, int size) {
+        return userRepository.findByEmailContaining(email, page, size);
+    }
+
+    public long countByEmailContaining(String email) {
+        return userRepository.countByEmailContaining(email);
+    }
+
 }

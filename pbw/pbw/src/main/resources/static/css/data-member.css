@@ -116,6 +116,16 @@ header {
     transition: background-color 0.3s ease;
 }
 
+.add-ons {
+    column-gap: 50px;
+    width: 85%;
+    margin: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 50px;
+    justify-self: center;
+}
+
 .search-bar {
     margin: 20px;
     margin-bottom: 30px;
@@ -262,4 +272,35 @@ header {
 
 .delete-btn:hover {
     background-color: #ff6666;
+}
+
+.pagination ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+    padding: 0;
+}
+
+.pagination ul li {
+    margin: 0 5px;
+}
+
+.pagination ul li a {
+    text-decoration: none;
+    color: #1f2833;
+    padding: 5px 10px;
+    background-color: #C5C6C7;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    transition: color 0.2s ease;
+}
+
+.pagination ul li a:hover {
+    background-color: #575757;
+    color: #C5C6C7;
+}
+
+.pagination ul li a.active {
+    background-color: #575757;
+    color: #C5C6C7;
 }

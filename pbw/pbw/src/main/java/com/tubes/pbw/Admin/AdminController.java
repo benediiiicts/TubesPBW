@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tubes.Data.User;
 import com.tubes.pbw.RequiredRole;
@@ -31,29 +32,43 @@ public class AdminController {
     private UserService userService;
 
     @GetMapping
-    // @RequiredRole("admin")
-    public String listMembers(Model model, HttpSession session) {
-        // Check if user is logged in
+    // @RequiredRole("admin") // Only admin can access
+    public String listMembers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "") String search,
+            Model model,
+            HttpSession session) {
         User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser == null) {
-            return "redirect:/login"; // Redirect to login if not logged in
+            return "redirect:/login";
         }
 
-        List<User> users = userService.findAll();
+        List<User> users = userService.findByEmailContaining(search, page, size);
+        long totalUsers = userService.countByEmailContaining(search);
 
-        // Sort users so that the newest user is at the bottom (ascending order by ID)
-        users.sort((user1, user2) -> Integer.compare(user1.getId(), user2.getId())); // Sort by ID, ascending order
+        int startNumber = page * size + 1; // Mulai nomor sesuai halaman
+        int totalPages = (int) Math.ceil((double) totalUsers / size);
 
         model.addAttribute("user_list", users);
         model.addAttribute("user", loggedUser);
-        return "data-member"; // HTML file for member list
+        model.addAttribute("currentPage", page + 1);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("startNumber", startNumber); // Kirim nomor awal
+        model.addAttribute("searchQuery", search);
+
+        return "data-member";
     }
-    //encode email untuk mapping
+
+    // encode email untuk mapping
     @GetMapping("/edit-member/{email}")
-    public String encodeEmail(@PathVariable String email){
-        String encodedEmail =  URLEncoder.encode(email, StandardCharsets.UTF_8);
-        return "redirect:/members/edit/"+encodedEmail;
+    public String encodeEmail(@PathVariable String email) {
+        if (email.equals("admin@gmail.com"))
+            return "redirect:/members";
+        String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
+        return "redirect:/members/edit/" + encodedEmail;
     }
+
     // Form for editing a member
     @GetMapping("/edit/{encodedEmail}")
     // @RequiredRole("admin") // Only admin can access
@@ -62,6 +77,9 @@ public class AdminController {
         if (loggedUser == null) {
             return "redirect:/login";
         }
+        String checkEmail = URLEncoder.encode("admin@gmail.com", StandardCharsets.UTF_8);
+        if (encodedEmail.equals(checkEmail))
+            return "redirect:/members";
         String decodedEmail = URLDecoder.decode(encodedEmail, StandardCharsets.UTF_8);
         Optional<User> user = userService.findByEmail(decodedEmail);
         if (user.isPresent()) {
@@ -87,6 +105,8 @@ public class AdminController {
     @PostMapping("/delete/{email}")
     // @RequiredRole("admin") // Only admin can access
     public String deleteUser(@PathVariable String email, HttpSession session) {
+        if (email.equals("admin@gmail.com"))
+            return "redirect:/members";
         User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser == null) {
             return "redirect:/login"; // Redirect to login if not logged in
