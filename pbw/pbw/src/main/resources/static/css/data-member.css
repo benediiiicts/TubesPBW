@@ -116,6 +116,16 @@ header {
     transition: background-color 0.3s ease;
 }
 
+.add-ons {
+    column-gap: 50px;
+    width: 85%;
+    margin: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 50px;
+    justify-self: center;
+}
+
 .search-bar {
     margin: 20px;
     margin-bottom: 30px;

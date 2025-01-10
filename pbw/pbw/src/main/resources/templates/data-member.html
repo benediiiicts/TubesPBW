@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/data-member.css}">
-    <script th:src="@{/js/home.js}" defer></script>
 </head>
 
 <body>
@@ -31,7 +30,6 @@
                     <li><a href="/discover" id="discover">Discover</a></li>
                     <li><a href="/artists" id="artist">Artists</a></li>
                     <li><a href="/shows" id="show">Shows</a></li>
-                    <!-- Fitur Edit Member hanya muncul jika user.role adalah admin -->
                     <li th:if="${user != null and user.role == 'admin'}"><a href="/members" id="edit">Edit Member</a>
                     </li>
                     <li th:if="${user != null and user.role == 'admin'}"><a href="/artist-report" id="edit">Report</a>
@@ -41,6 +39,14 @@
         </nav>
     </header>
     <main>
+        <div class="body-content">
+            <div class="add-ons">
+                <div class="search-bar">
+                    <input id="searchInput" type="text" placeholder="Search user by email address">
+                    <button class="search-btn" onclick="applyFilters()">Search</button>
+                </div>
+            </div>
+        </div>
         <div class="body-content">
             <h1 class="caption-header">Member List</h1>
             <table class="member-table">
@@ -60,12 +66,9 @@
                         <td th:text="${user.email}"></td>
                         <td th:text="${user.role}"></td>
                         <td>
-                            <!-- Tampilkan tombol Edit jika role bukan admin -->
-                            <a class="edit-btn" th:if="${user.role != 'admin'}"
+                            <a class="edit-btn"
                                 th:href="@{/members/edit-member/{email}(email=${user.email})}">Edit</a>
-
-                            <!-- Tampilkan tombol Delete jika role bukan admin -->
-                            <form th:if="${user.role != 'admin'}" th:action="@{/members/delete/{email}(email=${user.email})}"
+                            <form th:action="@{/members/delete/{email}(email=${user.email})}"
                                 method="post" style="display: inline;">
                                 <button type="submit" class="delete-btn">Delete</button>
                             </form>

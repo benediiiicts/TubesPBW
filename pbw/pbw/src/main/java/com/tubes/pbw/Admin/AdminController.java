@@ -40,6 +40,7 @@ public class AdminController {
         }
 
         List<User> users = userService.findAll();
+        users.remove(0);
 
         // Sort users so that the newest user is at the bottom (ascending order by ID)
         users.sort((user1, user2) -> Integer.compare(user1.getId(), user2.getId())); // Sort by ID, ascending order
@@ -51,6 +52,7 @@ public class AdminController {
     //encode email untuk mapping
     @GetMapping("/edit-member/{email}")
     public String encodeEmail(@PathVariable String email){
+        if(email.equals("admin@gmail.com")) return "redirect:/members";
         String encodedEmail =  URLEncoder.encode(email, StandardCharsets.UTF_8);
         return "redirect:/members/edit/"+encodedEmail;
     }
@@ -62,6 +64,8 @@ public class AdminController {
         if (loggedUser == null) {
             return "redirect:/login";
         }
+        String checkEmail = URLEncoder.encode("admin@gmail.com", StandardCharsets.UTF_8);
+        if(encodedEmail.equals(checkEmail)) return "redirect:/members";
         String decodedEmail = URLDecoder.decode(encodedEmail, StandardCharsets.UTF_8);
         Optional<User> user = userService.findByEmail(decodedEmail);
         if (user.isPresent()) {
@@ -87,6 +91,7 @@ public class AdminController {
     @PostMapping("/delete/{email}")
     // @RequiredRole("admin") // Only admin can access
     public String deleteUser(@PathVariable String email, HttpSession session) {
+        if(email.equals("admin@gmail.com")) return "redirect:/members";
         User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser == null) {
             return "redirect:/login"; // Redirect to login if not logged in
