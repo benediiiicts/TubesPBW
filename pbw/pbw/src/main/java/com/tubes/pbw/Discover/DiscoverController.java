@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tubes.Data.SetList;
 import com.tubes.Data.User;
@@ -26,44 +27,48 @@ public class DiscoverController {
     @Autowired
     private SetlistService setlistService;
 
-    @GetMapping("/discover")
+   @GetMapping("/discover")
     public String discover(
         HttpSession session,
         Model model,
-        @RequestParam(value = "query", required = false) String query
+        @RequestParam(value = "query", required = false) String query,
+        RedirectAttributes redirectAttributes
     ) {
+        // Redirect to the base URL if query is empty or null
+        if (query != null && query.trim().isEmpty()) {
+            return "redirect:/discover";
+        }
+
         User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser != null) {
             model.addAttribute("user", loggedUser);
         }
 
-        List<SetList> setlists;
+        // Fetch popular setlists (terpengaruh pencarian)
+        List<SetList> popularSetlists;
         if (query != null && !query.trim().isEmpty()) {
-            setlists = setlistService.searchSetlists(query);
+            popularSetlists = setlistService.searchSetlists(query);
         } else {
-            setlists = setlistService.getAllSetlists();
+            popularSetlists = setlistService.getAllSetlists();
         }
 
-        model.addAttribute("setlists", setlists);
+        // Ambil hanya 10 setlist terpopuler
+        popularSetlists = popularSetlists.stream()
+                                        .limit(10)
+                                        .collect(Collectors.toList());
+        model.addAttribute("setlists", popularSetlists);
 
-        // setlist untuk slideshow recomended for you
-        List<SetList> setlistsRecomended = new ArrayList<>();
-        // random setlist
-        Random random = new Random();
-        // cek juga agar setlist yang sama tidak muncul 2 kali
-        Set<Integer> checkSet = new HashSet<>();
-        for (int i = 0; i < 4; i++) {
-            int temp = random.nextInt(20) + 1;
-            if (checkSet.contains(temp))
-                i--;
-            else {
-                setlistsRecomended.add(setlistService.getSetList(temp));
-                checkSet.add(temp);
-            }
-        }
-        model.addAttribute("recomended_set", setlistsRecomended);
-        
+        // Fetch recomended setlists (tetap statis)
+        List<SetList> allSetlists = setlistService.getAllSetlists();
+        Collections.shuffle(allSetlists); // Acak list
+        List<SetList> recomendedSetlists = allSetlists.stream()
+                                                    .distinct()
+                                                    .limit(5)
+                                                    .collect(Collectors.toList());
+        model.addAttribute("recomended_set", recomendedSetlists);
+
         return "discover";
     }
+
 
 }
