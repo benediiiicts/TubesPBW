@@ -269,7 +269,6 @@ form {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 10px;
     opacity: 1;
     transition: background-color 0.3s ease;
 }
