@@ -181,7 +181,7 @@
                 const tableHTML = songs.map(song => `
                     <tr>
                         <td>${song.title}</td>
-                        <td>${song.listener}</td>
+                        <td>${song.listener.toLocaleString()}</td>
                         <td><a href="${song.url}" target="_blank">Play</a></td>
                     </tr>
                 `).join('');
