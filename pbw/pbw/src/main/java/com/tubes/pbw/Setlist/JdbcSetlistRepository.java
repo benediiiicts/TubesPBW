@@ -98,5 +98,58 @@ public class JdbcSetlistRepository implements SetlistRepository {
             songs                     // List of songs in the setlist
         );
     }
-        
+
+    @Override
+    public List<SetList> findAll() {
+        String sql = "SELECT idsetlist FROM setlist";
+        List<Integer> idSetlists = jdbcTemplate.queryForList(sql, Integer.class);
+        List<SetList> setlists = new ArrayList<>();
+        for (Integer id : idSetlists) {
+            setlists.add(findById(id));
+        }
+        return setlists;
+    }
+
+    @Override
+    public List<SetList> searchSetlists(String query) {
+        String sql = """
+           SELECT 
+                s.idSetlist, 
+                s.title, 
+                sh.showName AS showName, 
+                a.name AS artistName, 
+                a.PhotosURL
+            FROM 
+                setlist s
+            JOIN 
+                "show" sh ON s.idShow = sh.idShow
+            JOIN 
+                artist a ON s.idArtist = a.idArtist
+            WHERE 
+                LOWER(s.title) LIKE ? 
+                OR LOWER(sh.showName) LIKE ? 
+                OR LOWER(a.name) LIKE ?;
+        """;
+
+        return jdbcTemplate.query(sql, new Object[] {
+            "%" + query + "%",
+            "%" + query + "%",
+            "%" + query + "%"
+        }, (rs, rowNum) -> {
+            SetList setlist = new SetList();
+            setlist.setId(rs.getInt("idsetlist"));
+            setlist.setTitle(rs.getString("title"));
+
+            Show show = new Show();
+            show.setShowName(rs.getString("showName"));
+            setlist.setShow(show);
+
+            Artist artist = new Artist();
+            artist.setName(rs.getString("artistName"));
+            artist.setPhotosURL(rs.getString("photosURL"));
+            setlist.setArtist(artist);
+
+            return setlist;
+        });
+    }
 }

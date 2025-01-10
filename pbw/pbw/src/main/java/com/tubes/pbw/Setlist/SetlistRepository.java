@@ -10,6 +10,8 @@ public interface SetlistRepository {
     Optional<SetList> findById(String id);
     SetList findById(Integer id);
     List<SetList> findByArtist(Integer id);
+    List<SetList> findAll();
+    List<SetList> searchSetlists(String query);
     List<SetList> findSetListByShowId(Long id);
     void save(String setlistTitle, Long showId, Long artistId);
 }
