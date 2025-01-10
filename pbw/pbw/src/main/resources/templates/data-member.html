@@ -60,12 +60,11 @@
                         <td th:text="${user.email}"></td>
                         <td th:text="${user.role}"></td>
                         <td>
-                            <!-- Tampilkan tombol Edit jika role bukan admin -->
-                            <a class="edit-btn" th:if="${user.role != 'admin'}"
+                            <!-- Tampilkan tombol Edit dan Delete hanya jika username bukan 'admin' -->
+                            <a class="edit-btn" th:if="${user.username != 'admin'}"
                                 th:href="@{/members/edit-member/{id}(id=${user.id})}">Edit</a>
 
-                            <!-- Tampilkan tombol Delete jika role bukan admin -->
-                            <form th:if="${user.role != 'admin'}" th:action="@{/members/delete/{id}(id=${user.id})}"
+                            <form th:if="${user.username != 'admin'}" th:action="@{/members/delete/{id}(id=${user.id})}"
                                 method="post" style="display: inline;">
                                 <button type="submit" class="delete-btn">Delete</button>
                             </form>
