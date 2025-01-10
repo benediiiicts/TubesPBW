@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/show-detail.css}">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="header-container">
+                <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+                <div class="header-title">
+                    <a href="/">TourTune.</a>
+                </div>
+                <!-- Jika sudang login -->
+                <span th:if="${user != null}" class="welcome-text" th:text="${'Welcome, ' + user.username}"></span>
+                <div class="header-buttons">
+                    <!-- Jika belum login -->
+                    <a class="login-register-btn" th:if="${user == null}" href="/login">Sign in/ Sign up</a>
+                    <!-- Jika sudang login -->
+                    <a th:if="${user != null}" class="login-register-btn" href="/logout">Sign Out</a>
+                </div>
+            </div>
+            <nav class="sidebar" id="sidebar">
+                <div class="xContainer">
+                    <button id="x" onclick="toggleMenu()">&#x2716;</button>
+                </div>
+                <ul>
+                    <li><a href="/" id="home-page">Home Page</a></li>
+                    <li><a href="/discover" id="discover">Discover</a></li>
+                    <li><a href="/artists" id="artist">Artists</a></li>
+                    <li><a href="/shows" id="show">Shows</a></li>
+                    <!-- Fitur Edit Member hanya muncul jika user.role adalah admin -->
+                    <li th:if="${user != null and user.role == 'admin'}"><a href="/members" id="edit">Edit Member</a>
+                    </li>
+                    <li th:if="${user != null and user.role == 'admin'}"><a href="/artist-report" id="edit">Report</a>
+                    </li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+    <main>
+        <div class="body-content">
+            <div class="profile-container">
+                <div class="profile-container">
+                    <div class="show-info">
+                        <!-- SetList Title -->
+                        <h1 class="show-name"th:text="${setlist.title}" >Title</h1>
+                        
+                        <!-- Show Name -->
+                        <p><strong>Show Name: </strong><span th:text="${setlist.show.showName}">ShowName</span></p>
+                        
+                        <!-- Artist Name -->
+                        <p><strong>Artist : </strong><span th:text="${setlist.artist.name}">ArtistName</span></p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="body-content">
+            <div class="setlist-container">
+                <h2 class="container-header">Songs</h2>
+                <!-- Judul -->
+                <div class="setlist-grid">
+                    <p class="setlist-title">title</p>   
+                    <p class="setlist-artist">listener</p>
+                    <p class="setlist-artist">Link Youtube</p>
+                </div>
+                <div class="setlist-grid"  th:each="song : ${songList}">
+                    <!-- <div class="song-img">
+                        <img src="" alt="Song Image">
+                    </div> -->
+                    <p class="setlist-title" th:text="${song.title}">title</p>   
+                    <p class="setlist-artist" th:text="${song.listener}">listener</p>
+                    <a th:text="${song.url}">youtube url</a>
+                </div>
+            </div>
+
+            <form th:action="@{'/add-setlist'}" method="get">
+                <input type="hidden" name="idShow" th:value="${setlist.id}" />
+                <button type="submit" class="add-button">Add Setlist</button>
+            </form>
+            
+        </div>
+    </main>
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+  
+    </script>
+</body>
+
+</html>
