@@ -14,11 +14,35 @@ public class SetlistService {
     @Autowired
     SetlistRepository setlistRepository;
 
-    public SetList getSetList(Integer idSetlist){
+    public SetList getSetList(Integer idSetlist) {
         return setlistRepository.findById(idSetlist);
     }
-    public List<SetList> getSetListByArtist(Integer idArtist){
+
+    public List<SetList> getSetListByArtist(Integer idArtist) {
         return setlistRepository.findByArtist(idArtist);
     }
+
+
+    public List<SetList> getAllSetlists() {
+        return setlistRepository.findAll();
+    }    
+
+    public List<SetList> searchSetlists(String query) {
+        return setlistRepository.searchSetlists(query.toLowerCase());
+    }
+
+    public  List<SetList> getSetlistByShowId(Long id){
+        return setlistRepository.findSetListByShowId(id);
+    }
+
+    public Boolean addSetlist(String setlistTitle, Long showId, Long artistId){
+        if(setlistTitle == null || showId == null || artistId == null){
+            return false;
+        }
+        setlistRepository.save(setlistTitle, showId, artistId);
+        return true;
+    }
     
+
 }
+

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/discover.css}">
+    <script th:src="@{/js/discover.js}" defer></script>
 </head>
 
 <body>
@@ -44,126 +45,49 @@
     </header>
     <main>
         <div class="search-bar">
-            <input type="text" placeholder="Search setlists...">
-            <button class="search-btn">Search</button>
+            <form action="/discover" method="get">
+                <input type="text" name="query" placeholder="Cari setlist, show, atau artist..." required>
+                <button  class="search-btn" type="submit">Search</button>
+            </form>
         </div>
         <div class="body-content">
             <h1 id="content-header">Popular Setlists</h1>
             <div class="content-container">
-                <div class="content">
-                    <a class="card" href="#">
-                        <img th:src="@{/assets/sam-fender.jpeg}" alt="artist-image" class="card-image">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Sam Fender</h3>
-                            <p class="set-place">3Arena, Dublin</p>
-                            <p class="set-date">Dec 2, 2024</p>
-                        </div>
-                    </a>
+                <div class="content" th:if="${setlists.isEmpty()}">
+                    <p class="no-results">Hasil pencarian tidak ditemukan.</p>
                 </div>
-                <div class="content">
+                <div class="content" th:each="setlist : ${setlists}">
                     <a class="card" href="#">
-                        <img th:src="@{/assets/taylor_swift.jpg}" alt="artist-image" class="card-image">
+                        <img th:src="${setlist.artist.PhotosURL}" alt="artist-image" class="card-image">
                         <div class="card-overlay">
-                            <h3 class="card-title">Taylor Swift</h3>
-                            <p class="set-place">BC Place Stadium, Vancouver</p>
-                            <p class="set-date">Dec 6, 2024</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="content">
-                    <a class="card" href="#">
-                        <img th:src="@{/assets/paul.jpg}" alt="artist-image" class="card-image">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Paul McCartney</h3>
-                            <p class="set-place">La Défense Arena, Nanterre</p>
-                            <p class="set-date">Dec 5, 2024</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="content">
-                    <a class="card" href="#">
-                        <img th:src="@{/assets/slip.jpg}" alt="artist-image" class="card-image">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Slipknot</h3>
-                            <p class="set-place">Ziggo Dome, Amsterdam</p>
-                            <p class="set-date">Dec 5, 2024</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="content">
-                    <a class="card" href="#">
-                        <img th:src="@{/assets/fujii.jpg}" alt="artist-image" class="card-image">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Fujii Kaze</h3>
-                            <p class="set-place">Gocheok Sky Dome, Seoul</p>
-                            <p class="set-date">Dec 14, 2024</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="content">
-                    <a class="card" href="#">
-                        <img th:src="@{/assets/the-cure.jpg}" alt="artist-image" class="card-image">
-                        <div class="card-overlay">
-                            <h3 class="card-title">The Cure</h3>
-                            <p class="set-place">Hyde Park, London</p>
-                            <p class="set-date">Jul 7, 2018</p>
+                            <h3 class="card-title" th:text="${setlist.title}">Setlist Title</h3>
+                            <p class="artist-name" th:text="${setlist.artist.name}">Artist Name</p>
+                            <p class="show-name" th:text="${setlist.show.showName}">Show Name</p>
                         </div>
                     </a>
                 </div>
             </div>
-        </div>
+            
+        </div>            
         <div class="body-content">
-            <h1 id="content-header">Recomended for You</h1>
-            <div class="content-container">
-                <div class="content">
-                    <a class="card" href="#">
-                        <img th:src="@{/assets/sam-fender.jpeg}" alt="artist-image" class="card-image">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Sam Fender</h3>
-                            <p class="set-place">3Arena, Dublin</p>
-                            <p class="set-date">Dec 2, 2024</p>
-                        </div>
-                    </a>
+            <h1 class="content-header">Recomended for You</h1>
+            <p class="caption-header">
+                Curated setlists and tours suited to your favorite artists and music tastes. Discover your next live
+                music obsession!
+            </p>
+            <div class="slideshow-container" id="slide-rec">
+                <div class="slides fade" th:each="set : ${recomended_set}">
+                    <img th:src="@{${set.artist.PhotosURL}}" alt="Image 1">
+                    <div class="caption">
+                        <h2 th:text="${set.artist.name}"></h2>
+                        <p th:text="${set.show.showName}"></p>
+                    </div>
                 </div>
-                <div class="content">
-                    <a class="card" href="#">
-                        <img th:src="@{/assets/taylor_swift.jpg}" alt="artist-image" class="card-image">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Taylor Swift</h3>
-                            <p class="set-place">BC Place Stadium, Vancouver</p>
-                            <p class="set-date">Dec 6, 2024</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="content">
-                    <a class="card" href="#">
-                        <img th:src="@{/assets/paul.jpg}" alt="artist-image" class="card-image">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Paul McCartney</h3>
-                            <p class="set-place">La Défense Arena, Nanterre</p>
-                            <p class="set-date">Dec 5, 2024</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="content">
-                    <a class="card" href="#">
-                        <img th:src="@{/assets/fujii.jpg}" alt="artist-image" class="card-image">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Fujii Kaze</h3>
-                            <p class="set-place">Gocheok Sky Dome, Seoul</p>
-                            <p class="set-date">Dec 14, 2024</p>
-                        </div>
-                    </a>
-                </div>
+                <a class="prev" onclick="plusSlides(-1, 'slide-rec')">&#10094;</a>
+                <a class="next" onclick="plusSlides(1, 'slide-rec')">&#10095;</a>
             </div>
         </div>
     </main>
-    <script>
-        function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
-    </script>
 </body>
 
 </html>

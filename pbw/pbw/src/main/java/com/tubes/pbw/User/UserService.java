@@ -1,5 +1,6 @@
 package com.tubes.pbw.User;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,22 @@ public class UserService {
             return user.get();
         }
         return null;
+    }
+
+    public List<User> findAll(){
+        return userRepository.findAll();
+    }
+
+    public Optional<User> findByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
+    public void updateUserRole(String email, String role){
+        userRepository.updateUserRole(email, role);
+    }
+
+    public void deleteUser(String email){
+        userRepository.deleteUser(email);
     }
 
     public boolean emailExists(String email) {
