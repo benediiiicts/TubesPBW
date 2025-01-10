@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Repository;
 
 import com.tubes.Data.Artist;
@@ -46,6 +45,11 @@ public class JdbcSongRepository implements SongRepository{
             songs.add(findById(idSong));
         }
         return songs;
+    }
+
+    public String findAlbumName(Integer id){
+        String sql = "SELECT album_name FROM album WHERE idalbum = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, id);
     }
 
     private Song mapRowToSong(ResultSet rs, int rowNum) throws SQLException {
