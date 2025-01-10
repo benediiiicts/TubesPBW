@@ -17,7 +17,7 @@ public class ShowsService {
 
 
 
-    public void addNewShow(String showName, String date, String description, int venue) throws ParseException {
+    public void addNewShow(String showName, String date, String description, Long venue) throws ParseException {
         Date convertedDate = convertStringToSqlDate(date) ;
         Show show = new Show();
         show.setShowName(showName);

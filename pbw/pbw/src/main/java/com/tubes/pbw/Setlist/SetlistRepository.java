@@ -2,7 +2,6 @@ package com.tubes.pbw.Setlist;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import com.tubes.Data.SetList;
 
@@ -13,4 +12,6 @@ public interface SetlistRepository {
     List<SetList> findByArtist(Integer id);
     List<SetList> findAll();
     List<SetList> searchSetlists(String query);
+    List<SetList> findSetListByShowId(Long id);
+    void save(String setlistTitle, Long showId, Long artistId);
 }
