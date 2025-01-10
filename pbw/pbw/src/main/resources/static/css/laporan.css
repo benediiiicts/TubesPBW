@@ -217,3 +217,51 @@ header {
 #text {
     color: white;
 }
+
+#songTableContainer {
+    margin: 20px auto;
+    /* Letakkan di tengah secara horizontal */
+    width: 80%;
+    /* Atur lebar tabel */
+    border-collapse: collapse;
+    background-color: #1f2833;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#songTableContainer table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#songTableContainer th,
+#songTableContainer td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #45a29e;
+    /* Warna border */
+}
+
+#songTableContainer th {
+    background-color: #45a29e;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#songTableContainer td {
+    background-color: #222831;
+}
+
+#songTableContainer a {
+    color: #66fcf1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#songTableContainer a:hover {
+    color: #45a29e;
+    text-decoration: underline;
+}

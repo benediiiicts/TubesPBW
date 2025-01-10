@@ -20,4 +20,8 @@ public class SongService {
     public List<Song> getSongsByArtist(Integer idArtist){
         return songRepository.findByArtist(idArtist);
     }
+
+    public  List<Song> getSongsBySetlistId(Integer id){
+        return songRepository.findSongsBySetlistId(id);
+    }
 }

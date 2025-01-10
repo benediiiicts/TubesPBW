@@ -55,7 +55,7 @@ public class jdbcShowsRepository implements ShowsRepository {
                 rs.getLong("idshow"),
                 rs.getString("showname"),
                 rs.getDate("date"),
-                rs.getInt("idvenue"),
+                rs.getLong("idvenue"),
                 rs.getString("description"))
             , id);
         if (result.isEmpty()) {
@@ -74,7 +74,7 @@ public class jdbcShowsRepository implements ShowsRepository {
             rs.getLong("idShow"),        // Ambil idShow
             rs.getString("showName"),   // Ambil nama show
             rs.getDate("date"),         // Ambil tanggal
-            rs.getInt("idvenue"),      // Ambil venue
+            rs.getLong("idvenue"),      // Ambil venue
             rs.getString("description") // Ambil deskripsi
         );
         // untuk debug atau log.

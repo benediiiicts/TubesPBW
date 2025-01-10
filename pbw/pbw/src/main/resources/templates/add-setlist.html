@@ -41,9 +41,20 @@
         </nav>
     </header>
     <main>
-        <form class="body-content" action="/submit-setlist" method="post">
+        <form class="body-content" action="/add-setlist" method="post">
             <h1 class="content-header">Add a New Setlist</h1>
             <div class="form-grid">
+
+
+                <!-- Setlist Title -->
+                <div class="input-field">
+                    <label for="setlist-title">SetList Title</label><br>
+                    <input id="setlist-title" name="setlistTitle" type="text" placeholder="Input Setlist Title..." required>
+                </div>
+                
+                <!-- Show id -->
+                <input type="hidden" name="showId" th:value="${showId}">
+
                 <!-- Artist Selection -->
                 <div class="input-field">
                     <label for="artist-search">Artist Name</label><br>
@@ -53,22 +64,9 @@
                     <input type="hidden" id="selected-artist-id" name="artistId">
                 </div>
 
-                <!-- Venue Selection -->
-                <div class="input-field">
-                    <label for="venue-search">Venue</label><br>
-                    <input id="venue-search" type="text" placeholder="Search for Venue..." oninput="searchVenue()"
-                        autocomplete="off">
-                    <div id="venue-dropdown" class="dropdown"></div>
-                    <input type="hidden" id="selected-venue-id" name="venueId">
-                </div>
 
-                <!-- Date Selection -->
-                <div class="input-field">
-                    <label for="date">Date</label><br>
-                    <input id="date" type="date" name="date" required>
-                </div>
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit">Add New Setlist</button>
         </form>
     </main>
     <script>

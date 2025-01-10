@@ -14,7 +14,7 @@ public class Show {
     private Long idShow;           // ID untuk show
     private String showName;       // Nama show
     private Date date;             // Tanggal show
-    private int venue;          // Venue show
+    private Long venue;          // Venue id
     private String description;     // Deskripsi show
 }
 

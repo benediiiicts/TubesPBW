@@ -37,6 +37,17 @@ public class JdbcSongRepository implements SongRepository{
         return songs;
     }
 
+    @Override
+    public List<Song> findSongsBySetlistId(Integer idSetlist){
+        String sql = "SELECT id_song FROM song_setlist WHERE id_setlist = ?";
+        List<Integer> idSongs = jdbcTemplate.queryForList(sql, Integer.class, idSetlist);
+        List<Song> songs = new ArrayList<>();
+        for(Integer idSong : idSongs){
+            songs.add(findById(idSong));
+        }
+        return songs;
+    }
+
     private Song mapRowToSong(ResultSet rs, int rowNum) throws SQLException {
         return new Song(
                 rs.getInt("idsongs"),
