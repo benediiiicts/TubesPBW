@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/admin.css}">
-    <script th:src="@{/js/home.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/edit-member.css}">
 </head>
 
 <body>
@@ -17,8 +16,8 @@
                     <a href="/">TourTune.</a>
                 </div>
                 <!-- Jika sudang login -->
-                <span th:if="${loggedUser != null}" class="welcome-text"
-                    th:text="${'Welcome, ' + loggedUser.username}"></span>
+                <span th:if="${user != null}" class="welcome-text"
+                    th:text="${'Welcome, ' + user.username}"></span>
                 <div class="header-buttons">
                     <!-- Jika belum login -->
                     <a class="login-register-btn" th:if="${user == null}" href="/login">Sign in/ Sign up</a>
@@ -43,27 +42,29 @@
         </nav>
     </header>
     <main>
-        <div class="edit-member-container">
-            <h2>Edit Member</h2>
-            <form action="/members/update-member" method="post" class="edit-member-form">
-                <input type="hidden" name="id" th:value="${user.id}" />
+        <div class="body-content">
+            <h1 class="content-header">Edit Member</h1>
+            <div class="edit-member-container">
+                <form action="/members/update-member" method="post" class="edit-member-form">
+                    <input type="hidden" name="id" th:value="${edit_user.id}" />
 
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter username"
-                    th:value="${user.username}" required readonly />
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Username"
+                        th:value="${edit_user.username}" required readonly />
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter email" th:value="${user.email}" required
-                    readonly />
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Email" th:value="${edit_user.email}" required
+                        readonly />
 
-                <label for="role">Role</label>
-                <select id="role" name="role" required>
-                    <option value="member" th:selected="${user.role == 'member'}">Member</option>
-                    <option value="admin" th:selected="${user.role == 'admin'}">Admin</option>
-                </select>
+                    <label for="role">Role</label>
+                    <select id="role" name="role" required>
+                        <option value="member" th:selected="${edit_user.role == 'member'}">Member</option>
+                        <option value="admin" th:selected="${edit_user.role == 'admin'}">Admin</option>
+                    </select>
 
-                <button type="submit" class="submit-btn">Save Changes</button>
-            </form>
+                    <button type="submit" class="submit-btn">Save Changes</button>
+                </form>
+            </div>
         </div>
     </main>
 
