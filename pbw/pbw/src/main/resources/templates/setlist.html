@@ -31,6 +31,8 @@
                     <!-- Fitur Edit Member hanya muncul jika user.role adalah admin -->
                     <li th:if="${user != null and user.role == 'admin'}"><a href="/members" id="edit">Edit Member</a>
                     </li>
+                    <li th:if="${user != null and user.role == 'admin'}"><a href="/artist-report" id="edit">Report</a>
+                    </li>
                 </ul>
             </nav>
         </nav>

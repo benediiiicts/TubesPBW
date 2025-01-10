@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/laporan.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Artist Report</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="header-container">
+                <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+                <div class="header-title">
+                    <a href="/">TourTune.</a>
+                </div>
+                <div class="header-buttons">
+                    <a class="login-register-btn" href="/login">Sign in/ Sign up</a>
+                </div>
+            </div>
+            <nav class="sidebar" id="sidebar">
+                <div class="xContainer">
+                    <button id="x" onclick="toggleMenu()">&#x2716</button>
+                </div>
+                <ul>
+                    <li><a href="/" id="home-page">Home Page</a></li>
+                    <li><a href="/discover" id="discover">Discover</a></li>
+                    <li><a href="/artists" id="artist">Artists</a></li>
+                    <li><a href="/shows" id="show">Shows</a></li>
+                    <!-- Fitur Edit Member hanya muncul jika user.role adalah admin -->
+                    <li th:if="${user != null and user.role == 'admin'}"><a href="/members" id="edit">Edit Member</a>
+                    </li>
+                    <li th:if="${user != null and user.role == 'admin'}"><a href="/artist-report" id="edit">Report</a>
+                    </li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+
+    <main>
+        <div id="text">
+            <center>
+                <h4>Select an artist from the dropdown to view detailed information.</h4>
+            </center>
+        </div>
+        <div class="center-dropdown">
+            <label for="artistDropdown">Select Artist:</label>
+            <select id="artistDropdown">
+                <option value="all">All Artists</option>
+                <option th:each="artist : ${artistReports}" th:value="${artist.artistName}"
+                    th:text="${artist.artistName}">
+                </option>
+            </select>
+        </div>
+
+        <br><br>
+        <div>
+            <canvas id="artistReportChart" width="400" height="200"></canvas>
+        </div>
+
+        <table id="songTableContainer" style="display: none;">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Total Listeners</th>
+                    <th>URL</th>
+                </tr>
+            </thead>
+            <tbody id="songTable">
+                <!-- Song data -->
+            </tbody>
+        </table>
+    </main>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const artistReports = /*[[${artistReports}]]*/[];
+        const allData = artistReports;
+        const ctx = document.getElementById('artistReportChart').getContext('2d');
+        let chartInstance;
+
+        // Fungsi untuk memperbarui grafik
+        function updateChart({ labels, data }) {
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total Listeners',
+                        data: data,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)', // Warna batang
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 206, 86, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)', // Warna border batang
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white', // Warna label legend
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: 'white' // Warna teks pada sumbu X
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: 'white' // Warna teks pada sumbu Y
+                            },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Render awal grafik
+        updateChart({
+            labels: allData.map(report => report.artistName),
+            data: allData.map(report => report.totalListeners)
+        });
+
+        // Event listener dropdown
+        document.getElementById('artistDropdown').addEventListener('change', async (event) => {
+            const selectedArtist = event.target.value;
+            const tableContainer = document.getElementById('songTableContainer');
+
+            if (selectedArtist === "all") {
+                // Jika "All Artists" dipilih, sembunyikan tabel dan render chart semua data
+                updateChart({
+                    labels: allData.map(report => report.artistName),
+                    data: allData.map(report => report.totalListeners),
+                });
+                tableContainer.style.display = "none"; // Sembunyikan tabel
+                return;
+            }
+
+            try {
+                // Fetch data lagu dari artis yang dipilih
+                const response = await fetch(`/artist-songs?artistName=${selectedArtist}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch song data');
+                }
+
+                const songs = await response.json();
+
+                // Perbarui grafik dengan data lagu
+                updateChart({
+                    labels: songs.map(song => song.title),
+                    data: songs.map(song => song.listener),
+                });
+
+                // Perbarui tabel dengan data lagu
+                const tableHTML = songs.map(song => `
+                    <tr>
+                        <td>${song.title}</td>
+                        <td>${song.listener}</td>
+                        <td><a href="${song.url}" target="_blank">Play</a></td>
+                    </tr>
+                `).join('');
+
+                document.getElementById('songTable').innerHTML = tableHTML;
+
+                // Tampilkan tabel
+                tableContainer.style.display = "table";
+            } catch (error) {
+                console.error(error);
+                alert('Failed to load song data. Please try again.');
+            }
+        });
+        /*]]>*/
+
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>

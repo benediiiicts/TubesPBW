@@ -35,12 +35,12 @@ public class jdbcShowsRepository implements ShowsRepository {
 
     @Override
     public void addShow(Show show) throws Exception {
-       String sql = "INSERT INTO \"show\" (showName, date, venue, description) VALUES (?, ?, ?, ?)";
+       String sql = "INSERT INTO \"show\" (showName, date, description ,idVenue ) VALUES (?, ?, ?, ?)";
          jdbcTemplate.update(sql, 
                             show.getShowName(), 
                             show.getDate(), 
-                            show.getVenue(), 
-                            show.getDescription());
+                            show.getDescription(),
+                            show.getVenue());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class jdbcShowsRepository implements ShowsRepository {
                 rs.getLong("idshow"),
                 rs.getString("showname"),
                 rs.getDate("date"),
-                venue.getName(),
+                rs.getInt("idvenue"),
                 rs.getString("description"))
             , id);
         if (result.isEmpty()) {
@@ -74,7 +74,7 @@ public class jdbcShowsRepository implements ShowsRepository {
             rs.getLong("idShow"),        // Ambil idShow
             rs.getString("showName"),   // Ambil nama show
             rs.getDate("date"),         // Ambil tanggal
-            rs.getString("venue"),      // Ambil venue
+            rs.getInt("idvenue"),      // Ambil venue
             rs.getString("description") // Ambil deskripsi
         );
         // untuk debug atau log.

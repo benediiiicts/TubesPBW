@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SetList {
+    private Integer id;
+
     private Artist artist;
 
     private Show show;

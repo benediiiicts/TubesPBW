@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -47,10 +48,22 @@ public class ShowsController {
 
     // Halaman untuk menambah show
     @GetMapping("/add-show")
-    public String redirectToAddShow(HttpSession session, Model model) {
-        User loggedUser = (User) session.getAttribute("loggedUser");
-        if (loggedUser != null) {
-            model.addAttribute("user", loggedUser); // Menambahkan user ke model
+    public String redirectToAddShow() {
+        return "add-show";
+    }
+
+    @PostMapping("/add-show")
+    public String addShow(@RequestParam("showName") String showName,
+                          @RequestParam("date") String date,
+                          @RequestParam("description") String description,
+                          @RequestParam("venueId") int venue,
+                          Model model) {
+        try {
+            showsService.addNewShow(showName, date, description, venue);
+            model.addAttribute("success", "Show added successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Error adding show");
         }
         return "add-show";
     }
