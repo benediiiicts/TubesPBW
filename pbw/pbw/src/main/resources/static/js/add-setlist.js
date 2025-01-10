@@ -6,7 +6,7 @@ function searchArtist() {
         return;
     }
 
-    fetch(`/api/artists/search?query=${encodeURIComponent(query)}`)
+    fetch(`/api/setlist/artists/search?query=${encodeURIComponent(query)}`)
         .then(response => response.json())
         .then(data => {
             console.log(data); // For debugging
@@ -31,6 +31,8 @@ function searchArtist() {
 
 function selectArtist(artist) {
     document.getElementById('artist-search').value = artist.name;
-    document.getElementById('selected-artist-id').value = artist.idArtist;
+    document.getElementById('selected-artist-id').value = artist.id;
     document.getElementById('artist-dropdown').style.display = 'none';
+
+    console.log(document.getElementById('selected-artist-id').value);
 }

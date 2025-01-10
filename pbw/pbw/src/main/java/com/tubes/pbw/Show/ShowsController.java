@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import jakarta.servlet.http.HttpSession;
 
 import com.tubes.Data.Artist;
+import com.tubes.Data.SetList;
+import com.tubes.Data.Show;
 import com.tubes.Data.User;
 import com.tubes.Data.Venue;
 import com.tubes.pbw.Artist.ArtistsService;
+import com.tubes.pbw.Setlist.SetlistService;
 import com.tubes.pbw.Venue.VenueService;
 
 import org.springframework.ui.Model;
@@ -28,6 +32,8 @@ public class ShowsController {
     private ArtistsService artistsService;
     @Autowired
     private VenueService venuesService;
+    @Autowired
+    private SetlistService setlistService;
 
     // Menampilkan halaman Shows
     @GetMapping("/shows")
@@ -56,7 +62,7 @@ public class ShowsController {
     public String addShow(@RequestParam("showName") String showName,
                           @RequestParam("date") String date,
                           @RequestParam("description") String description,
-                          @RequestParam("venueId") int venue,
+                          @RequestParam("venueId") Long venue,
                           Model model) {
         try {
             showsService.addNewShow(showName, date, description, venue);
@@ -90,5 +96,34 @@ public class ShowsController {
             e.printStackTrace(); // Untuk melihat jika ada error saat melakukan pencarian
             throw new RuntimeException("Error fetching Venue");
         }
+    }
+
+    // API untuk mendapatkan detail show
+    // @ResponseBody
+    @GetMapping("/show/detail/{id}")
+    public String getShowDetail(@PathVariable Long id, Model model) {
+        Show show = showsService.getShow(id);
+        //ambil id venue untuk mendapatkan objek venue
+        Long idvenue = show.getVenue();
+        //ambil venue
+        Venue venue = venuesService.getVenueById(idvenue);
+        //cari setlist-setlist yang ada di show dengan id di parameter
+        List<SetList> setlist = setlistService.getSetlistByShowId(id);
+        
+        //debug purpose
+        // System.out.println(setlist.toString());
+        System.out.println("-------SetList In show: "+ show.getShowName()+" --------");
+        for (SetList set : setlist) {
+            System.out.println("Setlist ID: " + set.getId());
+            System.out.println("Setlist Title: " + set.getTitle());
+            System.out.println("Artist Name: " + set.getArtist().getName()); // Assuming 'getArtist()' returns an Artist object
+            // Add any other properties you want to print
+            System.out.println("------------------------");
+        }
+
+        model.addAttribute("show", show);
+        model.addAttribute("venue", venue);
+        model.addAttribute("setlist_list", setlist);
+        return "show-detail";
     }
 }

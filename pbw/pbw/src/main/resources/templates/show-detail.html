@@ -44,24 +44,42 @@
         <div class="body-content">
             <div class="profile-container">
                 <div class="show-info">
-                    <h1 class="show-name" >name</h1>
-                    <p class="show-description">p</p>
-                    <p class="show-venue">p</p>
-                    <p class="date" >p</p>
+                    <!-- Show Name -->
+                    <h1 class="show-name"th:text="${show.showName}" >name</h1>
+                    
+                    <!-- Show Description -->
+                    <p><strong>Description: </strong><span th:text="${show.description}">description</span></p>
+                    
+                    <!-- Show Venue -->
+                    <p><strong>Venue: </strong><span th:text="${venue.name}">Venue name</span></p>
+                    
+                    <!-- Show Date -->
+                    <p><strong>Date: </strong><span th:text="${show.date}">date</span></p>
                 </div>
             </div>
         </div>
         <div class="body-content">
             <div class="setlist-container">
                 <h2 class="container-header">Setlists</h2>
+                <!-- Judul -->
                 <div class="setlist-grid">
-                    <div class="song-img">
-                        <img src="" alt="Song Image">
-                    </div>
-                    <p class="setlist-title">title</p>
                     <p class="setlist-artist">artist</p>
+                    <p class="setlist-title">title</p>   
+                </div>
+                <div class="setlist-grid"  th:each="setlist : ${setlist_list}">
+                    <!-- <div class="song-img">
+                        <img src="" alt="Song Image">
+                    </div> -->
+                    <p class="setlist-artist" th:text="${setlist.artist.name}">artist</p>
+                    <p class="setlist-title" th:text="${setlist.title}">title</p>   
                 </div>
             </div>
+
+            <form th:action="@{'/add-setlist'}" method="get">
+                <input type="hidden" name="idShow" th:value="${show.idShow}" />
+                <button type="submit" class="add-button">Add Setlist</button>
+            </form>
+            
         </div>
     </main>
     <script>
@@ -69,6 +87,7 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
+  
     </script>
 </body>
 
