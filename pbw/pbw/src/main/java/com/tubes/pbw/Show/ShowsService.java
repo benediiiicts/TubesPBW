@@ -2,11 +2,13 @@ package com.tubes.pbw.Show;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tubes.Data.Artist;
 import com.tubes.Data.Show;
 
 @Service
@@ -30,6 +32,10 @@ public class ShowsService {
             e.printStackTrace();
         }
     }
+
+    public List<Show> getUpcomingShows(){
+        return showsRepository.findUpcomingShows();
+    }
     
     public static Date convertStringToSqlDate(String dateString) throws ParseException {
         // Format tanggal yang sesuai dengan input
@@ -42,5 +48,13 @@ public class ShowsService {
 
     public Show getShow(Long id){
         return showsRepository.findById(id);
+    }
+
+    public List<Show> get5RandomShows(){
+        return showsRepository.find5RandomShows();
+    }
+
+    public List<Artist> artistInShow(Long showId){
+        return showsRepository.artistInShow(showId);
     }
 }

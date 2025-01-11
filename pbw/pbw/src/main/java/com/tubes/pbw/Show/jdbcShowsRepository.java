@@ -2,6 +2,7 @@ package com.tubes.pbw.Show;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.tubes.Data.Artist;
 import com.tubes.Data.Show;
 import com.tubes.Data.Venue;
+import com.tubes.pbw.Artist.ArtistsService;
 import com.tubes.pbw.Venue.VenueService;
 @Repository
 public class jdbcShowsRepository implements ShowsRepository {
@@ -21,6 +23,9 @@ public class jdbcShowsRepository implements ShowsRepository {
 
     @Autowired
     private VenueService venueService;
+
+    @Autowired
+    private ArtistsService artistService;
 
     @Override
     public Optional<Show> findByName(String showName) {
@@ -63,10 +68,33 @@ public class jdbcShowsRepository implements ShowsRepository {
         }
         return result.get(0);
     }
+    //Ini harusnya di repository Artist tapi yaudah lah
     @Override
-    public List<Artist> artistInShow(String showName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'artistInShow'");
+    public List<Artist> artistInShow(Long showId) {
+        System.out.println("showId: " + showId);
+
+        // SQL untuk mendapatkan daftar idartist berdasarkan idshow
+        String sql = "SELECT idartist FROM artist_show WHERE idshow = ?";
+        List<Long> artistIds = jdbcTemplate.queryForList(sql, Long.class, showId);
+
+        // Buat daftar untuk menampung objek Artist
+        List<Artist> artists = new ArrayList<>();
+
+        // Ambil setiap artist berdasarkan id menggunakan artistService
+        for (Long artistId : artistIds) {
+            Artist artist = artistService.getArtistById(artistId.intValue()); // Gunakan service untuk mendapatkan artis
+            if (artist != null) {
+                artists.add(artist); // Tambahkan ke daftar jika artis ditemukan
+            }
+        }
+        
+        return artists;
+    }
+
+    @Override
+    public List<Show> findUpcomingShows() {
+        String sql = "SELECT * FROM \"show\" WHERE date <= CURRENT_DATE";
+        return jdbcTemplate.query(sql, this::mapRowToShow);
     }
 
     private Show mapRowToShow(ResultSet rs, int intRow) throws SQLException {
@@ -80,6 +108,12 @@ public class jdbcShowsRepository implements ShowsRepository {
         // untuk debug atau log.
         // System.out.println("Processing row: " + intRow);
         return show;
+    }
+
+    @Override
+    public List<Show> find5RandomShows() {
+        String sql = "SELECT * FROM \"show\" ORDER BY RANDOM() LIMIT 5";
+        return jdbcTemplate.query(sql, this::mapRowToShow);
     }
     
 

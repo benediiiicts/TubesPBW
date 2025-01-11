@@ -71,6 +71,12 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
+    public List<SetList> find5RandomSetlist() {
+        String sql = "SELECT * FROM setlist ORDER BY RANDOM() LIMIT 5";
+        return jdbcTemplate.query(sql, this::mapRowToSetlist);
+    }
+
+    @Override
     public void save(String setlistTitle, Long showId, Long artistId) {
         String sql = "INSERT INTO setlist (title, idshow, idartist) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql, setlistTitle, showId, artistId);

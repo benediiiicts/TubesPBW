@@ -42,6 +42,10 @@ public class SetlistService {
         setlistRepository.save(setlistTitle, showId, artistId);
         return true;
     }
+
+    public List<SetList> get5RandomSetlist(){
+        return setlistRepository.find5RandomSetlist();
+    }
     
 
 }
