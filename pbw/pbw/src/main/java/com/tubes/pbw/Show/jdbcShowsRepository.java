@@ -93,7 +93,7 @@ public class jdbcShowsRepository implements ShowsRepository {
 
     @Override
     public List<Show> findUpcomingShows() {
-        String sql = "SELECT * FROM \"show\" WHERE date <= CURRENT_DATE";
+        String sql = "SELECT * FROM \"show\" WHERE date >= CURRENT_DATE";
         return jdbcTemplate.query(sql, this::mapRowToShow);
     }
 

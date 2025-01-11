@@ -373,7 +373,7 @@ img {
     margin-bottom: 25px;
 }
 
-.song {
+.song, .set {
     display: grid;
     grid-template-areas:
         'img title listener';
@@ -390,6 +390,7 @@ img {
 .song:hover{
     background-color: #323e4e;
 }
+
 .song-img{
     display: flex;
     grid-area: img;
@@ -405,7 +406,7 @@ img {
     object-fit: cover;
 }
 
-.song-title{
+.song-title, .set-title{
     display: flex;
     grid-area: title;
     text-decoration: none;
@@ -415,7 +416,11 @@ img {
     overflow: hidden;
 }
 
-.song-listener{
+.set-title{
+    color: #1f2833;
+}
+
+.song-listener, .set-show{
     display: flex;
     grid-area: listener;
     align-items: center;
@@ -438,7 +443,7 @@ img {
 }
 
 
-.setlist-grid:hover {
+.setlist-grid:hover, .set:hover{
     background-color: #dbd5d5;
 }
 
@@ -511,4 +516,9 @@ img {
 
 .show-description {
     grid-area: desc;
+}
+.show-empty{
+    text-align: center;
+    color: #575757;
+    font-size: small;
 }

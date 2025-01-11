@@ -45,13 +45,13 @@
             <h1 class="content-header">Add a New Setlist</h1>
             <div class="form-grid">
 
-
                 <!-- Setlist Title -->
                 <div class="input-field">
                     <label for="setlist-title">SetList Title</label><br>
-                    <input id="setlist-title" name="setlistTitle" type="text" placeholder="Input Setlist Title..." required>
+                    <input id="setlist-title" name="setlistTitle" type="text" placeholder="Input Setlist Title..."
+                        required>
                 </div>
-                
+
                 <!-- Show id -->
                 <input type="hidden" name="showId" th:value="${showId}">
 
@@ -63,7 +63,6 @@
                     <div id="artist-dropdown" class="dropdown"></div>
                     <input type="hidden" id="selected-artist-id" name="artistId">
                 </div>
-
 
             </div>
             <button type="submit">Add New Setlist</button>

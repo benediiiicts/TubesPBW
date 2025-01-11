@@ -1,7 +1,10 @@
-main {
-    padding: 20px;
-    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+/* General Styles */
+html,
+body {
+    overflow-x: hidden;
+    /* Menghindari overflow horizontal */
 }
+
 body {
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(to bottom right, #1f2833, #45a29e);
@@ -9,18 +12,7 @@ body {
     margin: 0;
     padding: 0;
 }
-.body-content{
-    border-radius: 10px;
-    color: #C5C6C7;
-    margin: 20px auto;
-    padding: 30px;
-    max-width: 800px;
-}
-.body-content p{
-    font-size: large;
-    padding-left: 10%;
-    padding-right: 10%;
-}
+
 header {
     background-color: #1f2833;
     color: white;
@@ -29,34 +21,35 @@ header {
 
 .navbar {
     display: flex;
-    /* grid-template-areas: 
-        'top'
-        'bottom'; */
     justify-content: center;
 }
-.header-container{
-    /* grid-area: top; */
+
+.header-container {
     width: 100%;
     display: grid;
-    grid-template-areas: 
-        'menu title buttons';
-    grid-template-columns: 
-        50px auto 250px
+    grid-template-areas: 'menu title buttons';
+    grid-template-columns: 50px auto 250px;
 }
-.hamburger-menu{
+
+.hamburger-menu {
     margin-right: 10px;
-    padding: 0px;
+    padding: 0;
     grid-area: menu;
     color: white;
     font-size: x-large;
     border-radius: 5px;
-    font-weight:bolder;
-    border: 100px;
+    font-weight: bolder;
+    border: none;
     cursor: pointer;
     background-color: transparent;
-    /* padding-left: 10px;
-    padding-right: 10px; */
 }
+
+.hamburger-menu:hover {
+    background-color: #C5C6C7;
+    color: #1f2833;
+    transition: background-color 0.3s ease;
+}
+
 .header-title {
     grid-area: title;
     font-size: 30px;
@@ -65,19 +58,20 @@ header {
     justify-content: start;
     align-items: center;
 }
-.header-title a{
+
+.header-title a {
     text-decoration: none;
+    /* Pastikan tidak ada garis bawah */
     color: white;
 }
+
 .header-buttons {
     grid-area: buttons;
     display: grid;
     align-items: center;
 }
-.content-header{
-    text-align: center;
-}
-.login-register-btn, .search-btn {
+
+.login-register-btn {
     margin-left: 10px;
     border-radius: 20px;
     border: 1px solid #FFFFFF;
@@ -93,99 +87,103 @@ header {
     text-transform: uppercase;
     transition: transform 80ms ease-in;
 }
-.login-register-btn:hover, .search-btn:hover, .hamburger-menu:hover{
+
+.login-register-btn:hover {
     background-color: #C5C6C7;
     color: #1f2833;
     transition: background-color 0.3s ease;
 }
+
+/* Main Content Styles */
+main {
+    padding: 20px;
+}
+
 .body-content {
     border-radius: 10px;
     color: #C5C6C7;
     margin: 20px auto;
     padding: 30px;
-    max-width: 800px; /* Limit max width */
+    max-width: 800px;
     display: flex;
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center content horizontally */
-    justify-content: center; /* Center content vertically */
-    min-height: 70vh; /* Minimum height to ensure vertical centering */
-}
-.body-content .caption-header{
-    text-align: center;
-    font-size: large;
-    padding-left: 10%;
-    padding-right: 10%;
-}
-.form-grid {
-    width: 100%;
-    margin: 20px 0; /* Margin for spacing */
-    display: grid;
-    grid-template-areas:
-        'text pict'; /* Default layout for larger screens */
-    grid-template-columns: 
-        2fr 1fr; /* Adjusted column widths for better proportion */
-    gap: 70px; /* Increased space between grid items */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    background-color: #2C3E50;
 }
 
-.pict-input {
-    grid-area: pict;
+.content-header {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Form Layout */
+.form-grid {
+    width: 100%;
     display: flex;
-    flex-direction: column; /* Stack picture input vertically */
-    align-items: center; /* Center the picture input horizontally */
-    justify-content: center; /* Center the picture input vertically */
+    flex-direction: column;
+    /* Align form elements vertically */
+    gap: 20px;
 }
 
 .input-field {
-    width: 100%; /* Ensure input fields take full width */
-    margin-bottom: 25px; /* Space between input fields for better separation */
+    width: 100%;
+    margin-bottom: 20px;
 }
 
-.text-input {
-    grid-area: text;
-    display: flex;
-    flex-direction: column; /* Stack input fields vertically */
+.input-field label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
 }
 
-.input-field input,
-.input-field select,
-.input-field input[type="file"] {
-    padding: 12px; /* Increased padding for better readability */
+.input-field input {
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 20px;
-    width: 100%; /* Ensure all input fields take the full width */
-    box-sizing: border-box; /* Include padding and border in the element's total width */
-    transition: border-color 0.3s; /* Smooth border transition */
+    width: 100%;
     background-color: #FFFFFF;
+    font-size: 1rem;
+    transition: border-color 0.3s;
 }
 
-.input-field input:focus,
-.input-field select:focus {
-    border-color: #66FCF1; /* Change border color on focus */
-}
-.file-upload-btn {
-    padding: 10px 15px; /* Button padding */
-    border: none; /* Remove default border */
-    border-radius: 20px; /* Rounded corners */
-    border: 1px solid #FFFFFF;
-    background-color: transparent;
-    color: #FFFFFF;
-    cursor: pointer; /* Pointer cursor on hover */
-    font-size: 16px; /* Font size */
-    transition: background-color 0.3s; /* Smooth background transition */
-    width: 100%; /* Full width */
-    text-align: center; /* Center text */
+.input-field input:focus {
+    border-color: #66FCF1;
 }
 
-.file-upload-btn:hover {
-    background-color:#FFFFFF;
+/* Submit Button */
+button[type="submit"] {
+    background-color: #66FCF1;
     color: #1f2833;
+    font-size: 1rem;
+    padding: 12px 30px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s;
+    width: 100%;
+    /* Make button full width */
+    max-width: 250px;
+    /* Restrict max width */
+    margin-top: 20px;
+    /* Add space between button and form */
 }
+
+button[type="submit"]:hover {
+    background-color: #45a29e;
+    transform: scale(1.05);
+}
+
+/* Sidebar Styles */
 .sidebar {
     display: flex;
     flex-direction: column;
     position: fixed;
     top: 0;
-    left: -250px; 
+    left: -250px;
     width: 250px;
     height: 100%;
     background-color: #1f2833;
@@ -215,17 +213,20 @@ header {
     transition: background-color 0.3s ease;
 }
 
-.sidebar ul li a:hover{
+.sidebar ul li a:hover {
     background-color: #575757;
 }
-.xContainer{
+
+/* Close Button Styles for Sidebar */
+.xContainer {
     display: flex;
     justify-content: end;
     align-items: end;
 }
-#x{
+
+#x {
     margin: 15px;
-    border: 0px;
+    border: none;
     border-radius: 5px;
     background-color: transparent;
     color: white;
@@ -233,17 +234,20 @@ header {
     font-size: larger;
 }
 
+/* Dropdown Styles */
 .dropdown {
-    position: relative;
+    position: absolute;
     background: white;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     max-height: 200px;
     overflow-y: auto;
-    display: none; /* Hidden by default */
+    width: 815px;
+    /* Menyesuaikan lebar dropdown dengan input */
     z-index: 1000;
 }
 
 .dropdown div {
+    color: #1f2833;
     padding: 10px;
     cursor: pointer;
     border-bottom: 1px solid #eee;
@@ -251,5 +255,31 @@ header {
 
 .dropdown div:hover {
     background: #f0f0f0;
+    color: #1f2833;
 }
 
+/* Input Focus State */
+.input-field input:focus {
+    border-color: #66FCF1;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .header-container {
+        grid-template-columns: 50px auto;
+        grid-template-areas: 'menu title';
+    }
+
+    .form-grid {
+        gap: 15px;
+    }
+
+    .body-content {
+        padding: 20px;
+        min-height: auto;
+    }
+
+    .input-field input {
+        padding: 10px;
+    }
+}
