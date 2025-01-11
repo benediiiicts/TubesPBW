@@ -1,30 +1,28 @@
-package com.tubes.pbw.laporan;
+package com.tubes.pbw.Report;
 
 import com.tubes.Data.ArtistReport;
 import com.tubes.Data.Song;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
 @Repository
-public class ArtistReportRepository {
+public class JdbcReportRepository implements ReportRepository{
 
-    private final JdbcTemplate jdbcTemplate;
-
-    public ArtistReportRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     public List<ArtistReport> getArtistReports() {
         String sql = """
-                    SELECT a.name AS artistName, SUM(s.listener) AS totalListeners
+                    SELECT a.idArtist AS idArtist, a.year AS debutYear, a.name AS artistName, SUM(s.listener) AS totalListeners
                     FROM artist a
                     JOIN album al ON a.idArtist = al.idArtist
                     JOIN songs s ON al.idAlbum = s.idAlbum
-                    GROUP BY a.name
+                    GROUP BY a.idArtist
                     ORDER BY totalListeners DESC;
                 """;
 
@@ -34,19 +32,21 @@ public class ArtistReportRepository {
     private RowMapper<ArtistReport> artistReportRowMapper() {
         return (rs, rowNum) -> {
             ArtistReport report = new ArtistReport();
+            report.setIdArtist(rs.getInt("idArtist"));
+            report.setYear(rs.getString("debutYear"));
             report.setArtistName(rs.getString("artistName"));
             report.setTotalListeners(rs.getLong("totalListeners"));
             return report;
         };
     }
 
-    public List<Song> getSongsByArtistName(String artistName) {
+    public List<Song> getSongsByArtistName(Integer idArtist) {
         String sql = """
                     SELECT s.title AS songTitle, s.listener AS totalListeners, s.url AS songUrl
                     FROM artist a
                     JOIN album al ON a.idArtist = al.idArtist
                     JOIN songs s ON al.idAlbum = s.idAlbum
-                    WHERE a.name = ?
+                    WHERE a.idartist = ?
                     ORDER BY s.listener DESC;
                 """;
 
@@ -56,6 +56,6 @@ public class ArtistReportRepository {
             song.setListener(rs.getLong("totalListeners"));
             song.setUrl(rs.getString("songUrl"));
             return song;
-        }, artistName);
+        }, idArtist);
     }
 }

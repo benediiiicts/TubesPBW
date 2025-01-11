@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/laporan.css}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" th:href="@{/css/artist-report.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <title>Artist Report</title>
 </head>
 
@@ -52,156 +52,40 @@
         </div>
         <div class="center-dropdown">
             <label for="artistDropdown">Select Artist:</label>
-            <select id="artistDropdown">
+            <select id="artistDropdown" th:field="*{selectedOption}">
                 <option value="all">All Artists</option>
-                <option th:each="artist : ${artistReports}" th:value="${artist.artistName}"
-                    th:text="${artist.artistName}">
+                <option th:each="artist : ${artistReports}" th:value="${artist.idArtist}"
+                    th:text="${artist.artistName} + '-' + ${artist.year}">
                 </option>
             </select>
         </div>
 
-        <br><br>
-        <div>
-            <canvas id="artistReportChart" width="400" height="200"></canvas>
-        </div>
-
-        <table id="songTableContainer" style="display: none;">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Total Listeners</th>
-                    <th>URL</th>
-                </tr>
-            </thead>
-            <tbody id="songTable">
-                <!-- Song data -->
-            </tbody>
-        </table>
-    </main>
-
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        const artistReports = /*[[${artistReports}]]*/[];
-        const allData = artistReports;
-        const ctx = document.getElementById('artistReportChart').getContext('2d');
-        let chartInstance;
-
-        // Fungsi untuk memperbarui grafik
-        function updateChart({ labels, data }) {
-            if (chartInstance) {
-                chartInstance.destroy();
-            }
-
-            chartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Total Listeners',
-                        data: data,
-                        backgroundColor: [
-                            'rgba(75, 192, 192, 0.2)', // Warna batang
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 206, 86, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(75, 192, 192, 1)', // Warna border batang
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 206, 86, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: 'white', // Warna label legend
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: 'white' // Warna teks pada sumbu X
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: 'white' // Warna teks pada sumbu Y
-                            },
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
-
-        // Render awal grafik
-        updateChart({
-            labels: allData.map(report => report.artistName),
-            data: allData.map(report => report.totalListeners)
-        });
-
-        // Event listener dropdown
-        document.getElementById('artistDropdown').addEventListener('change', async (event) => {
-            const selectedArtist = event.target.value;
-            const tableContainer = document.getElementById('songTableContainer');
-
-            if (selectedArtist === "all") {
-                // Jika "All Artists" dipilih, sembunyikan tabel dan render chart semua data
-                updateChart({
-                    labels: allData.map(report => report.artistName),
-                    data: allData.map(report => report.totalListeners),
-                });
-                tableContainer.style.display = "none"; // Sembunyikan tabel
-                return;
-            }
-
-            try {
-                // Fetch data lagu dari artis yang dipilih
-                const response = await fetch(`/artist-songs?artistName=${selectedArtist}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch song data');
-                }
-
-                const songs = await response.json();
-
-                // Perbarui grafik dengan data lagu
-                updateChart({
-                    labels: songs.map(song => song.title),
-                    data: songs.map(song => song.listener),
-                });
-
-                // Perbarui tabel dengan data lagu
-                const tableHTML = songs.map(song => `
+        <div class="body-content">
+            <div class="content-top">
+                <h1 id="content-header"><h1>
+                <button id="printButton">Download Report</button>
+            </div>
+            <div class="chart-container">
+                <canvas id="artistReportChart" width="400" height="200"></canvas>
+            </div>
+            <table id="songTableContainer" style="display: none;">
+                <thead>
                     <tr>
-                        <td>${song.title}</td>
-                        <td>${song.listener.toLocaleString()}</td>
-                        <td><a href="${song.url}" target="_blank">Play</a></td>
+                        <th>Title</th>
+                        <th>Total Listeners</th>
+                        <th>URL</th>
                     </tr>
-                `).join('');
-
-                document.getElementById('songTable').innerHTML = tableHTML;
-
-                // Tampilkan tabel
-                tableContainer.style.display = "table";
-            } catch (error) {
-                console.error(error);
-                alert('Failed to load song data. Please try again.');
-            }
-        });
-        /*]]>*/
-
-        function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
+                </thead>
+                <tbody id="songTable">
+                    <!-- Song data -->
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+    </main>
+    <script th:inline="javascript">
+        window.artistReports = /*[[${artistReports}]]*/ [];
     </script>
+    <script th:src="@{/js/artist-report.js}" defer></script>
 </body>
-
 </html>
