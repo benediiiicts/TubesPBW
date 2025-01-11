@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class ArtistReport {
+    private Integer idArtist;
+    private String year;
     private String artistName;
     private Long totalListeners;
 }
