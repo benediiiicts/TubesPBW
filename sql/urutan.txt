@@ -7,7 +7,6 @@ user awal =
     pass    : admin123 (password sudah di-encrypt di database)
 
 ---> kemungkinan error kalo ga urutan <---
-*buat tabel comment (terpisah dari sqlTabel) -> cr-comment
 1)  insert country -> in-country
 2)  insert artist -> in-artist
 3)  insert venue -> in-venue (import dari venue.csv)
@@ -18,3 +17,4 @@ user awal =
 8)  insert setlist -> in-setlist
 9)  insert song_artist -> in-song_artist
 10) insert song_setlist -> in-song_setlist
+11) tabel comment (terpisah dari sqlTabel) -> cr-comment
