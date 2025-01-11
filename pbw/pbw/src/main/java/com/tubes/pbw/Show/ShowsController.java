@@ -52,7 +52,11 @@ public class ShowsController {
         showList.forEach(show -> {
             // Ambil artist
             List<Artist> artistInShow = showsService.artistInShow(show.getIdShow());
-            Artist artist = artistInShow.get(0);
+            Artist artist;
+            if(!artistInShow.isEmpty())
+                artist = artistInShow.get(0);
+            else 
+                artist = null;
 
             // Ambil venue
             Venue venue = venuesService.getVenueById(show.getVenue());
@@ -61,7 +65,10 @@ public class ShowsController {
             showViews.add(new ShowView(show, venue, artist));
 
             System.out.println("-------Show: " + show.getShowName() + " --------");
-            System.out.println("Artist Name: " + artist.getName());
+            if(!artistInShow.isEmpty())
+                System.out.println("Artist Name: " + artist.getName());
+            else
+                System.out.println("Artist Name: " + "");
             System.out.println("Venue Name: " + venue.getName());
         });
         return showViews;
@@ -171,13 +178,14 @@ public class ShowsController {
             @RequestParam("venueId") Long venue,
             Model model) {
         try {
-            showsService.addNewShow(showName, date, description, venue);
+            Integer id = showsService.addNewShow(showName, date, description, venue);
             model.addAttribute("success", "Show added successfully");
+            return "redirect:/show/detail/"+id;
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Error adding show");
+            return "redirect:/shows";
         }
-        return "redirect:/shows";
     }
 
     // API untuk mencari artis
@@ -189,6 +197,18 @@ public class ShowsController {
         } catch (Exception e) {
             e.printStackTrace(); // Untuk melihat jika ada error saat melakukan pencarian
             throw new RuntimeException("Error fetching artists");
+        }
+    }
+
+    // API untuk mencari show
+    @ResponseBody
+    @GetMapping("/api/show/shows/search")
+    public List<Show> searchShow(@RequestParam String query) {
+        try {
+            return showsService.searchShows(query); // Panggil service untuk pencarian show
+        } catch (Exception e) {
+            e.printStackTrace(); // Untuk melihat jika ada error saat melakukan pencarian
+            throw new RuntimeException("Error fetching shows");
         }
     }
 

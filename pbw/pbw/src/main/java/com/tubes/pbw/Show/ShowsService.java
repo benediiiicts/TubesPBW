@@ -17,9 +17,11 @@ public class ShowsService {
     @Autowired
     private ShowsRepository showsRepository;
 
+    public List<Show> searchShows(String query){
+        return showsRepository.findByQuery(query);
+    }
 
-
-    public void addNewShow(String showName, String date, String description, Long venue) throws ParseException {
+    public Integer addNewShow(String showName, String date, String description, Long venue) throws ParseException {
         Date convertedDate = convertStringToSqlDate(date) ;
         Show show = new Show();
         show.setShowName(showName);
@@ -27,9 +29,10 @@ public class ShowsService {
         show.setDescription(description);
         show.setVenue(venue);
         try {
-            showsRepository.addShow(show);
+            return showsRepository.addShow(show);
         } catch (Exception e) {
             e.printStackTrace();
+            return 0;
         }
     }
 

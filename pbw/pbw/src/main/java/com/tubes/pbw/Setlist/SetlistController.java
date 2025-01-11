@@ -80,18 +80,18 @@ public class SetlistController {
         Long artistIdLong = Long.parseLong(artistId);
 
         // Handle the request
-        setlistService.addSetlist(setlistTitle, showIdLong, artistIdLong);
-        return "redirect:/show/detail/" + showId;
+        Integer idSetlist = setlistService.addSetlist(setlistTitle, showIdLong, artistIdLong);
+        return "redirect:/setlist/detail/" + idSetlist;
     }
 
     @GetMapping("/setlist/detail/{setlistId}")
     public String showSetlistDetail(@PathVariable int setlistId, HttpSession session, Model model) {
         // Ambil user dari session
         User loggedUser = (User) session.getAttribute("loggedUser");
-        if (loggedUser == null) {
-            // Jika pengguna belum login, arahkan ke halaman login
-            return "redirect:/login";
-        }
+        // if (loggedUser == null) {
+        //     // Jika pengguna belum login, arahkan ke halaman login
+        //     return "redirect:/login";
+        // }
 
         SetList setlist = setlistService.getSetList(setlistId);
 

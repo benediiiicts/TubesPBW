@@ -8,10 +8,10 @@ import com.tubes.Data.Show;
 
 public interface ShowsRepository {
     Optional<Show> findByName(String showName);
-    void addShow(Show show) throws Exception;
+    Integer addShow(Show show) throws Exception;
     Show findById(Long id);
     List<Artist> artistInShow(Long showId);
+    List<Show> findByQuery(String query);
     List<Show> find5RandomShows();
     List<Show> findUpcomingShows();
-    
 }

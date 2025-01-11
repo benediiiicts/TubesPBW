@@ -35,12 +35,11 @@ public class SetlistService {
         return setlistRepository.findSetListByShowId(id);
     }
 
-    public Boolean addSetlist(String setlistTitle, Long showId, Long artistId){
+    public Integer addSetlist(String setlistTitle, Long showId, Long artistId){
         if(setlistTitle == null || showId == null || artistId == null){
-            return false;
+            return 0;
         }
-        setlistRepository.save(setlistTitle, showId, artistId);
-        return true;
+        return setlistRepository.save(setlistTitle, showId, artistId);
     }
 
     public List<SetList> get5RandomSetlist(){

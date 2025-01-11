@@ -249,3 +249,94 @@ header {
 .show-artist{
     grid-area: artist;
 }
+.comment-section {
+    width: 80%;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: transparent;
+    border-radius: 8px;
+}
+
+.comment-input-container {
+    margin-bottom: 20px;
+}
+
+#comment-input {
+    width: 100%;
+    min-height: 100px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.comment-submit-area {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#submit-comment {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#submit-comment:hover {
+    background-color: #45a049;
+}
+
+#delete-btn-form{
+    display: flex;
+    justify-content: end;
+}
+
+#delete-comment{
+    background-color: #cf0b0b;
+    color: white;
+    border: none;
+    padding: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#delete-comment:hover {
+    background-color: #7d0f0f;
+}
+
+.comments-list {
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+
+.comment {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-date {
+    color: #888;
+    font-size: 0.8em;
+}
+
+.comment-text {
+    color: #444;
+}

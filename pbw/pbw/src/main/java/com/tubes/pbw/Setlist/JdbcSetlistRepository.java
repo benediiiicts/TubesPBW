@@ -77,9 +77,12 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
-    public void save(String setlistTitle, Long showId, Long artistId) {
-        String sql = "INSERT INTO setlist (title, idshow, idartist) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, setlistTitle, showId, artistId);
+    public Integer save(String setlistTitle, Long showId, Long artistId) {
+        String sql = "INSERT INTO setlist (title, idshow, idartist) VALUES (?, ?, ?) RETURNING idsetlist";
+        Integer id = jdbcTemplate.queryForObject(sql, Integer.class, setlistTitle, showId, artistId);
+        sql = "INSERT INTO artist_show (idartist, idshow) VALUES (?, ?)";
+        jdbcTemplate.update(sql, showId, artistId);
+        return id;
     }
 
     @Override

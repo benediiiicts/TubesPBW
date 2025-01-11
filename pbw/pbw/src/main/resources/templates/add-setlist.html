@@ -52,13 +52,19 @@
                         required>
                 </div>
 
-                <!-- Show id -->
-                <input type="hidden" name="showId" th:value="${showId}">
+                <!-- Show Selection -->
+                <div class="input-field">
+                    <label for="show-search">Show Name</label><br>
+                    <input id="show-search" type="text" name="query" placeholder="Search for an existing show..."
+                        oninput="searchShow()" autocomplete="off">
+                    <div id="show-dropdown" class="dropdown"></div>
+                    <input type="hidden" id="selected-show-id" name="showId">
+                </div>
 
                 <!-- Artist Selection -->
                 <div class="input-field">
                     <label for="artist-search">Artist Name</label><br>
-                    <input id="artist-search" type="text" name="query" placeholder="Search for Artist..."
+                    <input id="artist-search" type="text" name="query" placeholder="Search for an artist..."
                         oninput="searchArtist()" autocomplete="off">
                     <div id="artist-dropdown" class="dropdown"></div>
                     <input type="hidden" id="selected-artist-id" name="artistId">

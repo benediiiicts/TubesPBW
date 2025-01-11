@@ -39,13 +39,22 @@ public class jdbcShowsRepository implements ShowsRepository {
     }
 
     @Override
-    public void addShow(Show show) throws Exception {
-       String sql = "INSERT INTO \"show\" (showName, date, description ,idVenue ) VALUES (?, ?, ?, ?)";
-         jdbcTemplate.update(sql, 
+	public List<Show> findByQuery(String query) {
+        String sql = "SELECT * FROM \"show\" WHERE LOWER(showName) LIKE LOWER(?)";
+        List<Show> results = jdbcTemplate.query(sql, this::mapRowToShow, "%"+query+"%");
+		return results;
+	}
+
+    @Override
+    public Integer addShow(Show show) throws Exception {
+        String sql = "INSERT INTO \"show\" (showName, date, description, idVenue ) VALUES (?, ?, ?, ?) RETURNING idshow";
+        Integer id = jdbcTemplate.queryForObject(sql,
+                            Integer.class,
                             show.getShowName(), 
                             show.getDate(), 
                             show.getDescription(),
                             show.getVenue());
+        return id;
     }
 
     @Override
@@ -115,6 +124,8 @@ public class jdbcShowsRepository implements ShowsRepository {
         String sql = "SELECT * FROM \"show\" ORDER BY RANDOM() LIMIT 5";
         return jdbcTemplate.query(sql, this::mapRowToShow);
     }
+
+
     
 
     

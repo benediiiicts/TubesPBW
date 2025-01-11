@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/show-detail.css}">
+    <link rel="stylesheet" th:href="@{/css/setlist-detail.css}">
 </head>
 
 <body>
@@ -73,8 +73,8 @@
                     <!-- <div class="song-img">
                         <img src="" alt="Song Image">
                     </div> -->
-                    <p class="setlist-title" th:text="${song.title}">title</p>   
                     <p class="setlist-artist" th:text="${song.listener}">listener</p>
+                    <p class="setlist-title" th:text="${song.title}">title</p>   
                     <a th:text="${song.url}">youtube url</a>
                 </div>
             </div>
@@ -85,6 +85,32 @@
                 <button type="submit" class="add-button">Add Song</button>
             </form>
             
+        </div>
+        <div class="body-content">
+            <h2 class="container-header" style="text-align: start; width: 80%; justify-self:center;">Comments</h2>
+            <div class="comment-section">
+                <div class="comment-input-container">
+                    <form>
+                        <textarea id="comment-input" placeholder="Write your comment..."></textarea>
+                        <div class="comment-submit-area">
+                            <button id="submit-comment">Post Comment</button>
+                        </div>
+                    </form>
+                </div>
+        
+                <div class="comments-list" id="comments-container">
+                    <div class="comment" >
+                        <div class="comment-header">
+                            <span class="comment-author">Jane Doe</span>
+                            <span class="comment-date">2 days ago</span>
+                        </div>
+                        <p class="comment-text">This is a sample comment</p>
+                        <form id="delete-btn-form">
+                            <button id="delete-comment">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <script>
