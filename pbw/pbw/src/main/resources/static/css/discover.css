@@ -91,7 +91,7 @@ header {
 }
 
 .login-register-btn,
-.search-btn {
+.search-btn, .add-setlist-btn {
     margin-left: 10px;
     border-radius: 20px;
     border: 1px solid #FFFFFF;
@@ -110,7 +110,8 @@ header {
 
 .login-register-btn:hover,
 .search-btn:hover,
-.hamburger-menu:hover {
+.hamburger-menu:hover,
+.add-setlist-btn:hover {
     background-color: #C5C6C7;
     color: #1f2833;
     transition: background-color 0.3s ease;

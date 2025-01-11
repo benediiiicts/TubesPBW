@@ -59,7 +59,7 @@ public class SetlistController {
 
         // Handle the request
         setlistService.addSetlist(setlistTitle, showIdLong, artistIdLong);
-        return "redirect:/shows-detail?id=" + showId;
+        return "redirect:/show/detail/" + showId;
     }
 
     @GetMapping("/setlist/detail/{setlistId}")
