@@ -45,7 +45,7 @@ public class ShowsController {
     @Autowired
     private SongService songService;
 
-    private List<ShowView> buildShowWrapper(List<Show> showList){
+    private List<ShowView> buildShowWrapper(List<Show> showList) {
         List<ShowView> showViews = new ArrayList<>();
 
         // building ShowView wrapper
@@ -53,16 +53,16 @@ public class ShowsController {
             // Ambil artist
             List<Artist> artistInShow = showsService.artistInShow(show.getIdShow());
             Artist artist = artistInShow.get(0);
-    
+
             // Ambil venue
             Venue venue = venuesService.getVenueById(show.getVenue());
-    
+
             // Tambahkan ke wrapper view
             showViews.add(new ShowView(show, venue, artist));
-            
-            System.out.println("-------Show: "+ show.getShowName()+" --------");
+
+            System.out.println("-------Show: " + show.getShowName() + " --------");
             System.out.println("Artist Name: " + artist.getName());
-            System.out.println("Venue Name: " + venue.getName()); 
+            System.out.println("Venue Name: " + venue.getName());
         });
         return showViews;
     }
@@ -71,33 +71,32 @@ public class ShowsController {
     @GetMapping("/shows")
     public String shows(HttpSession session, Model model) {
         List<Show> shows = showsService.get5RandomShows(); // Ambil 5 random show dari database
-        //Karena th:each tidak bisa mengiterasi 2 list secara pararel, maka kita perlu membuat wrapper view
+        // Karena th:each tidak bisa mengiterasi 2 list secara pararel, maka kita perlu
+        // membuat wrapper view
         List<ShowView> showViews = buildShowWrapper(shows);
-
 
         List<Song> top5Songs = songService.getTop5Songs(); // Ambil 5 lagu teratas dari database
         List<SongView> top5songViews = new ArrayList<>();
 
         // building SongView wrapper
-        for(Song song : top5Songs){
+        for (Song song : top5Songs) {
             Long Listener = song.getListener();
             String result;
             // if (Listener >= 1_000_000_000) {
-            //      result = String.format("%.0fB", Listener / 1_000_000_000.0);
+            // result = String.format("%.0fB", Listener / 1_000_000_000.0);
             // }else if (Listener >= 1_000_000){
-            //     result = String.format("%.0fM", Listener / 1_000_000.0);
-            // } 
+            // result = String.format("%.0fM", Listener / 1_000_000.0);
+            // }
             // else if (Listener >= 1_000) {
-            //     result = String.format("%.0fK", Listener / 1_000.0);
+            // result = String.format("%.0fK", Listener / 1_000.0);
             // } else {
-            //     result = String.valueOf(Listener);
+            // result = String.valueOf(Listener);
             // }
             result = NumberFormat.getNumberInstance(Locale.US).format(Listener);
             top5songViews.add(new SongView(song, result));
             System.out.println("Song Name: " + song.getTitle());
             System.out.println("Listener: " + result);
         }
-
 
         List<SetList> setList5Random = setlistService.get5RandomSetlist(); // Ambil 5 random setlist dari database
         List<SetlistView> setlistViews = new ArrayList<>();
@@ -106,7 +105,7 @@ public class ShowsController {
         setList5Random.forEach(setlist -> {
             // Ambil show
             Show show = showsService.getShow(setlist.getShow().getIdShow());
-            
+
             setlistViews.add(new SetlistView(setlist, show));
         });
 
@@ -121,7 +120,7 @@ public class ShowsController {
         }
         // List<ShowView> upcomingShowViews = buildShowWrapper(upcomingShows);
 
-        //debug purpose
+        // debug purpose
         System.out.println("-------Upcoming Shows--------");
         for (Show show : upcomingShows) {
             System.out.println("Show Name: " + show.getShowName());
@@ -152,16 +151,25 @@ public class ShowsController {
 
     // Halaman untuk menambah show
     @GetMapping("/add-show")
-    public String redirectToAddShow() {
+    public String redirectToAddShow(HttpSession session, Model model) {
+        // Ambil user dari session
+        User loggedUser = (User) session.getAttribute("loggedUser");
+        if (loggedUser == null) {
+            // Jika pengguna belum login, arahkan ke halaman login
+            return "redirect:/login";
+        }
+
+        // Tambahkan atribut user ke model jika diperlukan
+        model.addAttribute("user", loggedUser);
         return "add-show";
     }
 
     @PostMapping("/add-show")
     public String addShow(@RequestParam("showName") String showName,
-                          @RequestParam("date") String date,
-                          @RequestParam("description") String description,
-                          @RequestParam("venueId") Long venue,
-                          Model model) {
+            @RequestParam("date") String date,
+            @RequestParam("description") String description,
+            @RequestParam("venueId") Long venue,
+            Model model) {
         try {
             showsService.addNewShow(showName, date, description, venue);
             model.addAttribute("success", "Show added successfully");
@@ -201,20 +209,21 @@ public class ShowsController {
     @GetMapping("/show/detail/{id}")
     public String getShowDetail(@PathVariable Long id, Model model) {
         Show show = showsService.getShow(id);
-        //ambil id venue untuk mendapatkan objek venue
+        // ambil id venue untuk mendapatkan objek venue
         Long idvenue = show.getVenue();
-        //ambil venue
+        // ambil venue
         Venue venue = venuesService.getVenueById(idvenue);
-        //cari setlist-setlist yang ada di show dengan id di parameter
+        // cari setlist-setlist yang ada di show dengan id di parameter
         List<SetList> setlist = setlistService.getSetlistByShowId(id);
-        
-        //debug purpose
+
+        // debug purpose
         // System.out.println(setlist.toString());
-        System.out.println("-------SetList In show: "+ show.getShowName()+" --------");
+        System.out.println("-------SetList In show: " + show.getShowName() + " --------");
         for (SetList set : setlist) {
             System.out.println("Setlist ID: " + set.getId());
             System.out.println("Setlist Title: " + set.getTitle());
-            System.out.println("Artist Name: " + set.getArtist().getName()); // Assuming 'getArtist()' returns an Artist object
+            System.out.println("Artist Name: " + set.getArtist().getName()); // Assuming 'getArtist()' returns an Artist
+                                                                             // object
             // Add any other properties you want to print
             System.out.println("------------------------");
         }

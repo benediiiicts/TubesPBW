@@ -1,5 +1,17 @@
 main {
     padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    margin: 30px auto;
+    color: #FFFFFF;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #66FCF1;
+    margin-bottom: 20px;
 }
 
 body {
@@ -249,7 +261,7 @@ header {
 .input-field {
     width: 100%;
     /* Ensure input fields take full width */
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     /* Space between input fields for better separation */
 }
 
@@ -379,8 +391,107 @@ header {
     padding: 10px;
     cursor: pointer;
     border-bottom: 1px solid #eee;
+    color: black;
+    /* Tambahkan ini untuk warna teks hitam */
+    background: white;
+    /* Pastikan latar belakang tetap putih */
 }
 
 .dropdown div:hover {
     background: #f0f0f0;
+    /* Warna latar belakang saat hover */
+    color: black;
+    /* Pastikan teks tetap hitam saat hover */
+}
+
+.form-grid {
+    display: grid;
+    grid-template-areas:
+        'text pict';
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.text-input {
+    grid-area: text;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #C5C6C7;
+}
+
+.input-field input,
+.input-field textarea,
+.input-field select {
+    padding: 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    width: 100%;
+    background-color: #FFFFFF;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.input-field input:focus,
+.input-field textarea:focus,
+.input-field select:focus {
+    border-color: #66FCF1;
+    outline: none;
+    box-shadow: 0 0 5px rgba(102, 252, 241, 0.5);
+}
+
+.input-field textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+#venue-search {
+    border-radius: 20px 20px 0 0;
+}
+
+#venue-dropdown {
+    display: block;
+    border-radius: 0 0 20px 20px;
+}
+
+.pict-input {
+    grid-area: pict;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-upload-btn {
+    padding: 12px 20px;
+    border-radius: 20px;
+    border: 1px solid #FFFFFF;
+    background-color: #45A29E;
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+}
+
+.file-upload-btn:hover {
+    background-color: #FFFFFF;
+    color: #1F2833;
+    border-color: #1F2833;
 }
