@@ -59,6 +59,7 @@ public class JdbcArtistsRepository implements ArtistsRepository{
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
     }
 
+    @Override
     public List<Artist> searchByName(String query) {
         String sql = "SELECT * FROM artist WHERE LOWER(name) LIKE LOWER(?)";
         return jdbcTemplate.query(sql, this::mapRowToArtist, "%" + query.toLowerCase() + "%");
@@ -82,8 +83,63 @@ public class JdbcArtistsRepository implements ArtistsRepository{
         return jdbcTemplate.query(query, this::mapRowToArtist);
     }
 
-    public List<Artist> findArtistsByPage(String query, int limit, int offset) {
-        return jdbcTemplate.query(query, this::mapRowToArtist, limit, offset);
+    public List<Artist> findArtistsByPage(int limit, int offset) {
+        String sql = "SELECT * FROM artist LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, this::mapRowToArtist, limit, offset);
+    }
+
+    public List<Artist> findToGetAllArtists() {
+        String sql = "SELECT * FROM artist";
+        return findAllArtists(sql);
+    }
+
+    @Override
+    public int findTotalPages(int size, String search, String country, String genre) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM artist WHERE 1=1");
+    
+        if (search != null && !search.isEmpty()) {
+            sql.append(" AND LOWER(name) LIKE LOWER('%").append(search).append("%')");
+        }
+        if (country != null && !country.isEmpty()) {
+            sql.append(" AND LOWER(Country) = LOWER('").append(country).append("')");
+        }
+        if (genre != null && !genre.isEmpty()) {
+            sql.append(" AND LOWER(genre) = LOWER('").append(genre).append("')");
+        }
+    
+        int totalArtists = jdbcTemplate.queryForObject(sql.toString(), Integer.class);
+        return (int) Math.ceil((double) totalArtists / size);
+    }
+
+    @Override
+    public List<Artist> findFilteredArtists(int page, int size, String search, String country, String genre) {
+        int offset = (page - 1) * size;
+        StringBuilder sql = new StringBuilder("SELECT * FROM artist WHERE 1=1");
+    
+        if (search != null && !search.isEmpty()) {
+            sql.append(" AND LOWER(name) LIKE LOWER('%").append(search).append("%')");
+        }
+        if (country != null && !country.isEmpty()) {
+            sql.append(" AND LOWER(Country) = LOWER('").append(country).append("')");
+        }
+        if (genre != null && !genre.isEmpty()) {
+            sql.append(" AND LOWER(genre) = LOWER('").append(genre).append("')");
+        }
+    
+        sql.append(" LIMIT ").append(size).append(" OFFSET ").append(offset);
+    
+        return findAllArtists(sql.toString());
     }
     
+    @Override
+    public List<String> findAllCountries() {
+        String sql = "SELECT DISTINCT Country FROM artist";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+
+    @Override
+    public List<String> findAllGenres() {
+        String sql = "SELECT DISTINCT genre FROM artist";
+        return jdbcTemplate.queryForList(sql, String.class);
+    } 
 }

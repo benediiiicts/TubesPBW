@@ -71,8 +71,8 @@
                 <div class="setlist-container">
                     <h2 class="container-header">Setlists.</h2>
                     <div class="setlist-grid" th:each="setlist : ${setlists}">
-                        <a class="setlist" href="#" th:text="${setlist.title}"></a>
-                        <a class="show" href="#" th:text="${setlist.show.showName}"></a>
+                        <a class="setlist" th:href="@{/setlist/detail/{setlistId}(setlistId=${setlist.id})}" th:text="${setlist.title}"></a>
+                        <a class="show" th:href="@{/show/detail/{id}(id=${setlist.id})}" th:text="${setlist.show.showName}"></a>
                     </div>
                 </div>
             </div>

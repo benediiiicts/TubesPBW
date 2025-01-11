@@ -30,7 +30,6 @@ header {
     color: white;
     padding: 10px 20px;
 }
-
 .navbar {
     display: flex;
     /* grid-template-areas: 
@@ -89,9 +88,18 @@ header {
     display: grid;
     align-items: center;
 }
-
+.content-top{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#content-header {
+    width: 70%;
+    text-align: start;
+    margin-bottom: 20px;
+}
 .login-register-btn,
-.search-btn {
+#printButton {
     margin-left: 10px;
     border-radius: 20px;
     border: 1px solid #FFFFFF;
@@ -109,11 +117,16 @@ header {
 }
 
 .login-register-btn:hover,
-.search-btn:hover,
+#printButton:hover,
 .hamburger-menu:hover {
     background-color: #C5C6C7;
     color: #1f2833;
     transition: background-color 0.3s ease;
+}
+#printButton{
+    width: auto;
+    display: flex;
+    justify-self: end;
 }
 
 .search-bar {
@@ -220,6 +233,7 @@ header {
 
 #songTableContainer {
     margin: 20px auto;
+    font-size: medium;
     /* Letakkan di tengah secara horizontal */
     width: 80%;
     /* Atur lebar tabel */
@@ -264,4 +278,31 @@ header {
 #songTableContainer a:hover {
     color: #45a29e;
     text-decoration: underline;
+}
+
+@media print {
+    .body-content{
+        align-self: center;
+    }
+    #printButton, #text, .center-dropdown{
+        display: none;
+    }
+    #artistReportChart {
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    .navbar, .sidebar, .print-section {
+        display: none !important;
+    }
+    body * {
+        color: black !important;
+        background: white !important;
+    }
+    .chart-container {
+        display: block !important;
+        width: 100% !important;
+    }
 }

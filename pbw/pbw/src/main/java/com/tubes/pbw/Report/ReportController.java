@@ -1,4 +1,4 @@
-package com.tubes.pbw.laporan;
+package com.tubes.pbw.Report;
 
 import com.tubes.Data.ArtistReport;
 import com.tubes.Data.Song;
@@ -16,33 +16,38 @@ import java.util.List;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class ArtistReportController {
+public class ReportController {
 
     @Autowired
-    private ArtistReportRepository artistReportRepository;
+    private JdbcReportRepository artistReportRepository;
+
+    @Autowired
+    private ReportService reportService;
 
     @GetMapping("/artist-report")
     public String getArtistReport(HttpSession session, Model model) {
         // Ambil user dari session
         User loggedUser = (User) session.getAttribute("loggedUser");
 
-        // Ambil daftar artist reports
-        List<ArtistReport> artistReports = artistReportRepository.getArtistReports();
-
-        // Tambahkan data artistReports ke model
-        model.addAttribute("artistReports", artistReports);
-
         if (loggedUser != null) {
             // Jika user sudah login, tambahkan nama user ke model
             model.addAttribute("user", loggedUser);
+        }else{
+            return "redirect:/login";
         }
+        // Ambil daftar artist reports
+        List<ArtistReport> artistReports = reportService.getArtistReports();
+
+        // Tambahkan data artistReports ke model
+        model.addAttribute("artistReports", artistReports);
+        model.addAttribute("selectedOption", "all");
 
         return "artist-report";
     }
 
     @GetMapping("/artist-songs")
     @ResponseBody
-    public List<Song> getSongsByArtistName(@RequestParam String artistName) {
-        return artistReportRepository.getSongsByArtistName(artistName);
+    public List<Song> getSongsByArtistName(@RequestParam Integer idArtist) {
+        return artistReportRepository.getSongsByArtistName(idArtist);
     }
 }
