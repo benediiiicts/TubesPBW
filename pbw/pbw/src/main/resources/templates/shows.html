@@ -103,7 +103,7 @@
                             <h4 class="setlist" href="#" >Title</h4>
                             <h4 class="show" href="#" >Show</h4>
                         </div>
-                        <div class="setlist-grid" th:each="setlistview : ${top5Setlistsview}">
+                        <div class="setlist-grid" th:onclick="'goToSetlistDetail(' + ${setlistview.setlist.id} + ')'" th:each="setlistview : ${top5Setlistsview}">
                             <a class="setlist" href="#" th:text="${setlistview.setlist.title}">Title</a>
                             <a class="show" href="#" th:text="${setlistview.show.showName}">Show</a>
                         </div>
@@ -113,7 +113,7 @@
             <div class="body-content">
                 <div class="show-container">
                     <h2 class="container-header">Upcoming Shows.</h2>
-                    <div class="show-grid" th:each="showView : ${upcomingShowViewList}">
+                    <div class="show-grid" th:onclick="'goToShowDetail(' + ${showView.show.idShow} + ')'" th:each="showView : ${upcomingShowViewList}">
                         <p class="show-title" th:text="${showView.show.showName}">Show Title</p>
                         <p class="show-venue"th:text="${showView.venue.name}" >Show Venue</p>
                         <p class="show-date" th:text="${showView.show.date}">Show Date</p>
@@ -126,6 +126,14 @@
         function toggleMenu() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
+        }
+
+        function goToShowDetail(idShow) {
+            window.location.href = `/show/detail/${idShow}`;
+        }  
+        
+        function goToSetlistDetail(idSetlist) {
+            window.location.href = `/setlist/detail/${idSetlist}`;
         }
     </script>
 </body>
