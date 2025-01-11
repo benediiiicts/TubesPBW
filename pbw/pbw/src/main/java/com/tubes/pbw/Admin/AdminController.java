@@ -45,7 +45,8 @@ public class AdminController {
         }
 
         List<User> users = userService.findByEmailContaining(search, page, size);
-        users.remove(0);
+        if(users.get(0).getEmail().equals("admin@gmail.com"))
+            users.remove(0);
         long totalUsers = userService.countByEmailContaining(search);
 
         int startNumber = page * size + 1; // Mulai nomor sesuai halaman

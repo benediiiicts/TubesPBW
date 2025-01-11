@@ -110,7 +110,15 @@ public class ShowsController {
         });
 
         List<Show> upcomingShows = showsService.getUpcomingShows(); // Ambil show yang akan datang dari database
-        List<ShowView> upcomingShowViews = buildShowWrapper(upcomingShows);
+        // Menambahkan list upcomingShows ke model
+        if (upcomingShows != null && !upcomingShows.isEmpty()) {
+            List<ShowView> upcomingShowViews = buildShowWrapper(upcomingShows);
+            model.addAttribute("upcomingShowViewList", upcomingShowViews);
+        } else {
+            // Explicitly set an empty list or null to ensure consistent rendering
+            model.addAttribute("upcomingShowViewList", null);
+        }
+        // List<ShowView> upcomingShowViews = buildShowWrapper(upcomingShows);
 
         // debug purpose
         System.out.println("-------Upcoming Shows--------");
@@ -121,8 +129,8 @@ public class ShowsController {
             System.out.println("Venue: " + show.getVenue());
             System.out.println("------------------------");
         }
-
-        model.addAttribute("upcomingShowViewList", upcomingShowViews); // Menambahkan list upcomingShows ke model
+        
+        // if(!upcomingShows.isEmpty()) model.addAttribute("upcomingShowViewList", upcomingShowViews); 
         model.addAttribute("showViewList", showViews); // Menambahkan list showViews ke model
         model.addAttribute("top5SongsView", top5songViews); // Menambahkan list top5Songs ke model
         model.addAttribute("top5Setlistsview", setlistViews); // Menambahkan list setlistViews ke model
@@ -169,7 +177,7 @@ public class ShowsController {
             e.printStackTrace();
             model.addAttribute("error", "Error adding show");
         }
-        return "add-show";
+        return "redirect:/shows";
     }
 
     // API untuk mencari artis
