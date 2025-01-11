@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/add-song.css}">
+    <script th:src="@{/js/add-song.js}" defer></script>
+</head>
+
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="header-container">
+                <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+                <div class="header-title">
+                    <a href="/">TourTune.</a>
+                </div>
+                <div class="header-buttons">
+                    <a class="login-register-btn" href="/login">Sign in/ Sign up</a>
+                </div>
+            </div>
+            <nav class="sidebar" id="sidebar">
+                <div class="xContainer">
+                    <button id="x" onclick="toggleMenu()">&#x2716</button>
+                </div>
+                <ul>
+                    <li><a href="/" id="home-page">Home Page</a></li>
+                    <li><a href="/discover" id="discover">Discover</a></li>
+                    <li><a href="/artists" id="artist">Artists</a></li>
+                    <li><a href="/shows" id="show">Shows</a></li>
+                    <!-- Fitur Edit Member hanya muncul jika user.role adalah admin -->
+                    <li th:if="${user != null and user.role == 'admin'}"><a href="/members" id="edit">Edit Member</a>
+                    </li>
+                    <li th:if="${user != null and user.role == 'admin'}"><a href="/artist-report" id="edit">Report</a>
+                    </li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+    <main>
+        <form class="body-content" action="/add-setlist" method="post">
+            <h1 class="content-header">Add Song to Setlist</h1>
+            <div class="form-grid">
+
+                <!-- menyimpan setlist id untuk kebutuhan databse -->
+                <input type="hidden" name="setlistId" th:value="${setListId}">
+
+                <!-- Artist Selection -->
+                <div class="input-field">
+                    <label for="artist-search">Artist Name</label><br>
+                    <input id="artist-search" type="text" name="query" placeholder="Search for Artist..."
+                        oninput="searchArtist()" autocomplete="off">
+                    <div id="artist-dropdown" class="dropdown"></div>
+                    <input type="hidden" id="selected-artist-id" name="artistId">
+                </div>
+
+                <!-- Artist Selection -->
+                <div class="input-field">
+                    <label for="song-search">Song Title</label><br>
+                    <input id="song-search" type="text" name="query" placeholder="Search for Songs..."
+                        oninput="searchSong()" autocomplete="off">
+                    <div id="song-dropdown" class="dropdown"></div>
+                    <input type="hidden" id="selected-song-id" name="songId">
+                </div>
+
+            </div>
+            <button type="submit">Add Song to Setlist</button>
+        </form>
+    </main>
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>

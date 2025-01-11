@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tubes.Data.Artist;
 import com.tubes.Data.Song;
+import com.tubes.Data.SongDetailView;
 
 @Repository
 public class JdbcSongRepository implements SongRepository{
@@ -58,6 +59,25 @@ public class JdbcSongRepository implements SongRepository{
         return jdbcTemplate.query(sql, this::mapRowToSong);
     }
 
+    @Override
+    public List<Song> searchSongs(String query) {
+        String sql = "SELECT * FROM songs WHERE title LIKE ?";
+        return jdbcTemplate.query(sql, this::mapRowToSong, "%" + query + "%");
+    }
+
+    @Override
+    public List<SongDetailView> searchSongsDetail(String query) {
+        String sql = "SELECT songs.idsongs AS songId, songs.title AS songTitle, artist.name AS artistName, " +
+                 "artist.idartist AS artistId, album.title AS albumTitle " +
+                 "FROM songs " +
+                 "JOIN song_artist ON songs.idSongs = song_artist.idSongs " +
+                 "JOIN artist ON song_artist.idArtist = artist.idArtist " +
+                 "JOIN album ON songs.idalbum = album.idalbum " +
+                 "WHERE songs.title LIKE ?";
+
+        return jdbcTemplate.query(sql, this::mapRowToSongDetailView, "%" + query + "%");
+    }
+
     private Song mapRowToSong(ResultSet rs, int rowNum) throws SQLException {
         return new Song(
                 rs.getInt("idsongs"),
@@ -65,6 +85,16 @@ public class JdbcSongRepository implements SongRepository{
                 rs.getString("title"),
                 rs.getString("url"),
                 rs.getLong("listener")
+        );
+    }
+
+    private SongDetailView mapRowToSongDetailView(ResultSet rs, int rowNum) throws SQLException {
+        return new SongDetailView(
+                rs.getInt("songId"),
+                rs.getString("songTitle"),
+                rs.getString("artistName"),
+                rs.getInt("artistId"),
+                rs.getString("albumTitle")
         );
     }
     

@@ -207,16 +207,15 @@ public class ShowsController {
     // API untuk mendapatkan detail show
     // @ResponseBody
     @GetMapping("/show/detail/{id}")
-    public String getShowDetail(@PathVariable Long id, Model model) {
-        Show show = showsService.getShow(id);
-        // ambil id venue untuk mendapatkan objek venue
+    public String getShowDetail(@PathVariable String id, Model model) {
+        Long idShow = Long.parseLong(id);
+        Show show = showsService.getShow(idShow);
+        //ambil id venue untuk mendapatkan objek venue
         Long idvenue = show.getVenue();
         // ambil venue
         Venue venue = venuesService.getVenueById(idvenue);
-        // cari setlist-setlist yang ada di show dengan id di parameter
-        List<SetList> setlist = setlistService.getSetlistByShowId(id);
-
-        // debug purpose
+        //cari setlist-setlist yang ada di show dengan id di parameter
+        List<SetList> setlist = setlistService.getSetlistByShowId(idShow);
         // System.out.println(setlist.toString());
         System.out.println("-------SetList In show: " + show.getShowName() + " --------");
         for (SetList set : setlist) {

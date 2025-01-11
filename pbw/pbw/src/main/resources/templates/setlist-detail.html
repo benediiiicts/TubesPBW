@@ -79,9 +79,10 @@
                 </div>
             </div>
 
-            <form th:action="@{'/add-setlist'}" method="get">
-                <input type="hidden" name="idShow" th:value="${setlist.id}" />
-                <button type="submit" class="add-button">Add Setlist</button>
+
+            <form th:action="@{'/setlist/add-song'}" method="get">
+                <input type="hidden" name="setlistId" th:value="${setlist.id}" />
+                <button type="submit" class="add-button">Add Song</button>
             </form>
             
         </div>
