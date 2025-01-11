@@ -1,0 +1,255 @@
+main {
+    padding: 20px;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom right, #1f2833, #45a29e);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+.body-content{
+    border-radius: 10px;
+    color: #C5C6C7;
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 800px;
+}
+.body-content p{
+    font-size: large;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+header {
+    background-color: #1f2833;
+    color: white;
+    padding: 10px 20px;
+}
+
+.navbar {
+    display: flex;
+    /* grid-template-areas: 
+        'top'
+        'bottom'; */
+    justify-content: center;
+}
+.header-container{
+    /* grid-area: top; */
+    width: 100%;
+    display: grid;
+    grid-template-areas: 
+        'menu title buttons';
+    grid-template-columns: 
+        50px auto 250px
+}
+.hamburger-menu{
+    margin-right: 10px;
+    padding: 0px;
+    grid-area: menu;
+    color: white;
+    font-size: x-large;
+    border-radius: 5px;
+    font-weight:bolder;
+    border: 100px;
+    cursor: pointer;
+    background-color: transparent;
+    /* padding-left: 10px;
+    padding-right: 10px; */
+}
+.header-title {
+    grid-area: title;
+    font-size: 30px;
+    font-weight: bolder;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.header-title a{
+    text-decoration: none;
+    color: white;
+}
+.header-buttons {
+    grid-area: buttons;
+    display: grid;
+    align-items: center;
+}
+.content-header{
+    text-align: center;
+}
+.login-register-btn, .search-btn {
+    margin-left: 10px;
+    border-radius: 20px;
+    border: 1px solid #FFFFFF;
+    background-color: transparent;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 10px;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+.login-register-btn:hover, .search-btn:hover, .hamburger-menu:hover{
+    background-color: #C5C6C7;
+    color: #1f2833;
+    transition: background-color 0.3s ease;
+}
+.body-content {
+    border-radius: 10px;
+    color: #C5C6C7;
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 800px; /* Limit max width */
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
+    min-height: 70vh; /* Minimum height to ensure vertical centering */
+}
+.body-content .caption-header{
+    text-align: center;
+    font-size: large;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.form-grid {
+    width: 100%;
+    margin: 20px 0; /* Margin for spacing */
+    display: grid;
+    grid-template-areas:
+        'text pict'; /* Default layout for larger screens */
+    grid-template-columns: 
+        2fr 1fr; /* Adjusted column widths for better proportion */
+    gap: 70px; /* Increased space between grid items */
+}
+
+.pict-input {
+    grid-area: pict;
+    display: flex;
+    flex-direction: column; /* Stack picture input vertically */
+    align-items: center; /* Center the picture input horizontally */
+    justify-content: center; /* Center the picture input vertically */
+}
+
+.input-field {
+    width: 100%; /* Ensure input fields take full width */
+    margin-bottom: 25px; /* Space between input fields for better separation */
+}
+
+.text-input {
+    grid-area: text;
+    display: flex;
+    flex-direction: column; /* Stack input fields vertically */
+}
+
+.input-field input,
+.input-field select,
+.input-field input[type="file"] {
+    padding: 12px; /* Increased padding for better readability */
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 100%; /* Ensure all input fields take the full width */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    transition: border-color 0.3s; /* Smooth border transition */
+    background-color: #FFFFFF;
+}
+
+.input-field input:focus,
+.input-field select:focus {
+    border-color: #66FCF1; /* Change border color on focus */
+}
+.file-upload-btn {
+    padding: 10px 15px; /* Button padding */
+    border: none; /* Remove default border */
+    border-radius: 20px; /* Rounded corners */
+    border: 1px solid #FFFFFF;
+    background-color: transparent;
+    color: #FFFFFF;
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s; /* Smooth background transition */
+    width: 100%; /* Full width */
+    text-align: center; /* Center text */
+}
+
+.file-upload-btn:hover {
+    background-color:#FFFFFF;
+    color: #1f2833;
+}
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: -250px; 
+    width: 250px;
+    height: 100%;
+    background-color: #1f2833;
+    color: white;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover{
+    background-color: #575757;
+}
+.xContainer{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+#x{
+    margin: 15px;
+    border: 0px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.dropdown {
+    position: relative;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+}
+
+.dropdown div {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown div:hover {
+    background: #f0f0f0;
+}
+

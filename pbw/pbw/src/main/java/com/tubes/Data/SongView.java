@@ -8,4 +8,10 @@ import lombok.Data;
 public class SongView {
     Song song;
     String formattedListener;
+    Artist artist;
+
+    public SongView(Song song, String formattedListener){
+        this.song = song;
+        this.formattedListener = formattedListener;
+    }
 }

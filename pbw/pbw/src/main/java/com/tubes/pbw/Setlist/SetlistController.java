@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tubes.Data.Artist;
 import com.tubes.Data.SetList;
 import com.tubes.Data.Song;
+import com.tubes.Data.SongDetailView;
 import com.tubes.pbw.Artist.ArtistsService;
 import com.tubes.pbw.Song.SongService;
 
@@ -79,6 +80,21 @@ public class SetlistController {
         return "setlist-detail";
     }
 
+    @GetMapping("/setlist/add-song")
+    public String addSongToSetlist(@RequestParam String setlistId, Model model) {
+
+        SetList setlist = setlistService.getSetList(Integer.valueOf(setlistId));
+        model.addAttribute("setlist", setlist);
+        return "add-song";
+    }
+
+    @PostMapping("/setlist/add-song")
+    public String addSongToSetlist(@RequestParam int setlistId, int artistId, Model model) {
+        SetList setlist = setlistService.getSetList(setlistId);
+        model.addAttribute("setlist", setlist);
+        return "add-song";
+    }
+
     @ResponseBody
     @GetMapping("/api/setlist/artists/search")
     public List<Artist> searchArtists(@RequestParam String query) {
@@ -87,6 +103,17 @@ public class SetlistController {
         } catch (Exception e) {
             e.printStackTrace();  // Untuk melihat jika ada error saat melakukan pencarian
             throw new RuntimeException("Error fetching artists");
+        }
+    }
+
+    @ResponseBody
+    @GetMapping("/api/setlist/songs/search")
+    public List<SongDetailView> searchSongs(@RequestParam String query) {
+        try {
+            return SongService.searchSongsDetail(query); // Panggil service untuk pencarian artis
+        } catch (Exception e) {
+            e.printStackTrace();  // Untuk melihat jika ada error saat melakukan pencarian
+            throw new RuntimeException("Error fetching songs");
         }
     }
 }
