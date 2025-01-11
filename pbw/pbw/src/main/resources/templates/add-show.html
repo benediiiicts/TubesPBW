@@ -44,6 +44,9 @@
         </nav>
     </header>
     <main>
+        <center>
+            <h1>Add Show</h1>
+        </center>
         <form action="/add-show" method="post" class="form-grid">
             <div class="text-input">
 
@@ -59,19 +62,19 @@
                     <input type="date" id="date" name="date" required>
                 </div>
 
-                <!-- Description -->
-                <div class="input-field">
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" required></textarea>
-                </div>
-
                 <!-- Venue Selection -->
                 <div class="input-field">
-                    <label for="venue-search">Venue</label><br>
+                    <label for="venue-search">Venue:</label><br>
                     <input id="venue-search" type="text" placeholder="Search for Venue..." oninput="searchVenue()"
                         autocomplete="off">
                     <div id="venue-dropdown" class="dropdown"></div>
                     <input type="hidden" id="selected-venue-id" name="venueId">
+                </div>
+
+                <!-- Description -->
+                <div class="input-field">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" required></textarea>
                 </div>
 
 
