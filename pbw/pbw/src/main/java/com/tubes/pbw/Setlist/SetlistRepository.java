@@ -13,5 +13,6 @@ public interface SetlistRepository {
     List<SetList> findAll();
     List<SetList> searchSetlists(String query);
     List<SetList> findSetListByShowId(Long id);
+    List<SetList> find5RandomSetlist();
     void save(String setlistTitle, Long showId, Long artistId);
 }

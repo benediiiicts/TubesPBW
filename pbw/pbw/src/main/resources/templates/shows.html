@@ -65,33 +65,17 @@
         </div>
         <div class="body-content">
             <div class="slideshow-container" id="slide-otp">
-                <div class="slides fade">
-                    <img th:src="@{/assets/sam-fender.jpeg}" alt="Image 1">
+                <div class="slides fade" th:each="showView : ${showViewList}">
+                    <img th:src="${showView.artist.PhotosURL}" alt="Image 1">
                     <div class="caption">
-                        <h2>Sam Fender
-                            <p>3Arena, Dublin <br>Dec 2, 2024
-                            <p>
-                        </h2>
+                        <h2 th:text="${showView.artist.Name}"></h2>
+                        <p>
+                            <span th:text="${showView.venue.Name}"></span><br display="none">
+                            <p><span th:text="${showView.show.date}"></span></p>
+                        </p>
                     </div>
-                </div>
-                <div class="slides fade">
-                    <img th:src="@{/assets/taylor_swift.jpg}" alt="Image 2">
-                    <div class="caption">
-                        <h2>Taylor Swift
-                            <p>BC Place Stadium, Vancouver<br>Dec 6, 2024
-                            <p>
-                        </h2>
-                    </div>
-                </div>
-                <div class="slides fade">
-                    <img th:src="@{/assets/paul.jpg}" alt="Image 3">
-                    <div class="caption">
-                        <h2>Paul McCartney
-                            <p>La Défense Arena, Nanterre<br>Dec 5, 2024
-                            <p>
-                        </h2>
-                    </div>
-                </div>
+                </div>                
+               
 
                 <a class="prev" onclick="plusSlides(-1, 'slide-otp')">&#10094;</a>
                 <a class="next" onclick="plusSlides(1, 'slide-otp')">&#10095;</a>
@@ -101,18 +85,27 @@
                     <div class="song-container">
                         <h2 class="container-header">Songs.</h2>
                         <div class="song">
+                          
+                            <a class="song-title" >Title</a>
+                            <span class="song-listener">listener</span>
+                        </div>
+                        <div class="song" th:each="songview : ${top5SongsView}">
                             <div class="song-img">
                                 <img alt="Song Image">
                             </div>
-                            <a class="song-title" href="#">song 1</a>
-                            <span class="song-listener">listener</span>
+                            <a class="song-title" href="${songview.song.url}" th:text="${songview.song.title}">song 1</a>
+                            <span class="song-listener" th:text="${songview.formattedListener}">listener</span>
                         </div>
                     </div>
                     <div class="setlist-container">
                         <h2 class="container-header">Setlists.</h2>
                         <div class="setlist-grid">
-                            <a class="setlist" href="#">Setlist-title</a>
-                            <a class="show" href="#">Show-Name</a>
+                            <h4 class="setlist" href="#" >Title</h4>
+                            <h4 class="show" href="#" >Show</h4>
+                        </div>
+                        <div class="setlist-grid" th:each="setlistview : ${top5Setlistsview}">
+                            <a class="setlist" href="#" th:text="${setlistview.setlist.title}">Title</a>
+                            <a class="show" href="#" th:text="${setlistview.show.showName}">Show</a>
                         </div>
                     </div>
                 </div>
@@ -120,37 +113,13 @@
             <div class="body-content">
                 <div class="show-container">
                     <h2 class="container-header">Upcoming Shows.</h2>
-                    <div class="show-grid">
-                        <p class="show-title">Show Title</p>
-                        <p class="show-venue">Show Venue</p>
-                        <p class="show-date">Show Date</p>
-                        <p class="show-description">Show Description</p>
+                    <div class="show-grid" th:each="showView : ${upcomingShowViewList}">
+                        <p class="show-title" th:text="${showView.show.showName}">Show Title</p>
+                        <p class="show-venue"th:text="${showView.venue.name}" >Show Venue</p>
+                        <p class="show-date" th:text="${showView.show.date}">Show Date</p>
+                        <p class="show-description" th:text="${showView.show.description}">Show Description</p>
                     </div>
-                    <div class="show-grid">
-                        <p class="show-title">Show Title</p>
-                        <p class="show-venue">Show Venue</p>
-                        <p class="show-date">Show Date</p>
-                        <p class="show-description">Show Description</p>
-                    </div>
-                    <div class="show-grid">
-                        <p class="show-title">Show Title</p>
-                        <p class="show-venue">Show Venue</p>
-                        <p class="show-date">Show Date</p>
-                        <p class="show-description">Show Description</p>
-                    </div>
-                    <div class="show-grid">
-                        <p class="show-title">Show Title</p>
-                        <p class="show-venue">Show Venue</p>
-                        <p class="show-date">Show Date</p>
-                        <p class="show-description">Show Description</p>
-                    </div>
-                    <div class="show-grid">
-                        <p class="show-title">Show Title</p>
-                        <p class="show-venue">Show Venue</p>
-                        <p class="show-date">Show Date</p>
-                        <p class="show-description">Show Description</p>
-                    </div>
-                </div>
+                    
             </div>
     </main>
     <script>

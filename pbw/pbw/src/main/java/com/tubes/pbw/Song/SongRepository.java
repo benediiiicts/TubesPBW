@@ -8,4 +8,5 @@ public interface SongRepository {
     Song findById(Integer id);
     List<Song> findByArtist(Integer idArtist);
     List<Song> findSongsBySetlistId(Integer idSetlist);
+    List<Song> findTop5Songs();
 }

@@ -52,6 +52,12 @@ public class JdbcSongRepository implements SongRepository{
         return jdbcTemplate.queryForObject(sql, String.class, id);
     }
 
+    @Override
+    public List<Song> findTop5Songs() {
+        String sql = "SELECT * FROM songs ORDER BY listener DESC LIMIT 5";
+        return jdbcTemplate.query(sql, this::mapRowToSong);
+    }
+
     private Song mapRowToSong(ResultSet rs, int rowNum) throws SQLException {
         return new Song(
                 rs.getInt("idsongs"),

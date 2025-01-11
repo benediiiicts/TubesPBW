@@ -24,4 +24,8 @@ public class SongService {
     public  List<Song> getSongsBySetlistId(Integer id){
         return songRepository.findSongsBySetlistId(id);
     }
+
+    public List<Song> getTop5Songs(){
+        return songRepository.findTop5Songs();
+    }
 }
