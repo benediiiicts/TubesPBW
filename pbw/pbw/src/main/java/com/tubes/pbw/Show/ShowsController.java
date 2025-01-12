@@ -52,7 +52,11 @@ public class ShowsController {
         showList.forEach(show -> {
             // Ambil artist
             List<Artist> artistInShow = showsService.artistInShow(show.getIdShow());
-            Artist artist = artistInShow.get(0);
+            Artist artist;
+            if (!artistInShow.isEmpty())
+                artist = artistInShow.get(0);
+            else
+                artist = null;
 
             // Ambil venue
             Venue venue = venuesService.getVenueById(show.getVenue());
@@ -61,7 +65,10 @@ public class ShowsController {
             showViews.add(new ShowView(show, venue, artist));
 
             System.out.println("-------Show: " + show.getShowName() + " --------");
-            System.out.println("Artist Name: " + artist.getName());
+            if (!artistInShow.isEmpty())
+                System.out.println("Artist Name: " + artist.getName());
+            else
+                System.out.println("Artist Name: " + "");
             System.out.println("Venue Name: " + venue.getName());
         });
         return showViews;
@@ -129,8 +136,9 @@ public class ShowsController {
             System.out.println("Venue: " + show.getVenue());
             System.out.println("------------------------");
         }
-        
-        // if(!upcomingShows.isEmpty()) model.addAttribute("upcomingShowViewList", upcomingShowViews); 
+
+        // if(!upcomingShows.isEmpty()) model.addAttribute("upcomingShowViewList",
+        // upcomingShowViews);
         model.addAttribute("showViewList", showViews); // Menambahkan list showViews ke model
         model.addAttribute("top5SongsView", top5songViews); // Menambahkan list top5Songs ke model
         model.addAttribute("top5Setlistsview", setlistViews); // Menambahkan list setlistViews ke model
@@ -210,11 +218,11 @@ public class ShowsController {
     public String getShowDetail(@PathVariable String id, Model model) {
         Long idShow = Long.parseLong(id);
         Show show = showsService.getShow(idShow);
-        //ambil id venue untuk mendapatkan objek venue
+        // ambil id venue untuk mendapatkan objek venue
         Long idvenue = show.getVenue();
         // ambil venue
         Venue venue = venuesService.getVenueById(idvenue);
-        //cari setlist-setlist yang ada di show dengan id di parameter
+        // cari setlist-setlist yang ada di show dengan id di parameter
         List<SetList> setlist = setlistService.getSetlistByShowId(idShow);
         // System.out.println(setlist.toString());
         System.out.println("-------SetList In show: " + show.getShowName() + " --------");
