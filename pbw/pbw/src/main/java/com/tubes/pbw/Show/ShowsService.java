@@ -17,17 +17,23 @@ public class ShowsService {
     @Autowired
     private ShowsRepository showsRepository;
 
-    public void addNewShow(String showName, String date, String description, Long venue) throws ParseException {
-        Date convertedDate = convertStringToSqlDate(date);
+
+    public List<Show> searchShows(String query){
+        return showsRepository.findByQuery(query);
+    }
+
+    public Integer addNewShow(String showName, String date, String description, Long venue) throws ParseException {
+        Date convertedDate = convertStringToSqlDate(date) ;
         Show show = new Show();
         show.setShowName(showName);
         show.setDate(convertedDate);
         show.setDescription(description);
         show.setVenue(venue);
         try {
-            showsRepository.addShow(show);
+            return showsRepository.addShow(show);
         } catch (Exception e) {
             e.printStackTrace();
+            return 0;
         }
     }
 

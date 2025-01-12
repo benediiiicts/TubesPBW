@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Setlist</title>
+    <link rel="stylesheet" th:href="@{/css/edit-setlist.css}">
+    <script th:src="@{/js/edit-setlist.js}" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="header-container">
+                <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+                <div class="header-title">
+                    <a href="/">TourTune.</a>
+                </div>
+                <!-- Jika sudang login -->
+                <span th:if="${user != null}" class="welcome-text" th:text="${'Welcome, ' + user.username}"></span>
+                <div class="header-buttons">
+                    <!-- Jika belum login -->
+                    <a class="login-register-btn" th:if="${user == null}" href="/login">Sign in/ Sign up</a>
+                    <!-- Jika sudang login -->
+                    <a th:if="${user != null}" class="login-register-btn" href="/logout">Sign Out</a>
+                </div>
+            </div>
+            <nav class="sidebar" id="sidebar">
+                <div class="xContainer">
+                    <button id="x" onclick="toggleMenu()">&#x2716;</button>
+                </div>
+                <ul>
+                    <li><a href="/" id="home-page">Home Page</a></li>
+                    <li><a href="/discover" id="discover">Discover</a></li>
+                    <li><a href="/artists" id="artist">Artists</a></li>
+                    <li><a href="/shows" id="show">Shows</a></li>
+                    <!-- Fitur Edit Member hanya muncul jika user.role adalah admin -->
+                    <li th:if="${user != null and user.role == 'admin'}"><a href="/members" id="edit">Edit Member</a>
+                    </li>
+                    <li th:if="${user != null and user.role == 'admin'}"><a href="/artist-report" id="edit">Report</a>
+                    </li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+    <main>
+        <div class="body-content">
+            <h1>Edit Setlist</h1>
+            <form th:action="@{/setlist/edit/{id}(id=${setlist.id})}" method="POST" id="editSetlistForm">
+                <div class="form-group">
+                    <label for="title">Setlist Title:</label>
+                    <input type="text" id="title" name="title" th:value="${setlist.title}" required>
+                    <input type="hidden" name="oldTitle" th:value="${setlist.title}">
+                </div>
+
+                <div class="current-songs">
+                    <h2>Current Songs</h2>
+                    <div th:each="song : ${songList}" class="song-item">
+                        <span th:text="${song.title}"></span>
+                        <button type="button" class="remove-song" th:data-song-id="${song.id_song}">Remove</button>
+                    </div>
+                </div>
+
+                <div class="add-songs">
+                    <h2>Add Songs</h2>
+                    <p>Search an existing songs form our collection</p>
+                    <div class="search-container">
+                        <input type="text" id="songSearch" placeholder="Search for existing songs...">
+                        <div id="searchResults" class="search-results" style="display: none;"></div>
+                    </div>
+
+                    <div class="new-song-form">
+                        <h3>Add New Song</h3>
+                        <p>Song not listed? Add the title of the song</p>
+                        <input type="text" id="newSongTitle" placeholder="Enter new song title">
+                        <button type="button" id="addNewSong">Add New Song</button>
+                    </div>
+                </div>
+
+                <input type="hidden" id="removedSongs" name="removedSongs" value="[]">
+                <input type="hidden" id="addedSongs" name="addedSongs" value="[]">
+                
+                <button type="submit" class="submit-button">Save Changes</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

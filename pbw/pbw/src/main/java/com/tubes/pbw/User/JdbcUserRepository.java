@@ -27,6 +27,12 @@ public class JdbcUserRepository implements UserRepository {
         return results.size() == 0 ? Optional.empty() : Optional.of(results.get(0));
     }
 
+    public Optional<User> findById(Integer id) {
+        String sql = "SELECT * FROM users WHERE id = ?";
+        List<User> results = jdbcTemplate.query(sql, this::mapRowToUser, id);
+        return results.size() == 0 ? Optional.empty() : Optional.of(results.get(0));
+    }
+
     public List<User> findAll() {
         String sql = "SELECT * FROM users";
         return jdbcTemplate.query(sql, this::mapRowToUser);

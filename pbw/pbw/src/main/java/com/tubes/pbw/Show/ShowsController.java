@@ -53,9 +53,9 @@ public class ShowsController {
             // Ambil artist
             List<Artist> artistInShow = showsService.artistInShow(show.getIdShow());
             Artist artist;
-            if (!artistInShow.isEmpty())
+            if(!artistInShow.isEmpty())
                 artist = artistInShow.get(0);
-            else
+            else 
                 artist = null;
 
             // Ambil venue
@@ -65,7 +65,7 @@ public class ShowsController {
             showViews.add(new ShowView(show, venue, artist));
 
             System.out.println("-------Show: " + show.getShowName() + " --------");
-            if (!artistInShow.isEmpty())
+            if(!artistInShow.isEmpty())
                 System.out.println("Artist Name: " + artist.getName());
             else
                 System.out.println("Artist Name: " + "");
@@ -179,13 +179,14 @@ public class ShowsController {
             @RequestParam("venueId") Long venue,
             Model model) {
         try {
-            showsService.addNewShow(showName, date, description, venue);
+            Integer id = showsService.addNewShow(showName, date, description, venue);
             model.addAttribute("success", "Show added successfully");
+            return "redirect:/show/detail/"+id;
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Error adding show");
+            return "redirect:/shows";
         }
-        return "redirect:/shows";
     }
 
     // API untuk mencari artis
@@ -197,6 +198,18 @@ public class ShowsController {
         } catch (Exception e) {
             e.printStackTrace(); // Untuk melihat jika ada error saat melakukan pencarian
             throw new RuntimeException("Error fetching artists");
+        }
+    }
+
+    // API untuk mencari show
+    @ResponseBody
+    @GetMapping("/api/show/shows/search")
+    public List<Show> searchShow(@RequestParam String query) {
+        try {
+            return showsService.searchShows(query); // Panggil service untuk pencarian show
+        } catch (Exception e) {
+            e.printStackTrace(); // Untuk melihat jika ada error saat melakukan pencarian
+            throw new RuntimeException("Error fetching shows");
         }
     }
 
@@ -215,7 +228,9 @@ public class ShowsController {
     // API untuk mendapatkan detail show
     // @ResponseBody
     @GetMapping("/show/detail/{id}")
-    public String getShowDetail(@PathVariable String id, Model model) {
+    public String getShowDetail(@PathVariable String id, Model model, HttpSession session) {
+        User loggedUser = (User) session.getAttribute("loggedUser");
+
         Long idShow = Long.parseLong(id);
         Show show = showsService.getShow(idShow);
         // ambil id venue untuk mendapatkan objek venue
@@ -235,6 +250,7 @@ public class ShowsController {
             System.out.println("------------------------");
         }
 
+        model.addAttribute("user", loggedUser);
         model.addAttribute("show", show);
         model.addAttribute("venue", venue);
         model.addAttribute("setlist_list", setlist);

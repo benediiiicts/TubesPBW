@@ -45,6 +45,10 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public Optional<User> findById(Integer id){
+        return userRepository.findById(id);
+    }
+
     public void updateUserRole(String email, String role) {
         userRepository.updateUserRole(email, role);
     }

@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/add-show.css}">
-    <script th:src="@{/js/add-show.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/setlist-history.css}">
 </head>
-
 <body>
     <header>
         <nav class="navbar">
@@ -44,50 +42,28 @@
         </nav>
     </header>
     <main>
-        <center>
-            <h1>Add Show</h1>
-        </center>
-        <form action="/add-show" method="post" class="form-grid">
-            <div class="text-input">
-
-                <!-- Show Name -->
-                <div class="input-field">
-                    <label for="showName">Show Name:</label>
-                    <input type="text" id="showName" name="showName" required>
+        <div class="body-content">
+            <h2 class="content-header" th:text="${setlist.title} + ' History Changes'"></h2>
+            <div class="history-container" th:each="history : ${histories}">
+                <div class="user-email">
+                    <p th:text="${history.email}"></p>
                 </div>
-
-                <!-- Date Selection -->
-                <div class="input-field">
-                    <label for="date">Date:</label>
-                    <input type="date" id="date" name="date" required>
+                <hr>
+                <div class="changes-date">
+                    <p th:text="'Changed at : ' + ${history.date}"></p>
                 </div>
-
-                <!-- Venue Selection -->
-                <div class="input-field">
-                    <label for="venue-search">Venue:</label><br>
-                    <input id="venue-search" type="text" placeholder="Search for Venue..." oninput="searchVenue()"
-                        autocomplete="off">
-                    <div id="venue-dropdown" class="dropdown"></div>
-                    <input type="hidden" id="selected-venue-id" name="venueId">
+                <hr>
+                <div class="changes-cont">
+                    <p th:text="${history.activity}"></p>
                 </div>
-
-                <!-- Description -->
-                <div class="input-field">
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" required></textarea>
-                </div>
-
             </div>
-            <div class="pict-input">
-                <button type="submit" class="file-upload-btn">Submit</button>
-            </div>
-        </form>
-    </main>
+        </div>
     <script>
         function toggleMenu() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
+  
     </script>
 </body>
 

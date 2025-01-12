@@ -65,19 +65,23 @@
                 <h2 class="container-header">Setlists</h2>
                 <!-- Judul -->
                 <div class="setlist-grid">
-                    <p class="setlist-artist">artist</p>
-                    <p class="setlist-title">title</p>   
+                    <p class="setlist-artist" id="p-head">Title</p>
+                    <p class="setlist-title" id="p-head">Artist</p>   
                 </div>
                 <div class="setlist-grid"  th:each="setlist : ${setlist_list}">
                     <!-- <div class="song-img">
                         <img src="" alt="Song Image">
                     </div> -->
-                    <p class="setlist-artist" th:text="${setlist.artist.name}">artist</p>
-                    <p class="setlist-title" th:text="${setlist.title}">title</p>   
+                    <a class="redir" th:href="@{/artist/{name}-{id}(name=${setlist.artist.name}, id=${setlist.artist.id})}">
+                        <p class="setlist-artist" th:text="${setlist.artist.name}">artist</p>
+                    </a>
+                    <a class="redir" th:href="@{/setlist/detail/{setlistId}(setlistId=${setlist.id})}">
+                        <p class="setlist-title" th:text="${setlist.title}">title</p>  
+                    </a>
                 </div>
             </div>
 
-            <form th:action="@{'/add-setlist'}" method="get">
+            <form th:action="@{'/add-setlist'}" method="get" class="add-setlist">
                 <input type="hidden" name="idShow" th:value="${show.idShow}" />
                 <button type="submit" class="add-button">Add Setlist</button>
             </form>

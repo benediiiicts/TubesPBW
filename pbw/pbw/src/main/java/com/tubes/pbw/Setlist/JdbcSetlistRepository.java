@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tubes.Data.Artist;
 import com.tubes.Data.SetList;
+import com.tubes.Data.SetlistHistory;
 import com.tubes.Data.Show;
 import com.tubes.Data.Song;
 import com.tubes.pbw.Artist.ArtistsService;
@@ -77,9 +79,12 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
-    public void save(String setlistTitle, Long showId, Long artistId) {
-        String sql = "INSERT INTO setlist (title, idshow, idartist) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, setlistTitle, showId, artistId);
+    public Integer save(String setlistTitle, Long showId, Long artistId) {
+        String sql = "INSERT INTO setlist (title, idshow, idartist) VALUES (?, ?, ?) RETURNING idsetlist";
+        Integer id = jdbcTemplate.queryForObject(sql, Integer.class, setlistTitle, showId, artistId);
+        sql = "INSERT INTO artist_show (idartist, idshow) VALUES (?, ?)";
+        jdbcTemplate.update(sql, showId, artistId);
+        return id;
     }
 
     @Override
@@ -116,6 +121,87 @@ public class JdbcSetlistRepository implements SetlistRepository {
         }
         return setlists;
     }
+
+    @Override
+public void updateSetlist(Integer id, String title, List<Integer> removedSongs, 
+    List<Map<String, Object>> addedSongs, String oldTitle, String editorEmail) {
+    
+    StringBuilder activityLog = new StringBuilder();
+    
+    try {
+        // Begin transaction
+        jdbcTemplate.execute("BEGIN");
+        
+        // Update title if changed
+        if (!title.equals(oldTitle)) {
+            String sql = "UPDATE setlist SET title = ? WHERE idsetlist = ?";
+            jdbcTemplate.update(sql, title, id);
+            activityLog.append("Change the title from ").append(oldTitle)
+                      .append(" to ").append(title).append("\n");
+        }
+        
+        // Remove songs
+        if (removedSongs != null && !removedSongs.isEmpty()) {
+            String sql = "DELETE FROM song_setlist WHERE id_setlist = ? AND id_song = ?";
+            for (Integer songId : removedSongs) {
+                String songTitle = jdbcTemplate.queryForObject(
+                    "SELECT title FROM songs WHERE idSongs = ?", 
+                    String.class, songId);
+                jdbcTemplate.update(sql, id, songId);
+                activityLog.append("Remove ").append(songTitle)
+                          .append(" from the setlist\n");
+            }
+        }
+        
+        // Add songs
+        if (addedSongs != null && !addedSongs.isEmpty()) {
+            for (Map<String, Object> song : addedSongs) {
+                Integer songId;
+                if ((Boolean) song.get("isNew")) {
+                    // Get the artist ID from the setlist
+                    Integer artistId = jdbcTemplate.queryForObject(
+                        "SELECT idArtist FROM setlist WHERE idsetlist = ?",
+                        Integer.class, id);
+                    
+                    // Create new song
+                    String insertSongSql = """
+                        INSERT INTO songs (title, listener, url, idAlbum)
+                        VALUES (?, 0, '', (SELECT idAlbum FROM album WHERE IdArtist = ? LIMIT 1))
+                        RETURNING idSongs
+                    """;
+                    songId = jdbcTemplate.queryForObject(insertSongSql, Integer.class, 
+                        song.get("title"), artistId);
+                    activityLog.append("Add new song ").append(song.get("title"))
+                              .append(" to the setlist\n");
+                } else {
+                    songId = ((Number) song.get("id")).intValue();
+                    String songTitle = jdbcTemplate.queryForObject(
+                        "SELECT title FROM songs WHERE idSongs = ?", 
+                        String.class, songId);
+                    activityLog.append("Add ").append(songTitle)
+                              .append(" to the setlist\n");
+                }
+                
+                // Add song to setlist
+                String sql = "INSERT INTO song_setlist (id_song, id_setlist) VALUES (?, ?)";
+                jdbcTemplate.update(sql, songId, id);
+            }
+        }
+        
+        // Record changes
+        if (activityLog.length() > 0) {
+            String sql = "INSERT INTO setlist_changes (setlist_id, editor_email, activity) VALUES (?, ?, ?)";
+            jdbcTemplate.update(sql, id, editorEmail, activityLog.toString());
+        }
+        
+        // Commit transaction
+        jdbcTemplate.execute("COMMIT");
+    } catch (Exception e) {
+        // Rollback transaction on error
+        jdbcTemplate.execute("ROLLBACK");
+        throw e;
+    }
+}
 
     @Override
     public List<SetList> searchSetlists(String query) {
@@ -158,5 +244,22 @@ public class JdbcSetlistRepository implements SetlistRepository {
 
             return setlist;
         });
+    }
+
+    @Override
+    public List<SetlistHistory> getHistory(Integer idSetlist) {
+        String sql = "SELECT * FROM setlist_changes WHERE setlist_id = ?";
+        List<SetlistHistory> result = jdbcTemplate.query(sql, this::mapRowToSetlistHistory, idSetlist);
+        return result;
+    }
+
+    private SetlistHistory mapRowToSetlistHistory(ResultSet rs, int rowNum) throws SQLException{
+        return new SetlistHistory(
+            rs.getInt("id"),
+            rs.getInt("setlist_id"),
+            rs.getString("editor_email"),
+            rs.getTimestamp("change_date"),
+            rs.getString("activity")
+        );
     }
 }
