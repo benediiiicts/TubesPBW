@@ -22,7 +22,7 @@ public class AuthorizationAspect {
 
     @Before("@annotation(requiredRole)")
     public void checkAuthorization(JoinPoint joinPoint, RequiredRole requiredRole) throws Throwable {
-        if (session == null || session.getAttribute("username") == null) {
+        if (session == null || session.getAttribute("loggedUser") == null) {
             System.out.println("Authorization failed: Session is null or user not logged in.");
             throw new SecurityException("User is not logged in!");
         }

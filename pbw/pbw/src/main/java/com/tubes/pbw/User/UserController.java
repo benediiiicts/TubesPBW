@@ -33,6 +33,8 @@ public class UserController {
     public String loginView(HttpSession session, Model model) {
         // Jika user sudah login, redirect ke home
         if (session.getAttribute("loggedUser") != null) {
+            User user = (User)session.getAttribute("loggedUser");
+            session.setAttribute("role", user.getRole());
             return "redirect:/home";
         }
         model.addAttribute("user", new User());
@@ -48,6 +50,7 @@ public class UserController {
         User user = userService.login(email, password);
         if (user != null) {
             // Jika user valid, simpan ke session dan redirect ke dashboard
+            session.setAttribute("role", user.getRole());
             session.setAttribute("loggedUser", user);
             model.addAttribute("user", user);
             return "redirect:/home";
