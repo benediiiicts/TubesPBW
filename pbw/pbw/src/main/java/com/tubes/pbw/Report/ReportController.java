@@ -3,6 +3,7 @@ package com.tubes.pbw.Report;
 import com.tubes.Data.ArtistReport;
 import com.tubes.Data.Song;
 import com.tubes.Data.User;
+import com.tubes.pbw.RequiredRole;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class ReportController {
     private ReportService reportService;
 
     @GetMapping("/artist-report")
+    @RequiredRole("admin") // Only admin can access
     public String getArtistReport(HttpSession session, Model model) {
         // Ambil user dari session
         User loggedUser = (User) session.getAttribute("loggedUser");
@@ -46,6 +48,7 @@ public class ReportController {
     }
 
     @GetMapping("/artist-songs")
+    @RequiredRole("admin") // Only admin can access
     @ResponseBody
     public List<Song> getSongsByArtistName(@RequestParam Integer idArtist) {
         return artistReportRepository.getSongsByArtistName(idArtist);

@@ -32,7 +32,7 @@ public class AdminController {
     private UserService userService;
 
     @GetMapping
-    // @RequiredRole("admin") // Only admin can access
+    @RequiredRole("admin") // Only admin can access
     public String listMembers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
@@ -64,6 +64,7 @@ public class AdminController {
 
     // encode email untuk mapping
     @GetMapping("/edit-member/{email}")
+    @RequiredRole("admin") // Only admin can access
     public String encodeEmail(@PathVariable String email) {
         if (email.equals("admin@gmail.com"))
             return "redirect:/members";
@@ -73,7 +74,7 @@ public class AdminController {
 
     // Form for editing a member
     @GetMapping("/edit/{encodedEmail}")
-    // @RequiredRole("admin") // Only admin can access
+    @RequiredRole("admin") // Only admin can access
     public String editMemberForm(@PathVariable String encodedEmail, Model model, HttpSession session) {
         User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser == null) {
@@ -94,7 +95,7 @@ public class AdminController {
     }
 
     @PostMapping("/edit-member")
-    // @RequiredRole("admin") // Only admin can access
+    @RequiredRole("admin") // Only admin can access
     public String updateMember(@ModelAttribute User user, HttpSession session) {
         User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser == null) {
@@ -105,7 +106,7 @@ public class AdminController {
     }
 
     @PostMapping("/delete/{email}")
-    // @RequiredRole("admin") // Only admin can access
+    @RequiredRole("admin") // Only admin can access
     public String deleteUser(@PathVariable String email, HttpSession session) {
         if (email.equals("admin@gmail.com"))
             return "redirect:/members";
@@ -119,7 +120,7 @@ public class AdminController {
     }
 
     @PostMapping("/update-member")
-    // @RequiredRole("admin") // Only admin can access
+    @RequiredRole("admin") // Only admin can access
     public String updateMemberRole(@ModelAttribute User user, HttpSession session) {
         // Check if user is logged in
         User loggedUser = (User) session.getAttribute("loggedUser");
