@@ -47,7 +47,8 @@
         <div class="body-content">
             <div class="add-ons">
                 <div class="search-bar">
-                    <input id="searchInput" type="text" placeholder="Search artist...">
+                    <div id="searchResults" class="search-results"></div>
+                    <input id="searchInput" type="text" placeholder="Search show...">
                     <button class="search-btn" onclick="applyFilters()">Search</button>
                 </div>
                 <a href="/add-show" class="button-a">
@@ -131,6 +132,50 @@
 
         function goToSetlistDetail(idSetlist) {
             window.location.href = `/setlist/detail/${idSetlist}`;
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (query === "") {
+                alert("Please enter a show name to search.");
+                return;
+            }
+
+            fetch(`/api/shows/search?query=${encodeURIComponent(query)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch search results.");
+                    }
+                    return response.json();
+                })
+                .then(shows => {
+                    displaySearchResults(shows);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+
+        function displaySearchResults(shows) {
+            const resultContainer = document.getElementById('searchResults');
+            resultContainer.innerHTML = ""; // Clear previous results
+
+            if (shows.length === 0) {
+                resultContainer.innerHTML = "<p>No shows found.</p>";
+                return;
+            }
+
+            shows.forEach(show => {
+                const showDiv = document.createElement("div");
+                showDiv.className = "show-item";
+                showDiv.innerHTML = `
+            <h3>${show.showName}</h3>
+            <p>Date: ${new Date(show.date).toLocaleDateString()}</p>
+            <p>Description: ${show.description}</p>
+            <p>Venue ID: ${show.venue}</p>
+        `;
+                resultContainer.appendChild(showDiv);
+            });
         }
     </script>
 </body>

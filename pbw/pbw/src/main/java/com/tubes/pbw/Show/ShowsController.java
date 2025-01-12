@@ -240,4 +240,10 @@ public class ShowsController {
         model.addAttribute("setlist_list", setlist);
         return "show-detail";
     }
+
+    @ResponseBody
+    @GetMapping("/api/shows/search")
+    public List<Show> searchShows(@RequestParam String query) {
+        return showsService.searchShowsByName(query);
+    }
 }

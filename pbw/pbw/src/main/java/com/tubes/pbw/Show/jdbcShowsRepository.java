@@ -118,4 +118,10 @@ public class jdbcShowsRepository implements ShowsRepository {
         String sql = "SELECT * FROM \"show\" ORDER BY RANDOM() LIMIT 5";
         return jdbcTemplate.query(sql, this::mapRowToShow);
     }
+
+    @Override
+    public List<Show> findByNameContaining(String name) {
+        String sql = "SELECT * FROM \"show\" WHERE LOWER(showName) LIKE LOWER(?)";
+        return jdbcTemplate.query(sql, this::mapRowToShow, "%" + name + "%");
+    }
 }

@@ -55,4 +55,8 @@ public class ShowsService {
     public List<Artist> artistInShow(Long showId) {
         return showsRepository.artistInShow(showId);
     }
+
+    public List<Show> searchShowsByName(String name) {
+        return showsRepository.findByNameContaining(name);
+    }
 }
