@@ -91,7 +91,7 @@ header {
 }
 
 .login-register-btn,
-.search-btn, .add-setlist-btn {
+.search-btn, .add-setlist-btn, .add-Setlist-btn {
     margin-left: 10px;
     border-radius: 20px;
     border: 1px solid #FFFFFF;
@@ -111,7 +111,7 @@ header {
 .login-register-btn:hover,
 .search-btn:hover,
 .hamburger-menu:hover,
-.add-setlist-btn:hover {
+.add-setlist-btn:hover, .add-Setlist-btn:hover {
     background-color: #C5C6C7;
     color: #1f2833;
     transition: background-color 0.3s ease;
@@ -304,4 +304,46 @@ form {
 
 .card:hover .card-image {
     transform: scale(1.1);
+}
+
+.add-ons {
+    display: grid;
+    grid-template-areas:
+        'search add-btn';
+    grid-template-columns: auto 200px;
+    column-gap: 50px;
+    width: 85%;
+    margin: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 50px;
+}
+
+.search-bar {
+    margin-right: 50px;
+    grid-area: search;
+    display: flex;
+    justify-self: center;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+}
+
+.search-bar input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 400px;
+}
+
+.search-bar .search-btn {
+    margin-left: 10px;
+}
+
+.button-a {
+    grid-area: add-btn;
+    display: flex;
+    justify-self: end;
+    text-decoration: none;
+    align-self: center;
 }

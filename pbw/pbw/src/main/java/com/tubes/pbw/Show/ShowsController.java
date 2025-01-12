@@ -136,8 +136,9 @@ public class ShowsController {
             System.out.println("Venue: " + show.getVenue());
             System.out.println("------------------------");
         }
-        
-        // if(!upcomingShows.isEmpty()) model.addAttribute("upcomingShowViewList", upcomingShowViews); 
+
+        // if(!upcomingShows.isEmpty()) model.addAttribute("upcomingShowViewList",
+        // upcomingShowViews);
         model.addAttribute("showViewList", showViews); // Menambahkan list showViews ke model
         model.addAttribute("top5SongsView", top5songViews); // Menambahkan list top5Songs ke model
         model.addAttribute("top5Setlistsview", setlistViews); // Menambahkan list setlistViews ke model
@@ -232,11 +233,11 @@ public class ShowsController {
 
         Long idShow = Long.parseLong(id);
         Show show = showsService.getShow(idShow);
-        //ambil id venue untuk mendapatkan objek venue
+        // ambil id venue untuk mendapatkan objek venue
         Long idvenue = show.getVenue();
         // ambil venue
         Venue venue = venuesService.getVenueById(idvenue);
-        //cari setlist-setlist yang ada di show dengan id di parameter
+        // cari setlist-setlist yang ada di show dengan id di parameter
         List<SetList> setlist = setlistService.getSetlistByShowId(idShow);
         // System.out.println(setlist.toString());
         System.out.println("-------SetList In show: " + show.getShowName() + " --------");
@@ -254,5 +255,11 @@ public class ShowsController {
         model.addAttribute("venue", venue);
         model.addAttribute("setlist_list", setlist);
         return "show-detail";
+    }
+
+    @ResponseBody
+    @GetMapping("/api/shows/search")
+    public List<Show> searchShows(@RequestParam String query) {
+        return showsService.searchShowsByName(query);
     }
 }

@@ -17,6 +17,7 @@ public class ShowsService {
     @Autowired
     private ShowsRepository showsRepository;
 
+
     public List<Show> searchShows(String query){
         return showsRepository.findByQuery(query);
     }
@@ -36,10 +37,10 @@ public class ShowsService {
         }
     }
 
-    public List<Show> getUpcomingShows(){
+    public List<Show> getUpcomingShows() {
         return showsRepository.findUpcomingShows();
     }
-    
+
     public static Date convertStringToSqlDate(String dateString) throws ParseException {
         // Format tanggal yang sesuai dengan input
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -49,15 +50,19 @@ public class ShowsService {
         return new Date(utilDate.getTime());
     }
 
-    public Show getShow(Long id){
+    public Show getShow(Long id) {
         return showsRepository.findById(id);
     }
 
-    public List<Show> get5RandomShows(){
+    public List<Show> get5RandomShows() {
         return showsRepository.find5RandomShows();
     }
 
-    public List<Artist> artistInShow(Long showId){
+    public List<Artist> artistInShow(Long showId) {
         return showsRepository.artistInShow(showId);
+    }
+
+    public List<Show> searchShowsByName(String name) {
+        return showsRepository.findByNameContaining(name);
     }
 }

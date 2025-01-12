@@ -46,16 +46,8 @@
     <main>
         <div class="body-content">
             <div class="add-ons">
-                <div class="filter-container">
-                    <select id="countryFilter" class="filter">
-                        <option value="" th:selected="${countryFilter == null || countryFilter == ''}">All Countries
-                        </option>
-                        <option th:each="country : ${countries}" th:value="${country}"
-                            th:selected="${country == countryFilter}" th:text="${country}"></option>
-                    </select>
-                </div>
                 <div class="search-bar">
-                    <input id="searchInput" type="text" placeholder="Search artist...">
+                    <input id="searchInput" type="text" placeholder="Search show...">
                     <button class="search-btn" onclick="applyFilters()">Search</button>
                 </div>
                 <a href="/add-show" class="button-a">
@@ -64,6 +56,7 @@
             </div>
         </div>
         <div class="body-content">
+            <div id="searchResults" class="search-results"></div>
             <div class="slideshow-container" id="slide-otp">
                 <div class="slides fade" th:each="showView : ${showViewList}">
                     <img th:src="${showView.artist.PhotosURL}" alt="Image 1">
@@ -71,59 +64,61 @@
                         <h2 th:text="${showView.artist.Name}"></h2>
                         <p>
                             <span th:text="${showView.venue.Name}"></span><br display="none">
-                            <p><span th:text="${showView.show.date}"></span></p>
+                        <p><span th:text="${showView.show.date}"></span></p>
                         </p>
                     </div>
-                </div>                
-               
+                </div>
+
 
                 <a class="prev" onclick="plusSlides(-1, 'slide-otp')">&#10094;</a>
                 <a class="next" onclick="plusSlides(1, 'slide-otp')">&#10095;</a>
             </div>
             <div class="body-content">
-                <div class="song-setlist-container">
-                    <div class="song-container">
-                        <h2 class="container-header">Top Songs.</h2>
-                        <div class="song">
-                            <a class="song-title" >Title</a>
-                            <span class="song-listener">listener</span>
-                        </div>
-                        <div class="song" th:each="songview : ${top5SongsView}">
-                            <div class="song-img">
-                                <img alt="Song Image">
-                            </div>
-                            <a class="song-title" th:href="${songview.song.url}" th:text="${songview.song.title}">song 1</a>
-                            <span class="song-listener" th:text="${songview.formattedListener}">listener</span>
-                        </div>
-                    </div>
-                    <div class="setlist-container">
-                        <h2 class="container-header">Top Setlists.</h2>
-                        <div class="set">
-                            <a class="set-title">Title</a>
-                            <span class="set-show">Show</span>
-                        </div>
-                        <div class="setlist-grid" th:onclick="'goToSetlistDetail(' + ${setlistview.setlist.id} + ')'" th:each="setlistview : ${top5Setlistsview}">
-                            <a class="setlist" href="#" th:text="${setlistview.setlist.title}">Title</a>
-                            <a class="show" href="#" th:text="${setlistview.show.showName}">Show</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="body-content">
                 <div class="show-container">
-                    <h2 class="container-header">Upcoming Shows.</h2>
-                    <div th:if="${upcomingShowViewList == null or upcomingShowViewList.isEmpty()}" class="show-empty">
-                        <p>There's no upcoming show</p>
+                    <h2 class="container-header">Show List</h2>
+                    <div th:if="${showViewList == null or showViewList.isEmpty()}" class="show-empty">
+                        <p>There's no show available</p>
                     </div>
-                    <div th:if="${upcomingShowViewList != null and !upcomingShowViewList.isEmpty()}">
-                        <div class="show-grid" th:each="showView : ${upcomingShowViewList}">
+                    <div th:if="${showViewList != null and !showViewList.isEmpty()}">
+                        <div class="show-grid" th:each="showView : ${showViewList}">
                             <p class="show-title" th:text="${showView.show.showName}">Show Title</p>
                             <p class="show-venue" th:text="${showView.venue.name}">Show Venue</p>
                             <p class="show-date" th:text="${showView.show.date}">Show Date</p>
                             <p class="show-description" th:text="${showView.show.description}">Show Description</p>
                         </div>
                     </div>
+                </div>
+
+                <div class="setlist-container">
+                    <h2 class="container-header">Top Setlists.</h2>
+                    <div class="set">
+                        <a class="set-title">Title</a>
+                        <span class="set-show">Show</span>
+                    </div>
+                    <div class="setlist-grid" th:onclick="'goToSetlistDetail(' + ${setlistview.setlist.id} + ')'"
+                        th:each="setlistview : ${top5Setlistsview}">
+                        <a class="setlist" href="#" th:text="${setlistview.setlist.title}">Title</a>
+                        <a class="show" href="#" th:text="${setlistview.show.showName}">Show</a>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="body-content">
+            <div class="show-container">
+                <h2 class="container-header">Upcoming Shows</h2>
+                <div th:if="${upcomingShowViewList == null or upcomingShowViewList.isEmpty()}" class="show-empty">
+                    <p>There's no upcoming show</p>
+                </div>
+                <div th:if="${upcomingShowViewList != null and !upcomingShowViewList.isEmpty()}">
+                    <div class="show-grid" th:each="showView : ${upcomingShowViewList}">
+                        <p class="show-title" th:text="${showView.show.showName}">Show Title</p>
+                        <p class="show-venue" th:text="${showView.venue.name}">Show Venue</p>
+                        <p class="show-date" th:text="${showView.show.date}">Show Date</p>
+                        <p class="show-description" th:text="${showView.show.description}">Show Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <script>
         function toggleMenu() {
@@ -133,10 +128,61 @@
 
         function goToShowDetail(idShow) {
             window.location.href = `/show/detail/${idShow}`;
-        }  
-        
+        }
+
         function goToSetlistDetail(idSetlist) {
             window.location.href = `/setlist/detail/${idSetlist}`;
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (query === "") {
+                alert("Please enter a show name to search.");
+                return;
+            }
+
+            fetch(`/api/shows/search?query=${encodeURIComponent(query)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch search results.");
+                    }
+                    return response.json();
+                })
+                .then(shows => {
+                    displaySearchResults(shows);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+
+        function displaySearchResults(shows) {
+            const resultContainer = document.getElementById('searchResults');
+            resultContainer.innerHTML = ""; // Clear previous results
+
+            if (shows.length === 0) {
+                resultContainer.innerHTML = "<p style='justify-self: center;'>No shows found.</p>";
+                return;
+            }
+
+            shows.forEach(show => {
+                const showDiv = document.createElement("div");
+                showDiv.className = "show-item";
+                showDiv.innerHTML = `
+                 <div class="show-container">
+                    <h2 class="container-header">Show</h2>
+                    <div>
+                        <div class="show-grid"">
+                            <p class="show-title">${show.showName}</p>
+                            <p class="show-venue">${show.venue}</p>
+                            <p class="show-date">${show.date}</p>
+                            <p class="show-description">${show.description}</p>
+                        </div>
+                    </div>
+                </div>
+        `;
+                resultContainer.appendChild(showDiv);
+            });
         }
     </script>
 </body>
