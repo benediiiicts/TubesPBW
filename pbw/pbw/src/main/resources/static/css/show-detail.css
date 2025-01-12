@@ -212,7 +212,7 @@ header {
     border-radius: 12px;
     margin: 15px;
     color: #1f2833;
-    overflow: hidden;
+    overflow-y: scroll;
     justify-self: center;
 }
 .setlist-grid{
