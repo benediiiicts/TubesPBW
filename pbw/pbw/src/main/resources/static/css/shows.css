@@ -267,6 +267,7 @@ img {
 
 
 .caption {
+    overflow: hidden;
     border-radius: 10px;
     position: absolute;
     top: 0;
@@ -361,11 +362,12 @@ img {
 
 .setlist-container {
     background-color: #C5C6C7;
-    width: 50%;
+    width: 80%;
     border-radius: 12px;
     margin: 15px;
     color: #1f2833;
     overflow-y: auto;
+    justify-self: center;
 }
 
 
@@ -374,12 +376,13 @@ img {
     margin-bottom: 25px;
 }
 
-.song,
 .set {
+    justify-items: center;
+    font-weight: bold;
     display: grid;
     grid-template-areas:
-        'img title listener';
-    grid-template-columns: auto 55% 30%;
+        'title listener';
+    grid-template-columns: 50% 50%;
     border: 1px white;
     margin: 20px;
     margin-top: 10px;
@@ -495,15 +498,23 @@ img {
     grid-template-columns: 25% 25% 25% 25%;
     transition: background-color 0.3s ease;
 }
+.show-grid-res {
+    height: 55px;
+    display: grid;
+    grid-template-areas:
+        'title date desc';
+    grid-template-columns: 35% 30% 35%;
+    transition: background-color 0.3s ease;
+}
 
-.show-grid p {
+.show-grid p, .show-grid-res p{
     font-size: small;
     text-align: center;
     overflow: auto;
 }
 
 
-.show-grid:hover {
+.show-grid:hover , .show-grid-res:hover{
     background-color: #dbd5d5;
 }
 
@@ -527,4 +538,19 @@ img {
     text-align: center;
     color: #575757;
     font-size: small;
+}
+#searchResults {
+    display: none;
+}
+.grid-header{
+    font-weight: bold;
+    font-size: large;
+}
+.show-grid {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.show-grid:hover {
+    background-color: #f0f0f0;
 }

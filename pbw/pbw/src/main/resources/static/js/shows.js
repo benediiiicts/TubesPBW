@@ -56,3 +56,103 @@ function plusSlides(n, slide_id) {
 showSlides('slide-otp');
 
 resetAutoSlide('slide-otp', 3000);
+
+function toggleMenu() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('active');
+}
+
+function goToShowDetail(idShow) {
+    window.location.href = `/show/detail/${idShow}`;
+}
+
+function goToSetlistDetail(idSetlist) {
+    window.location.href = `/setlist/detail/${idSetlist}`;
+}
+
+function applyFilters() {
+    const query = document.getElementById('searchInput').value.trim();
+    const resultContainer = document.getElementById('searchResults');
+
+    if (query === "") {
+        resultContainer.style.display = "none";
+        return;
+    }
+
+    fetch(`/api/shows/search?query=${encodeURIComponent(query)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to fetch search results.");
+            }
+            return response.json();
+        })
+        .then(shows => {
+            displaySearchResults(shows);
+            resultContainer.style.display = "block";
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            resultContainer.style.display = "none";
+        });
+}
+
+function displaySearchResults(shows) {
+    const resultContainer = document.getElementById('searchResults');
+    resultContainer.innerHTML = ""; // Clear previous results
+
+    if (shows.length === 0) {
+        resultContainer.innerHTML = "<p style='justify-self: center;'>No shows found.</p>";
+        return;
+    }
+
+    const showContainer = document.createElement("div");
+    showContainer.className = "show-container";
+
+    const header = document.createElement("h2");
+    header.className = "container-header";
+    header.textContent = "Search Results";
+    showContainer.appendChild(header);
+
+    const gridContainer = document.createElement("div");
+
+    shows.forEach(show => {
+        const showGrid = document.createElement("div");
+        showGrid.className = "show-grid-res";
+
+        // Set data-id dynamically
+        showGrid.setAttribute("data-id", show.idShow);
+
+        showGrid.innerHTML = `
+            <p class="show-title">${show.showName}</p>
+            <p class="show-date">${show.date}</p>
+            <p class="show-description">${show.description}</p>
+        `;
+
+        // Add click event listener for navigation
+        showGrid.addEventListener("click", () => {
+            const showId = showGrid.getAttribute("data-id");
+            if (showId) {
+                window.location.href = `/show/detail/${showId}`;
+            }
+        });
+
+        gridContainer.appendChild(showGrid);
+    });
+
+    showContainer.appendChild(gridContainer);
+    resultContainer.appendChild(showContainer);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const showGrids = document.querySelectorAll('.show-grid');
+
+    showGrids.forEach(grid => {
+        grid.addEventListener('click', () => {
+            const showId = grid.getAttribute('data-id');
+            if (showId) {
+                window.location.href = `/show/detail/${showId}`;
+            }
+        });
+    });
+});
+
