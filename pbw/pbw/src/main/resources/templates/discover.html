@@ -44,11 +44,16 @@
         </nav>
     </header>
     <main>
-        <div class="search-bar">
-            <form action="/discover" method="get">
-                <input type="text" name="query" placeholder="Cari setlist, show, atau artist..." required>
-                <button  class="search-btn" type="submit">Search</button>
-            </form>
+        <div class="add-ons">
+            <div class="search-bar">
+                <form action="/discover" method="get">
+                    <input id="searchInput" type="text" name="query" placeholder="Cari setlist, show, atau artist..." required>
+                    <button  class="search-btn" type="submit">Search</button>
+                </form>
+            </div>
+            <a href="/add-setlist" class="button-a">
+                <button class="add-Setlist-btn">Add new Setlist</button>
+            </a>
         </div>
         <div class="body-content">
             <h1 id="content-header">Popular Setlists</h1>
