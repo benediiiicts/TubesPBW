@@ -165,7 +165,7 @@ header {
 }
 .profile-container {
     width: 80%;
-    margin: 0 auto;
+    justify-self: center;
     padding: 0px;
     background: #1f2833;
     border-radius: 12px;
@@ -175,6 +175,18 @@ header {
     gap: 40px;
     align-items: center;
     min-height: 400px;
+}
+.profile-image {
+    width: 50%;
+    height: 400px;
+    position: relative;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mask-image: linear-gradient(to right, black 50%, transparent 100%);
 }
 .show-info {
     flex-grow: 1;
@@ -203,13 +215,14 @@ header {
     margin-bottom: 25px;
 }
 .setlist-container{
+    overflow: auto;
     background-color: #C5C6C7;
     height: 300px;
     width: 80%;
     border-radius: 12px;
     margin: 15px;
     color: #1f2833;
-    overflow: hidden;
+    overflow-y: scroll;
     justify-self: center;
 }
 .setlist-grid{
@@ -221,6 +234,7 @@ header {
     transition: background-color 0.3s ease;
     justify-items: center;
     text-align: center;
+    margin: 10px;
 }
 .song-img{
     display: flex;
@@ -244,7 +258,11 @@ header {
     background-color: #dbd5d5;
 }
 .setlist-title{
+    text-decoration: none;
+    cursor: pointer;
     grid-area: title;
+    align-self: center;
+    color: #1f2833;
 }
 .show-artist{
     grid-area: artist;
@@ -268,6 +286,8 @@ header {
     border: 1px solid #ddd;
     border-radius: 4px;
     resize: vertical;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .comment-submit-area {
@@ -288,26 +308,6 @@ header {
     background-color: #45a049;
 }
 
-#delete-btn-form{
-    display: flex;
-    justify-content: end;
-}
-
-#delete-comment{
-    background-color: #cf0b0b;
-    color: white;
-    border: none;
-    padding: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#delete-comment:hover {
-    background-color: #7d0f0f;
-}
-
 .comments-list {
     border-top: 1px solid #ddd;
     padding-top: 15px;
@@ -317,17 +317,28 @@ header {
     background-color: white;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
-    padding: 10px;
+    padding: 15px;
     margin-bottom: 10px;
+    /* Add these properties to handle text overflow */
+    width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
 }
 
 .comment-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
+    /* Add wrapping for very long usernames */
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .comment-author {
+    font-size: larger;
     font-weight: bold;
     color: #333;
 }
@@ -339,4 +350,56 @@ header {
 
 .comment-text {
     color: #444;
+    /* Remove the fixed padding and replace with more flexible values */
+    padding: 10px 0;
+    /* Add text wrapping properties */
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+    margin: 0;
+}
+
+#delete-btn-form {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+#delete-comment {
+    background-color: #cf0b0b;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#delete-comment:hover {
+    background-color: #7d0f0f;
+}
+.edit-set-btn{
+    width: 80%;
+    justify-self: center;
+    gap: 10px;
+}
+.changes-history{
+    margin-left: 10px;
+}
+.add-button, .changes-history{
+    padding: 10px;
+    border-radius: 8px;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    border: 1px solid white;
+    transition: background-color 0.5 ease;
+    transition: color 0.3 ease;
+    font-size: small;
+    text-decoration: none;
+}
+.add-button:hover, .changes-history:hover{
+    background-color: white;
+    color:#1f2833 ;
 }

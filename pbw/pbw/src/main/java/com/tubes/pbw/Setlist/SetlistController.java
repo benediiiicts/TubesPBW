@@ -1,5 +1,6 @@
 package com.tubes.pbw.Setlist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tubes.Data.Artist;
+import com.tubes.Data.Comment;
 import com.tubes.Data.SetList;
+import com.tubes.Data.SetlistHistory;
 import com.tubes.Data.Song;
 import com.tubes.Data.SongDetailView;
 import com.tubes.pbw.Artist.ArtistsService;
+import com.tubes.pbw.Comment.CommentService;
 import com.tubes.pbw.Song.SongService;
 import com.tubes.Data.User;
 
@@ -33,6 +37,9 @@ public class SetlistController {
     @Autowired
     SongService SongService;
 
+    @Autowired
+    CommentService commentService;
+
     @GetMapping("/setlist")
     public String redirectToArtists(HttpSession session) {
         // Ambil user dari session
@@ -47,7 +54,7 @@ public class SetlistController {
     }
 
     @GetMapping("/add-setlist")
-    public String addSetlist(@RequestParam Long idShow, HttpSession session, Model model) {
+    public String addSetlist(HttpSession session, Model model) {
         // Ambil user dari session
         User loggedUser = (User) session.getAttribute("loggedUser");
         if (loggedUser == null) {
@@ -57,7 +64,6 @@ public class SetlistController {
 
         // Tambahkan atribut user ke model jika diperlukan
         model.addAttribute("user", loggedUser);
-        model.addAttribute("showId", idShow);
         return "add-setlist";
     }
 
@@ -88,11 +94,8 @@ public class SetlistController {
     public String showSetlistDetail(@PathVariable int setlistId, HttpSession session, Model model) {
         // Ambil user dari session
         User loggedUser = (User) session.getAttribute("loggedUser");
-        // if (loggedUser == null) {
-        //     // Jika pengguna belum login, arahkan ke halaman login
-        //     return "redirect:/login";
-        // }
 
+        List<Comment> comments = commentService.getComments(setlistId);
         SetList setlist = setlistService.getSetList(setlistId);
 
         System.out.println("setlistTitle: " + setlist.getTitle());
@@ -101,6 +104,7 @@ public class SetlistController {
 
         List<Song> songList = SongService.getSongsBySetlistId(setlistId);
 
+        model.addAttribute("comments", comments);
         model.addAttribute("user", loggedUser);
         model.addAttribute("setlist", setlist);
         model.addAttribute("songList", songList);
@@ -108,9 +112,14 @@ public class SetlistController {
     }
 
     @GetMapping("/setlist/add-song")
-    public String addSongToSetlist(@RequestParam String setlistId, Model model) {
-
+    public String addSongToSetlist(@RequestParam String setlistId, Model model, HttpSession session) {
+        User loggedUser = (User) session.getAttribute("loggedUser");
+        if (loggedUser == null) {
+            // Jika pengguna belum login, arahkan ke halaman login
+            return "redirect:/login";
+        }
         SetList setlist = setlistService.getSetList(Integer.valueOf(setlistId));
+        model.addAttribute("user", loggedUser);
         model.addAttribute("setlist", setlist);
         return "add-song";
     }
@@ -149,5 +158,54 @@ public class SetlistController {
             e.printStackTrace();  // Untuk melihat jika ada error saat melakukan pencarian
             throw new RuntimeException("Error fetching songs");
         }
+    }
+    @GetMapping("/setlist/edit/{id}")
+    public String showEditSetlist(@PathVariable int id, Model model, HttpSession session) {
+        User loggedUser = (User) session.getAttribute("loggedUser");
+        if (loggedUser == null) {
+            return "redirect:/login";
+        }
+
+        SetList setlist = setlistService.getSetList(id);
+        List<Song> songList = SongService.getSongsBySetlistId(id);
+
+        model.addAttribute("setlist", setlist);
+        model.addAttribute("songList", songList);
+        model.addAttribute("user", loggedUser);
+        
+        return "edit-setlist";
+    }
+
+    @PostMapping("/setlist/edit/{id}")
+    public String updateSetlist(
+        @PathVariable int id,
+        @RequestParam String title,
+        @RequestParam String removedSongs,
+        @RequestParam String addedSongs,
+        @RequestParam String oldTitle,
+        HttpSession session
+    ) {
+        User loggedUser = (User) session.getAttribute("loggedUser");
+        if (loggedUser == null) {
+            return "redirect:/login";
+        }
+
+        setlistService.updateSetlist(id, title, removedSongs, addedSongs, oldTitle, loggedUser.getEmail());
+        
+        return "redirect:/setlist/detail/" + id;
+    }
+
+    @GetMapping("/setlist/history/{id}")
+    public String setlistHistory(@PathVariable int id, Model model, HttpSession session){
+        User loggedUser = (User) session.getAttribute("loggedUser");
+        if (loggedUser == null) {
+            return "redirect:/login";
+        }
+        List<SetlistHistory> histories = setlistService.getSetlistHistories(id);
+        SetList setlist = setlistService.getSetList(id);
+        model.addAttribute("user", loggedUser);
+        model.addAttribute("histories", histories);
+        model.addAttribute("setlist", setlist);
+        return "setlist-history";
     }
 }

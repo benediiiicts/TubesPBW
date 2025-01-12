@@ -163,110 +163,136 @@ header {
     font-weight: bolder;
     font-size: larger;
 }
-.profile-container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 0px;
-    background: #1f2833;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;   
-    display: flex;
-    gap: 40px;
-    align-items: center;
-    min-height: 400px;
+
+.body-content {
+    border-radius: 5px;
+    margin: 10px;
+    padding: 20px 20px 10px;
 }
-.show-info {
-    flex-grow: 1;
-    z-index: 2;
-    width: 50%;
-    height: 400px;
-    overflow-y: auto;
-    align-content: center;
-    margin-right: 20px;
-}
-.show-name{
+
+.body-content p {
+    font-size: large;
     padding-left: 10%;
+    padding-right: 10%;
 }
-.artist-info p{
-    padding: 0%;
-}
-.artist-name {
-    font-size: 3em;
-    margin-bottom: 15px;
-    color: #ffffff;
-}
-.artist-description{
-    font-size: 1.2em;
-    color: #C5C6C7;
-    line-height: 1.6;
-}
-.container-header{
-    text-align: center;
-    margin-bottom: 25px;
-}
-.setlist-container{
-    background-color: #C5C6C7;
-    height: 300px;
-    width: 80%;
-    border-radius: 12px;
-    margin: 15px;
-    color: #1f2833;
-    overflow: hidden;
-    justify-self: center;
-}
-.setlist-grid{
-    height: 55px;
-    display: grid;
-    grid-template-areas: 
-        'title artist';
-    grid-template-columns: 50% 50%;
-    transition: background-color 0.3s ease;
-    justify-items: center;
-    text-align: center;
-    overflow: auto;
-}
-.setlist-grid p{
-    font-size: small;
-    text-align: center;
-    overflow: auto;
-}
-.setlist-grid:hover{
-    background-color: #dbd5d5;
-}
-.setlist-title{
-    grid-area: title;
-    text-decoration: none;
-}
-.show-artist{
-    grid-area: artist;
-    text-decoration: none;
-}
-#p-head{
-    font-weight: bold;
-    font-size: medium;
-}
-.redir{
+
+/* Search and Song Styles */
+.search-container {
+    position: relative;
     width: 100%;
-    cursor: pointer;
-    text-decoration: none;
-    color:#1f2833 ;
+    max-width: 500px;
 }
-.add-setlist{
-    width: 80%;
-    justify-self: center;
-    cursor: pointer;
+
+.search-results {
+    border-radius: 5px;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
 }
-.add-button{
-    padding: 10px;
+.search-result {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: #333;
+}
+
+.search-result:hover {
+    background-color: #f5f5f5;
+}
+
+.song-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    margin: 4px 0;
+    border: 1px solid #ddd;
     background-color: transparent;
-    color: #FFFFFF;
-    border: 1px solid white;
     border-radius: 8px;
     transition: background-color 0.3s ease;
     transition: color 0.3s ease;
 }
-.add-button:hover{
-    background-color: #1f2833;
+.song-item:hover{
+    background-color: white;
+    color: #1f2833;
+}
+.remove-song {
+    background-color: #ff4444;
     color: white;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.song-title {
+    color: #333;
+}
+input{
+    background-color: transparent;
+    color: white;
+    border: 1px white;
+    border-radius: 8px;
+}
+#title, 
+#songSearch, 
+#newSongTitle {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white; 
+    border-radius: 8px;
+    padding: 8px 12px; 
+    width: 100%; 
+    max-width: 500px;
+    box-sizing: border-box; 
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease;
+}
+
+#title:hover, 
+#songSearch:hover, 
+#newSongTitle:hover,
+#title:focus, 
+#songSearch:focus, 
+#newSongTitle:focus {
+    border-color: #66fcf1;
+    outline: none;
+    box-shadow: 0 0 5px rgba(69, 162, 158, 0.5);
+}
+#addNewSong, .submit-button{
+    color: white;
+    margin-left: 10px;
+    padding: 10px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
+}
+.submit-button{
+    margin-left: 0%;
+}
+#addNewSong:hover{
+    background-color: white;
+    color: #1f2833;
+}
+.submit-button:hover{
+    background-color: green;
+    color: white;
+    border: 1px solid green;
+}
+.add-songs p, .new-song-form p{
+    color: white;
+    padding: 0%;
+    margin: 8px;
+    margin-left: 0%;
+    margin-top: 0%;
+    font-size: small;
+    font-weight: normal;
 }

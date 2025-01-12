@@ -18,3 +18,4 @@ user awal =
 9)  insert song_artist -> in-song_artist
 10) insert song_setlist -> in-song_setlist
 11) tabel comment (terpisah dari sqlTabel) -> cr-comment
+12) tabel history setlist -> cr-setlist_changes

@@ -67,15 +67,36 @@ public class JdbcSongRepository implements SongRepository{
 
     @Override
     public List<SongDetailView> searchSongsDetail(String query) {
-        String sql = "SELECT songs.idsongs AS songId, songs.title AS songTitle, artist.name AS artistName, " +
-                 "artist.idartist AS artistId, album.title AS albumTitle " +
-                 "FROM songs " +
-                 "JOIN song_artist ON songs.idSongs = song_artist.idSongs " +
-                 "JOIN artist ON song_artist.idArtist = artist.idArtist " +
-                 "JOIN album ON songs.idalbum = album.idalbum " +
-                 "WHERE songs.title LIKE ?";
+        String sql = """
+            SELECT 
+                s.idSongs as id_song,
+                s.title,
+                s.url,
+                s.listener,
+                a.idArtist as artistId,
+                a.name as artistName
+            FROM 
+                songs s
+                JOIN album al ON s.idAlbum = al.idAlbum
+                JOIN artist a ON al.IdArtist = a.idArtist
+            WHERE 
+                LOWER(s.title) LIKE LOWER(?)
+        """;
 
-        return jdbcTemplate.query(sql, this::mapRowToSongDetailView, "%" + query + "%");
+        return jdbcTemplate.query(
+            sql,
+            new Object[]{"%" + query + "%"},
+            (rs, rowNum) -> {
+                SongDetailView song = new SongDetailView();
+                song.setId_song(rs.getInt("id_song"));
+                song.setTitle(rs.getString("title"));
+                song.setUrl(rs.getString("url"));
+                song.setListener(rs.getLong("listener"));
+                song.setArtistId(rs.getInt("artistId"));
+                song.setArtistName(rs.getString("artistName"));
+                return song;
+            }
+        );
     }
 
     private Song mapRowToSong(ResultSet rs, int rowNum) throws SQLException {
@@ -88,14 +109,14 @@ public class JdbcSongRepository implements SongRepository{
         );
     }
 
-    private SongDetailView mapRowToSongDetailView(ResultSet rs, int rowNum) throws SQLException {
-        return new SongDetailView(
-                rs.getInt("songId"),
-                rs.getString("songTitle"),
-                rs.getString("artistName"),
-                rs.getInt("artistId"),
-                rs.getString("albumTitle")
-        );
-    }
+    // private SongDetailView mapRowToSongDetailView(ResultSet rs, int rowNum) throws SQLException {
+    //     return new SongDetailView(
+    //             rs.getInt("songId"),
+    //             rs.getString("songTitle"),
+    //             rs.getString("artistName"),
+    //             rs.getInt("artistId"),
+    //             rs.getString("albumTitle")
+    //     );
+    // }
     
 }

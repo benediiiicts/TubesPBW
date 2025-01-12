@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/setlist-detail.css}">
+    <script th:src="@{/js/setlist-detail.js}" defer></script>
+    <meta name="user-id" th:content="${user != null ? user.id : ''}" />
 </head>
 
 <body>
@@ -46,6 +48,10 @@
         <div class="body-content">
             <div class="profile-container">
                 <div class="profile-container">
+                    <div class="profile-image">
+                        <img th:src="@{${setlist.artist.PhotosURL}}" alt="Artist Profile"
+                            style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
                     <div class="show-info">
                         <!-- SetList Title -->
                         <h1 class="show-name"th:text="${setlist.title}" >Title</h1>
@@ -64,25 +70,20 @@
             <div class="setlist-container">
                 <h2 class="container-header">Songs</h2>
                 <!-- Judul -->
-                <div class="setlist-grid">
-                    <p class="setlist-title">title</p>   
-                    <p class="setlist-artist">listener</p>
-                    <p class="setlist-artist">Link Youtube</p>
-                </div>
                 <div class="setlist-grid"  th:each="song : ${songList}">
-                    <!-- <div class="song-img">
-                        <img src="" alt="Song Image">
-                    </div> -->
-                    <p class="setlist-artist" th:text="${song.listener}">listener</p>
-                    <p class="setlist-title" th:text="${song.title}">title</p>   
-                    <a th:text="${song.url}">youtube url</a>
+                    <div class="song-img">
+                        <img th:src="@{${setlist.artist.PhotosURL}}" alt="Song Image">
+                    </div>
+                    <a class="setlist-title" th:href="${song.url}" th:text="${song.title}">title</a> 
+                    <p class="setlist-artist" th:text="${song.listener}">listener</p>  
                 </div>
             </div>
 
 
-            <form th:action="@{'/setlist/add-song'}" method="get">
+            <form th:action="@{/setlist/edit/{id}(id=${setlist.id})}" method="get" class="edit-set-btn">
                 <input type="hidden" name="setlistId" th:value="${setlist.id}" />
-                <button type="submit" class="add-button">Add Song</button>
+                <button type="submit" class="add-button">Edit Setlist</button>
+                <a class="changes-history" th:href="@{/setlist/history/{id}(id=${setlist.id})}">Changes History</a>
             </form>
             
         </div>
@@ -93,25 +94,24 @@
                     <form>
                         <textarea id="comment-input" placeholder="Write your comment..."></textarea>
                         <div class="comment-submit-area">
-                            <button id="submit-comment">Post Comment</button>
+                            <button type="submit" id="submit-comment">Post Comment</button>
                         </div>
                     </form>
                 </div>
-        
                 <div class="comments-list" id="comments-container">
-                    <div class="comment" >
+                    <div class="comment" th:each="comment : ${comments}" th:data-comment-id="${comment.id}">
                         <div class="comment-header">
-                            <span class="comment-author">Jane Doe</span>
-                            <span class="comment-date">2 days ago</span>
+                            <span class="comment-author" th:text="${comment.user.username}"></span>
+                            <span class="comment-date" th:text="${comment.date}"></span>
                         </div>
-                        <p class="comment-text">This is a sample comment</p>
-                        <form id="delete-btn-form">
-                            <button id="delete-comment">Delete</button>
+                        <p class="comment-text" th:text="${comment.commentar}" style="padding-left: 5%; padding-right: 10%; font-size: medium;"></p>
+                        <!-- Tampilkan delete hanya jika komentar adalah milik user, atau user adalah admin -->
+                        <form id="delete-btn-form" th:if="${user != null and user.id == comment.user.id or user != null and user.role == 'admin'}">
+                            <button id="delete-comment" type="button">Delete</button>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
     </main>
     <script>
         function toggleMenu() {

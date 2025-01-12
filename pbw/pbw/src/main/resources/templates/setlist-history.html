@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/show-detail.css}">
+    <link rel="stylesheet" th:href="@{/css/setlist-history.css}">
 </head>
-
 <body>
     <header>
         <nav class="navbar">
@@ -44,50 +43,21 @@
     </header>
     <main>
         <div class="body-content">
-            <div class="profile-container">
-                <div class="show-info">
-                    <!-- Show Name -->
-                    <h1 class="show-name"th:text="${show.showName}" >name</h1>
-                    
-                    <!-- Show Description -->
-                    <p><strong>Description: </strong><span th:text="${show.description}">description</span></p>
-                    
-                    <!-- Show Venue -->
-                    <p><strong>Venue: </strong><span th:text="${venue.name}">Venue name</span></p>
-                    
-                    <!-- Show Date -->
-                    <p><strong>Date: </strong><span th:text="${show.date}">date</span></p>
+            <h2 class="content-header" th:text="${setlist.title} + ' History Changes'"></h2>
+            <div class="history-container" th:each="history : ${histories}">
+                <div class="user-email">
+                    <p th:text="${history.email}"></p>
+                </div>
+                <hr>
+                <div class="changes-date">
+                    <p th:text="'Changed at : ' + ${history.date}"></p>
+                </div>
+                <hr>
+                <div class="changes-cont">
+                    <p th:text="${history.activity}"></p>
                 </div>
             </div>
         </div>
-        <div class="body-content">
-            <div class="setlist-container">
-                <h2 class="container-header">Setlists</h2>
-                <!-- Judul -->
-                <div class="setlist-grid">
-                    <p class="setlist-artist" id="p-head">Title</p>
-                    <p class="setlist-title" id="p-head">Artist</p>   
-                </div>
-                <div class="setlist-grid"  th:each="setlist : ${setlist_list}">
-                    <!-- <div class="song-img">
-                        <img src="" alt="Song Image">
-                    </div> -->
-                    <a class="redir" th:href="@{/artist/{name}-{id}(name=${setlist.artist.name}, id=${setlist.artist.id})}">
-                        <p class="setlist-artist" th:text="${setlist.artist.name}">artist</p>
-                    </a>
-                    <a class="redir" th:href="@{/setlist/detail/{setlistId}(setlistId=${setlist.id})}">
-                        <p class="setlist-title" th:text="${setlist.title}">title</p>  
-                    </a>
-                </div>
-            </div>
-
-            <form th:action="@{'/add-setlist'}" method="get" class="add-setlist">
-                <input type="hidden" name="idShow" th:value="${show.idShow}" />
-                <button type="submit" class="add-button">Add Setlist</button>
-            </form>
-            
-        </div>
-    </main>
     <script>
         function toggleMenu() {
             const sidebar = document.getElementById('sidebar');

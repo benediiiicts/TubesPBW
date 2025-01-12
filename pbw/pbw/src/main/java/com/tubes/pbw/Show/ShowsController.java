@@ -227,7 +227,9 @@ public class ShowsController {
     // API untuk mendapatkan detail show
     // @ResponseBody
     @GetMapping("/show/detail/{id}")
-    public String getShowDetail(@PathVariable String id, Model model) {
+    public String getShowDetail(@PathVariable String id, Model model, HttpSession session) {
+        User loggedUser = (User) session.getAttribute("loggedUser");
+
         Long idShow = Long.parseLong(id);
         Show show = showsService.getShow(idShow);
         //ambil id venue untuk mendapatkan objek venue
@@ -247,6 +249,7 @@ public class ShowsController {
             System.out.println("------------------------");
         }
 
+        model.addAttribute("user", loggedUser);
         model.addAttribute("show", show);
         model.addAttribute("venue", venue);
         model.addAttribute("setlist_list", setlist);

@@ -163,110 +163,30 @@ header {
     font-weight: bolder;
     font-size: larger;
 }
-.profile-container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 0px;
-    background: #1f2833;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;   
-    display: flex;
-    gap: 40px;
-    align-items: center;
-    min-height: 400px;
-}
-.show-info {
-    flex-grow: 1;
-    z-index: 2;
-    width: 50%;
-    height: 400px;
-    overflow-y: auto;
-    align-content: center;
-    margin-right: 20px;
-}
-.show-name{
-    padding-left: 10%;
-}
-.artist-info p{
-    padding: 0%;
-}
-.artist-name {
-    font-size: 3em;
-    margin-bottom: 15px;
-    color: #ffffff;
-}
-.artist-description{
-    font-size: 1.2em;
-    color: #C5C6C7;
-    line-height: 1.6;
-}
-.container-header{
+.content-header{
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 10pxx;
 }
-.setlist-container{
-    background-color: #C5C6C7;
-    height: 300px;
-    width: 80%;
-    border-radius: 12px;
-    margin: 15px;
-    color: #1f2833;
-    overflow: hidden;
-    justify-self: center;
+hr{
+    border: 1px solid #575757;
 }
-.setlist-grid{
-    height: 55px;
-    display: grid;
-    grid-template-areas: 
-        'title artist';
-    grid-template-columns: 50% 50%;
-    transition: background-color 0.3s ease;
-    justify-items: center;
-    text-align: center;
-    overflow: auto;
-}
-.setlist-grid p{
+.history-container{
     font-size: small;
-    text-align: center;
-    overflow: auto;
-}
-.setlist-grid:hover{
-    background-color: #dbd5d5;
-}
-.setlist-title{
-    grid-area: title;
-    text-decoration: none;
-}
-.show-artist{
-    grid-area: artist;
-    text-decoration: none;
-}
-#p-head{
-    font-weight: bold;
-    font-size: medium;
-}
-.redir{
-    width: 100%;
-    cursor: pointer;
-    text-decoration: none;
-    color:#1f2833 ;
-}
-.add-setlist{
+    font-weight: normal;
+    margin-top: 40px;
+    border: 1px solid #1f2833;
     width: 80%;
-    justify-self: center;
-    cursor: pointer;
-}
-.add-button{
-    padding: 10px;
-    background-color: transparent;
-    color: #FFFFFF;
-    border: 1px solid white;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-    transition: color 0.3s ease;
-}
-.add-button:hover{
-    background-color: #1f2833;
+    background-color:#1f2833 ;
     color: white;
+    border-radius: 10px;
+    justify-self: center;
+}
+.history-container p{
+    font-size: small;
+    padding: 0%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.changes-date{
+    color: #C5C6C7;
 }

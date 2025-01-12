@@ -18,4 +18,6 @@ public interface UserRepository {
     List<User> findByEmailContaining(String email, int page, int size);
 
     long countByEmailContaining(String email);
+
+    Optional<User> findById(Integer id);
 }
