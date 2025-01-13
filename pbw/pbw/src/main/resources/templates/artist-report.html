@@ -53,7 +53,7 @@
         <div class="center-dropdown">
             <label for="artistDropdown">Select Artist:</label>
             <select id="artistDropdown" th:field="*{selectedOption}">
-                <option value="all">All Artists</option>
+                <option value="all">Top 15 Artists</option>
                 <option th:each="artist : ${artistReports}" th:value="${artist.idArtist}"
                     th:text="${artist.artistName} + '-' + ${artist.year}">
                 </option>

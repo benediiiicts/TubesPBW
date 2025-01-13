@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (textElement) {
-                textElement.textContent = 'All Artists Report';
+                textElement.textContent = 'Top 15 Artists';
             }
         }
     }
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (textElement) {
                 textElement.textContent = selectedArtist === 'all' 
-                    ? 'All Artists Report' 
+                    ? 'Top 15 Artists' 
                     : `${selectedArtistName} Report`;
             }
 

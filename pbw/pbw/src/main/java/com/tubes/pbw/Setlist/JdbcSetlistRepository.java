@@ -123,7 +123,7 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
-public void updateSetlist(Integer id, String title, List<Integer> removedSongs, 
+    public void updateSetlist(Integer id, String title, List<Integer> removedSongs, 
     List<Map<String, Object>> addedSongs, String oldTitle, String editorEmail) {
     
     StringBuilder activityLog = new StringBuilder();
@@ -248,7 +248,7 @@ public void updateSetlist(Integer id, String title, List<Integer> removedSongs,
 
     @Override
     public List<SetlistHistory> getHistory(Integer idSetlist) {
-        String sql = "SELECT * FROM setlist_changes WHERE setlist_id = ?";
+        String sql = "SELECT * FROM setlist_changes WHERE setlist_id = ? ORDER BY change_date DESC";
         List<SetlistHistory> result = jdbcTemplate.query(sql, this::mapRowToSetlistHistory, idSetlist);
         return result;
     }
