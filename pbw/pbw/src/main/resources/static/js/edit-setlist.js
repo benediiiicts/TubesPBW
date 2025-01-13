@@ -106,6 +106,37 @@ function updateHiddenFields() {
     console.log('Updated addedSongs:', addedSongs); // Debug log
 }
 
+document.getElementById('addNewSong').addEventListener('click', function() {
+    const title = document.getElementById('newSongTitle').value;
+    if (title) {
+        addedSongs.push({ title: title, isNew: true });
+        
+        // Add visual feedback
+        const currentSongs = document.querySelector('.current-songs');
+        const newSongDiv = document.createElement('div');
+        newSongDiv.className = 'song-item';
+        newSongDiv.innerHTML = `
+            <span>${title}</span>
+            <button type="button" class="remove-song">Remove</button>
+        `;
+        currentSongs.appendChild(newSongDiv);
+        
+        // Add remove functionality to new song
+        const removeButton = newSongDiv.querySelector('.remove-song');
+        removeButton.addEventListener('click', function() {
+            const index = addedSongs.findIndex(song => song.title === title);
+            if (index > -1) {
+                addedSongs.splice(index, 1);
+            }
+            newSongDiv.remove();
+            updateHiddenFields();
+        });
+        
+        updateHiddenFields();
+        document.getElementById('newSongTitle').value = '';
+    }
+});
+
 // Initialize hidden fields with empty arrays
 updateHiddenFields();
 

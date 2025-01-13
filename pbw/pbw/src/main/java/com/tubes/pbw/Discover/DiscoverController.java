@@ -60,7 +60,7 @@ public class DiscoverController {
 
         // Fetch recomended setlists (tetap statis)
         List<SetList> allSetlists = setlistService.getAllSetlists();
-        Collections.shuffle(allSetlists); // Acak list
+        Collections.shuffle(allSetlists);
         List<SetList> recomendedSetlists = allSetlists.stream()
                                                     .distinct()
                                                     .limit(5)
